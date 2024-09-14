@@ -14,6 +14,8 @@ import axios from "axios";
 
 // Demo data
 import aboutData from "../data/innerpages/about.json";
+const result = axios.get("https://jsonplaceholder.typicode.com/todos");
+console.log(result.data);
 
 const About = ({ posts }) => {
     const content = normalizedData(aboutData?.content || []);
