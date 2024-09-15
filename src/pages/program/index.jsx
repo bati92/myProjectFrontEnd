@@ -52,7 +52,7 @@ const Home = ({ myPrograms }) => {
                 id="main-content"
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15 pt-5"
             >
-                {myPrograms || [] ? (
+                {!myPrograms ? (
                     <h2 className="text-center">لا توجد بيانات متاحة</h2>
                 ) : (
                     <ExploreProductArea

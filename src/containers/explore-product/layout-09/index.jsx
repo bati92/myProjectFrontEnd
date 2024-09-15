@@ -75,7 +75,7 @@ const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
                                     note={prod.note}
                                     likeCount={prod.id}
                                     image={prod.image}
-                                    section={prod.section_id}
+                                    section={prod?.section_id}
                                 />
                             </motion.div>
                         ))}
