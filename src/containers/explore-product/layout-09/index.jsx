@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import SectionTitle from "@components/section-title/layout-02";
+import SectionTitle from "@components/section-title/layout-03";
 import Product from "@components/product/layout-01";
 import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
 import { SectionTitleType, ProductType } from "@utils/types";
 
-const ExploreProductArea = ({ className, space, data, id }) => {
+const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
     const filters = [
         ...new Set(
-            flatDeep(data?.products.map((item) => item.categories) || [])
+            flatDeep(data?.products?.map((item) => item.categories) || [])
         ),
     ];
     const [products, setProducts] = useState([]);
@@ -44,11 +44,11 @@ const ExploreProductArea = ({ className, space, data, id }) => {
             <div className="container">
                 <div className="row gx-5 align-items-center mb--60">
                     <div className="col-lg-4">
-                        {data?.section_title && (
+                        {sectionTitle && (
                             <SectionTitle
                                 className="mb--0"
                                 disableAnimation
-                                {...data.section_title}
+                                title={sectionTitle}
                             />
                         )}
                     </div>
@@ -68,15 +68,14 @@ const ExploreProductArea = ({ className, space, data, id }) => {
                                 layout
                             >
                                 <Product
-                                    placeBid={!!data.placeBid}
-                                    title={prod.title}
-                                    slug={prod.slug}
-                                    latestBid={prod.latestBid}
+                                    title={prod.name}
+                                    slug={prod.id}
                                     price={prod.price}
-                                    likeCount={prod.likeCount}
-                                    image={prod.images?.[0]}
-                                    authors={prod.authors}
-                                    bitCount={prod.bitCount}
+                                    status={prod.status}
+                                    note={prod.note}
+                                    likeCount={prod.id}
+                                    image={prod.image}
+                                    section={prod.section_id}
                                 />
                             </motion.div>
                         ))}
@@ -91,11 +90,12 @@ ExploreProductArea.propTypes = {
     className: PropTypes.string,
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
-    data: PropTypes.shape({
-        section_title: SectionTitleType,
-        products: PropTypes.arrayOf(ProductType),
-        placeBid: PropTypes.bool,
-    }),
+    sectionTitle: PropTypes.string,
+    // data: PropTypes.shape({
+    //     section_title: SectionTitleType,
+    //     products: PropTypes.arrayOf(ProductType),
+    //     placeBid: PropTypes.bool,
+    // }),
 };
 
 ExploreProductArea.defaultProps = {

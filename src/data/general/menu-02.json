@@ -1,26 +1,50 @@
 [
     {
         "id": 1,
-        "text": "Home",
-        "path": "list-item-1",
+        "text": "الصفحة الرئيسية",
+        "path": "",
         "icon": "feather-home"
     },
     {
         "id": 2,
-        "text": "Live Auction",
-        "path": "list-item-2",
+        "text": "التطبيقات",
+        "path": "app",
         "icon": "feather-heart"
     },
     {
         "id": 3,
-        "text": "Explore Product",
-        "path": "list-item-3",
+        "text": "البيانات والاتصالات",
+        "path": "data-communication",
         "icon": "feather-trending-up"
     },
     {
         "id": 4,
-        "text": "Newest Item",
-        "path": "list-item-4",
+        "text": "البنوك الرقمية",
+        "path": "ebank",
+        "icon": "feather-trending-up"
+    },
+    {
+        "id": 5,
+        "text": "البطاقات",
+        "path": "card",
+        "icon": "feather-trending-up"
+    },
+    {
+        "id": 6,
+        "text": "البطاقات الرقمية",
+        "path": "ecard",
+        "icon": "feather-trending-up"
+    },
+    {
+        "id": 7,
+        "text": "شركات الشحن",
+        "path": "transfer-money-firm",
+        "icon": "feather-trending-up"
+    },
+    {
+        "id": 8,
+        "text": "البرامج ",
+        "path": "program",
         "icon": "feather-trending-up"
     }
 ]

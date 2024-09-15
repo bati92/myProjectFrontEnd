@@ -9,7 +9,7 @@ const SideMenu = ({ menu }) => (
                     <Link
                         activeClass="active"
                         className="nav-link smoth-animation"
-                        href={`#${nav.path}`}
+                        href={`http://localhost:3000/${nav.path}`}
                         to={nav.path}
                         spy
                         smooth

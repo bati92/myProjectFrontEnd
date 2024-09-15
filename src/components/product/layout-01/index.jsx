@@ -22,73 +22,75 @@ const Product = ({
     overlay,
     title,
     slug,
-    latestBid,
+    note,
+    status,
+    section,
     price,
     likeCount,
-    auction_date,
     image,
-    bitCount,
-    authors,
-    placeBid,
     disableShareDropdown,
 }) => {
-    const [showBidModal, setShowBidModal] = useState(false);
-    const handleBidModal = () => {
-        setShowBidModal((prev) => !prev);
-    };
+    // const [showBidModal, setShowBidModal] = useState(false);
+    // const handleBidModal = () => {
+    //     setShowBidModal((prev) => !prev);
+    // };
     return (
         <>
             <div
                 className={clsx(
                     "product-style-one",
-                    !overlay && "no-overlay",
-                    placeBid && "with-placeBid"
+                    !overlay && "no-overlay"
+                    // placeBid && "with-placeBid"
                 )}
             >
                 <div className="card-thumbnail">
-                    {image?.src && (
-                        <Anchor path={`/product/${slug}`}>
-                            <Image
-                                src={image.src}
-                                alt={image?.alt || "NFT_portfolio"}
-                                width={533}
-                                height={533}
-                            />
-                        </Anchor>
-                    )}
-                    {auction_date && <CountdownTimer date={auction_date} />}
-                    {placeBid && (
-                        <Button onClick={handleBidModal} size="small">
-                            Place Bid
-                        </Button>
-                    )}
+                    {/* {image && ( */}
+                    <Anchor path={`/app/${slug}`}>
+                        <Image
+                            src={
+                                // image ||
+                                "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
+                            }
+                            alt={title}
+                            width={533}
+                            height={533}
+                        />
+                    </Anchor>
+                    {/* )} */}
                 </div>
                 <div className="product-share-wrapper">
                     <div className="profile-share">
-                        {authors?.map((client) => (
-                            <ClientAvatar
-                                key={client.name}
-                                slug={client.slug}
-                                name={client.name}
-                                image={client.image}
-                            />
-                        ))}
-                        <Anchor
-                            className="more-author-text"
-                            path={`/product/${slug}`}
-                        >
-                            {bitCount}+ Place Bit.
-                        </Anchor>
+                        <span className="latest-bid">
+                            القسم:{" "}
+                            <Anchor
+                                className="more-author-text"
+                                path={`/app/${slug}`}
+                            >
+                                {section}
+                            </Anchor>
+                        </span>
+                    </div>
+                    <div className="profile-share">
+                        <span className="latest-bid">
+                            الحالة:{" "}
+                            <Anchor
+                                className="more-author-text"
+                                path={`/app/${slug}`}
+                            >
+                                {status ? "فعال" : "غير فعال"}
+                            </Anchor>
+                        </span>
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
-                <Anchor path={`/product/${slug}`}>
+                <Anchor path={`/app/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <span className="latest-bid">Highest bid {latestBid}</span>
-                <ProductBid price={price} likeCount={likeCount} />
+                <span className="latest-bid">السعر: {price?.amount}</span>
+                <br></br>
+                <span className="latest-bid">ملاحظة : {note}</span>
+                <ProductBid price={note} likeCount={likeCount} />
             </div>
-            <PlaceBidModal show={showBidModal} handleModal={handleBidModal} />
         </>
     );
 };
@@ -96,24 +98,17 @@ const Product = ({
 Product.propTypes = {
     overlay: PropTypes.bool,
     title: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    latestBid: PropTypes.string.isRequired,
+    slug: PropTypes.number.isRequired,
+    note: PropTypes.string,
+    status: PropTypes.number,
+    section: PropTypes.number.isRequired,
     price: PropTypes.shape({
         amount: PropTypes.number.isRequired,
         currency: PropTypes.string.isRequired,
     }).isRequired,
     likeCount: PropTypes.number.isRequired,
-    auction_date: PropTypes.string,
-    image: ImageType.isRequired,
-    authors: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            slug: PropTypes.string.isRequired,
-            image: ImageType.isRequired,
-        })
-    ),
-    bitCount: PropTypes.number,
-    placeBid: PropTypes.bool,
+    image: PropTypes.string,
+    // image: ImageType.isRequired,
     disableShareDropdown: PropTypes.bool,
 };
 
