@@ -2,49 +2,49 @@
     {
         "id": 1,
         "text": "الصفحة الرئيسية",
-        "path": "",
+        "path": "list-item-1",
         "icon": "feather-home"
     },
     {
         "id": 2,
-        "text": "التطبيقات",
-        "path": "app",
+        "text": "المفضلة",
+        "path": "list-item-2",
         "icon": "feather-heart"
     },
     {
         "id": 3,
-        "text": "البيانات والاتصالات",
-        "path": "data-communication",
-        "icon": "feather-trending-up"
+        "text": "عملائي",
+        "path": "list-item-3",
+        "icon": "feather feather-users"
     },
     {
         "id": 4,
-        "text": "البنوك الرقمية",
-        "path": "ebank",
-        "icon": "feather-trending-up"
+        "text": "إضافة رصيد",
+        "path": "list-item-4",
+        "icon": "feather-dollar-sign"
     },
     {
         "id": 5,
-        "text": "البطاقات",
-        "path": "card",
-        "icon": "feather-trending-up"
+        "text": " دفعاتي",
+        "path": "list-item-5",
+        "icon": "feather-dollar-sign"
     },
     {
         "id": 6,
-        "text": "البطاقات الرقمية",
-        "path": "ecard",
-        "icon": "feather-trending-up"
+        "text": " طلباتي",
+        "path": "list-item-6",
+        "icon": "feather-dollar-sign"
     },
     {
         "id": 7,
-        "text": "شركات الشحن",
-        "path": "transfer-money-firm",
-        "icon": "feather-trending-up"
+        "text": " محفظتي",
+        "path": "list-item-7",
+        "icon": "feather-dollar-sign"
     },
     {
         "id": 8,
-        "text": "البرامج ",
-        "path": "program",
-        "icon": "feather-trending-up"
+        "text": " وكلاؤنا",
+        "path": "list-item-8",
+        "icon": "feather feather-users"
     }
 ]

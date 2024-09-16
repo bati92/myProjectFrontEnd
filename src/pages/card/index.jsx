@@ -2,7 +2,7 @@ import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
-import ExploreProductArea from "@containers/explore-product/layout-09";
+import ExploreServiceArea from "@containers/explore-service/all-services";
 import { normalizedData } from "@utils/methods";
 
 // Demo data
@@ -17,11 +17,11 @@ export async function getStaticProps() {
         return {
             props: {
                 className: "home-sticky-pin sidebar-header position-relative",
-                myCards: result.data.cards.data,
+                myCards: result?.data?.cards?.data,
             },
         };
-    } catch {
-        console.log("error");
+    } catch (error) {
+        console.log(error);
         return {
             props: {
                 className: "home-sticky-pin sidebar-header position-relative",
@@ -51,10 +51,10 @@ const Home = ({ myCards }) => {
                 id="main-content"
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15 pt-5"
             >
-                {!myCards ? (
+                {!myCards || myCards.length === 0 ? (
                     <h2 className="text-center">لا توجد بيانات متاحة</h2>
                 ) : (
-                    <ExploreProductArea
+                    <ExploreServiceArea
                         sectionTitle="البطاقات"
                         id="list-item-3"
                         space={2}

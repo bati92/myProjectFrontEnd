@@ -2,7 +2,7 @@ import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
-import ExploreProductArea from "@containers/explore-product/layout-09";
+import ExploreServiceArea from "@containers/explore-service/all-services";
 import { normalizedData } from "@utils/methods";
 
 // Demo data
@@ -14,16 +14,16 @@ export async function getStaticProps() {
         const result = await axios.get(
             "http://127.0.0.1:8000/api/transfer-money-firm"
         );
-        console.log(result.data.transfer_money_firms.data);
+        console.log(result?.data.transfer_money_firms.data);
         console.log("http://127.0.0.1:8000/api/transfer-money-firm");
         return {
             props: {
                 className: "home-sticky-pin sidebar-header position-relative",
-                myTransferMoneyFirms: result.data.transfer_money_firms.data,
+                myTransferMoneyFirms: result?.data?.transfer_money_firms?.data,
             },
         };
-    } catch {
-        console.log("error");
+    } catch (error) {
+        console.log(error);
 
         return {
             props: {
@@ -54,10 +54,11 @@ const Home = ({ myTransferMoneyFirms }) => {
                 id="main-content"
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15 pt-5"
             >
-                {!myTransferMoneyFirms || myTransferMoneyFirms == [] ? (
+                {!myTransferMoneyFirms.isem ||
+                myTransferMoneyFirms.length === 0 ? (
                     <h2 className="text-center">لا توجد بيانات متاحة</h2>
                 ) : (
-                    <ExploreProductArea
+                    <ExploreServiceArea
                         sectionTitle="شركات الشحن"
                         id="list-item-3"
                         space={2}

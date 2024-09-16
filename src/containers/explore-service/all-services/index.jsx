@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import SectionTitle from "@components/section-title/layout-03";
-import Service from "@components/single-service";
-// import Product from "@components/product/layout-01/index - Copy";
+import Service from "@components/service-custome";
 import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
-import { SectionTitleType, ProductType } from "@utils/types";
 
-const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
+//services in eacH service pages example /app page
+const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
     const filters = [
         ...new Set(
             flatDeep(data?.products?.map((item) => item.categories) || [])
@@ -71,8 +70,10 @@ const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
                                 <Service
                                     title={prod.name}
                                     slug={prod.id}
-                                    price={prod.price}
-                                    // status={prod.status}
+                                    price={{
+                                        amount: prod.price,
+                                        currency: "TL",
+                                    }}
                                     likeCount={prod.id}
                                     image={prod.image}
                                 />
@@ -85,7 +86,7 @@ const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
     );
 };
 
-ExploreProductArea.propTypes = {
+ExploreServiceArea.propTypes = {
     className: PropTypes.string,
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
@@ -97,8 +98,8 @@ ExploreProductArea.propTypes = {
     // }),
 };
 
-ExploreProductArea.defaultProps = {
+ExploreServiceArea.defaultProps = {
     space: 1,
 };
 
-export default ExploreProductArea;
+export default ExploreServiceArea;

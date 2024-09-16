@@ -7,7 +7,7 @@ import HeroArea from "@containers/hero/layout-08";
 import TopSellerArea from "@containers/top-seller/layout-01";
 import LiveExploreArea from "@containers/live-explore/layout-03";
 import CollectionArea from "@containers/collection/layout-02";
-import ExploreServiceArea from "@containers/explore-service/service-sections";
+import ExploreProductArea from "@containers/explore-product/layout-09";
 import ServiceArea from "@containers/services/layout-01";
 import { normalizedData } from "@utils/methods";
 
@@ -15,7 +15,6 @@ import { normalizedData } from "@utils/methods";
 import homepageData from "../data/homepages/home-08.json";
 import sellerData from "../data/sellers.json";
 import productData from "../data/products-02.json";
-import services from "../data/services.json";
 import collectionsData from "../data/collections.json";
 
 export async function getStaticProps() {
@@ -41,47 +40,25 @@ const Home = () => {
         .slice(0, 4);
     return (
         <Wrapper>
-            <SEO pageTitle="Home" />
+            <SEO pageTitle="البيانات والاتصالات" />
             <Header />
             <main
                 id="main-content"
-                className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15"
+                className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15 pt-5"
             >
-                <div className="list-item-1">
-                    <TopBarArea />
-                    <HeroArea data={content["hero-section"]} />
-                </div>
-                <ExploreServiceArea
+                <ExploreProductArea
+                    sectionTitle="البيانات والاتصالات"
                     id="list-item-3"
                     space={2}
                     data={{
                         ...content["explore-product-section"],
-                        products: services,
+                        products: [
+                            "explore-product-section",
+                            "explore-product-section",
+                        ],
                     }}
                 />
                 <ServiceArea space={2} data={content["service-section"]} />
-
-                <TopSellerArea
-                    space={3}
-                    data={{
-                        ...content["top-sller-section"],
-                        sellers: sellerData,
-                    }}
-                />
-                <LiveExploreArea
-                    id="list-item-2"
-                    data={{
-                        ...content["live-explore-section"],
-                        products: liveAuctionData,
-                    }}
-                />
-                <CollectionArea
-                    space={2}
-                    data={{
-                        ...content["collection-section"],
-                        collections: collectionsData.slice(0, 4),
-                    }}
-                />
             </main>
             <Footer className="pr--40" />
         </Wrapper>

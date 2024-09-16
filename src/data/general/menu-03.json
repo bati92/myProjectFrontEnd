@@ -1,13 +1,13 @@
 [
     {
         "id": 1,
-        "text": "Settings",
+        "text": "المعلومات الشخصية",
         "path": "#!",
         "icon": "feather-settings"
     },
     {
         "id": 2,
-        "text": "Help Center",
+        "text": "من نحن",
         "path": "/support",
         "icon": "feather-activity"
     }
