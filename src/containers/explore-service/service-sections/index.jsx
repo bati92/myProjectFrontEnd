@@ -69,35 +69,13 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                 layout
                             >
                                 <Service
-                                    title={"grid-item"}
-                                    // title={prod.name}
+                                    // title={"grid-item"}
+                                    title={prod.title}
                                     slug={prod.slug}
-                                    sections={prod.sections || 0}
+                                    total={prod.total}
                                     likeCount={prod.id}
                                     image={prod.image}
-                                    authors={[
-                                        {
-                                            name: "Mark Jordan",
-                                            slug: "/author",
-                                            image: {
-                                                src: "/images/client/client-2.png",
-                                            },
-                                        },
-                                        {
-                                            name: "Farik Shaikh",
-                                            slug: "/author",
-                                            image: {
-                                                src: "/images/client/client-3.png",
-                                            },
-                                        },
-                                        {
-                                            name: "John Doe",
-                                            slug: "/author",
-                                            image: {
-                                                src: "/images/client/client-5.png",
-                                            },
-                                        },
-                                    ]}
+                                    authors={prod.authors}
                                 />
                             </motion.div>
                         ))}

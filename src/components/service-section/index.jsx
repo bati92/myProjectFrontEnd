@@ -22,7 +22,7 @@ const Service = ({
     overlay,
     title,
     slug,
-    sections,
+    total,
     price,
     likeCount,
     image,
@@ -45,7 +45,7 @@ const Service = ({
                 <div className="card-thumbnail">
                     {true && (
                         // {image?.src && (
-                        <Anchor path={`/product/${slug}`}>
+                        <Anchor path={`/${slug}`}>
                             <Image
                                 src={
                                     "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
@@ -87,10 +87,12 @@ const Service = ({
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
-                <Anchor path={`/product/${slug}`}>
+                <Anchor path={`/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <span className="latest-bid">عدد الأقسام {sections}</span>
+                <span className="latest-bid">عدد </span>
+                <span className="latest-bid">{title}: </span>
+                <span className="latest-bid">{total}</span>
                 <ProductBid price={price} likeCount={likeCount} />
             </div>
         </>
@@ -101,7 +103,7 @@ Service.propTypes = {
     overlay: PropTypes.bool,
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    sections: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
     likeCount: PropTypes.number.isRequired,
     image: ImageType.isRequired,
     authors: PropTypes.arrayOf(

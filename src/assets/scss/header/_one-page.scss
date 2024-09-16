@@ -3,17 +3,17 @@
 ---------------------------*/
 
 .rn-nft-mid-wrapper {
-    padding-left: 320px;
-    padding-right: 420px;
+    padding-right: 300px !important;
+    //padding-right: 420px;
 
     @media #{$laptop-device} {
-        padding-left: 320px;
-        padding-right: 30px;
+        padding-right: 300px !important;
+       // padding-right: 30px;
     }
 
     @media #{$lg-layout} {
-        padding-left: 320px;
-        padding-right: 30px;
+        padding-right: 300px  !important;
+     //   padding-right: 30px;
     }
 
     @media #{$md-layout} {
@@ -33,7 +33,7 @@
 .left-header-style {
     color: white;
     position: fixed;
-    left: 0px;
+    right: 0px;
     overflow-y: auto;
     overflow-x: hidden;
     height: 100vh;
@@ -163,7 +163,7 @@
     }
 
     .sidebar-nav-wrapper {
-        min-height: 500px;
+        min-height: 700px;
     }
 
     &::-webkit-scrollbar {
