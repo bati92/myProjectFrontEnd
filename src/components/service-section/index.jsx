@@ -90,10 +90,22 @@ const Service = ({
                 <Anchor path={`/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <span className="latest-bid">عدد </span>
-                <span className="latest-bid">{title}: </span>
-                <span className="latest-bid">{total}</span>
-                <ProductBid price={price} likeCount={likeCount} />
+                {total ? (
+                    <>
+                        <span className="latest-bid">عدد </span>
+                        <span className="latest-bid">{title}: </span>
+                        <span className="latest-bid">{total}</span>
+                        <ProductBid price={price} likeCount={likeCount} />
+                    </>
+                ) : (
+                    ""
+                )}
+                <>
+                    <span className="latest-bid">عدد </span>
+                    <span className="latest-bid">{title}: </span>
+                    <span className="latest-bid">{total}</span>
+                    <ProductBid price={price} likeCount={likeCount} />
+                </>
             </div>
         </>
     );

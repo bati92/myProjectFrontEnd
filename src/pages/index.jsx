@@ -80,6 +80,7 @@ const Home = ({ totalRecords }) => {
         });
 
         setServices(updatedServices);
+        console.log(updatedServices);
     }, [totalRecords]);
 
     return (
