@@ -61,7 +61,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                 </div>
                 <div className="col-lg-12">
                     <motion.div layout className="isotope-list item-4">
-                        {products?.slice(0, 8)?.map((prod) => (
+                        {products?.slice(0, 100)?.map((prod) => (
                             <motion.div
                                 key={prod.id}
                                 className={clsx("grid-item")}
@@ -70,6 +70,8 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                 <Service
                                     title={prod.name}
                                     slug={prod.id}
+                                    parentSlug={data.parentSlug}
+                                    sectionId={data.sectionId}
                                     price={{
                                         amount: prod.price,
                                         currency: "TL",
@@ -91,11 +93,13 @@ ExploreServiceArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
-    // data: PropTypes.shape({
-    //     section_title: SectionTitleType,
-    //     products: PropTypes.arrayOf(ProductType),
-    //     placeBid: PropTypes.bool,
-    // }),
+    data: PropTypes.shape({
+        sectionId: PropTypes.number,
+        // section_title: SectionTitleType,
+        parentSlug: PropTypes.string,
+        // products: PropTypes.arrayOf(ProductType),
+        placeBid: PropTypes.bool,
+    }),
 };
 
 ExploreServiceArea.defaultProps = {

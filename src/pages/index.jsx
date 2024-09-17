@@ -78,9 +78,7 @@ const Home = ({ totalRecords }) => {
                 total: totalRecords[`${service.slug}Records`] || 0,
             };
         });
-
         setServices(updatedServices);
-        console.log(updatedServices);
     }, [totalRecords]);
 
     return (

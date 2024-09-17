@@ -3,13 +3,19 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import SectionTitle from "@components/section-title/layout-03";
-import Service from "@components/service-section";
+import ServiceCategory from "@components/service-category";
 import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
 import { SectionTitleType, ProductType } from "@utils/types";
 
 //services sections in home page
-const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
+const ExploreServiceCategoryArea = ({
+    className,
+    space,
+    data,
+    id,
+    sectionTitle,
+}) => {
     const filters = [
         ...new Set(
             flatDeep(data?.products?.map((item) => item.categories) || [])
@@ -68,10 +74,11 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                 className={clsx("grid-item")}
                                 layout
                             >
-                                <Service
+                                <ServiceCategory
                                     // title={"grid-item"}
-                                    title={prod.title}
-                                    slug={prod.slug}
+                                    id={prod.id}
+                                    title={prod.name}
+                                    slug={data.parentSlug}
                                     total={prod.total}
                                     likeCount={prod.id}
                                     image={prod.image}
@@ -86,20 +93,21 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
     );
 };
 
-ExploreServiceArea.propTypes = {
+ExploreServiceCategoryArea.propTypes = {
     className: PropTypes.string,
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
-    // data: PropTypes.shape({
-    //     section_title: SectionTitleType,
-    //     products: PropTypes.arrayOf(ProductType),
-    //     placeBid: PropTypes.bool,
-    // }),
+    data: PropTypes.shape({
+        // section_title: SectionTitleType,
+        parentSlug: PropTypes.string,
+        products: PropTypes.arrayOf(ProductType),
+        // placeBid: PropTypes.bool,
+    }),
 };
 
-ExploreServiceArea.defaultProps = {
+ExploreServiceCategoryArea.defaultProps = {
     space: 1,
 };
 
-export default ExploreServiceArea;
+export default ExploreServiceCategoryArea;

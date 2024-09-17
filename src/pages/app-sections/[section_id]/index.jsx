@@ -4,20 +4,23 @@ import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import ExploreServiceArea from "@containers/explore-service/all-services";
 import { normalizedData } from "@utils/methods";
-
-// Demo data
-import homepageData from "../../data/homepages/home-08.json";
+import homepageData from "../../../data/homepages/home-08.json";
 import axios from "axios";
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
     try {
-        const result = await axios.get("http://127.0.0.1:8000/api/app");
-        console.log(result.data.apps.data);
-        console.log("http://127.0.0.1:8000/api/app");
+        const result = await axios.get(
+            `http://127.0.0.1:8000/api/app-sections/${context.query.section_id}`
+        );
+        console.log(result.data.apps);
+        console.log(
+            `http://127.0.0.1:8000/api/app-sections/${context.query.section_id}`
+        );
         return {
             props: {
                 className: "home-sticky-pin sidebar-header position-relative",
-                myApps: result?.data?.apps?.data,
+                myApps: result?.data?.apps,
+                sectionId: context.query.section_id,
             },
         };
     } catch (error) {
@@ -26,27 +29,18 @@ export async function getStaticProps() {
         return {
             props: {
                 className: "home-sticky-pin sidebar-header position-relative",
+                sectionId: context.query.section_id,
             },
         };
     }
 }
 
-const Home = ({ myApps }) => {
+const Home = ({ myApps, sectionId }) => {
     const content = normalizedData(homepageData?.content || []);
-    // const liveAuctionData = myApps
-    //     .filter(
-    //         (prod) =>
-    //             prod?.auction_date && new Date() <= new Date(prod?.auction_date)
-    //     )
-    //     .sort(
-    //         (a, b) =>
-    //             Number(new Date(b.published_at)) -
-    //             Number(new Date(a.published_at))
-    //     )
-    //     .slice(0, 4);
+
     return (
         <Wrapper>
-            <SEO pageTitle="التطبيقات" />
+            <SEO pageTitle=" التطبيقات" />
             <Header />
             <main
                 id="main-content"
@@ -56,11 +50,13 @@ const Home = ({ myApps }) => {
                     <h2 className="text-center">لا توجد بيانات متاحة</h2>
                 ) : (
                     <ExploreServiceArea
-                        sectionTitle="التطبيقات"
+                        sectionTitle=" التطبيقات"
                         id="list-item-3"
                         space={2}
                         data={{
                             ...content["explore-product-section"],
+                            parentSlug: "app",
+                            sectionId: sectionId,
                             products: myApps,
                         }}
                     />

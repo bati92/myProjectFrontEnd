@@ -45,7 +45,7 @@ const Service = ({
                 <div className="card-thumbnail">
                     {true && (
                         // {image?.src && (
-                        <Anchor path={`/${slug}`}>
+                        <Anchor path={`/${slug}-sections`}>
                             <Image
                                 src={
                                     "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
@@ -90,16 +90,7 @@ const Service = ({
                 <Anchor path={`/${slug}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                {total ? (
-                    <>
-                        <span className="latest-bid">عدد </span>
-                        <span className="latest-bid">{title}: </span>
-                        <span className="latest-bid">{total}</span>
-                        <ProductBid price={price} likeCount={likeCount} />
-                    </>
-                ) : (
-                    ""
-                )}
+
                 <>
                     <span className="latest-bid">عدد </span>
                     <span className="latest-bid">{title}: </span>

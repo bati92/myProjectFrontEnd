@@ -332,6 +332,8 @@
         "title": "التتريك",
         "slug": "turkification",
         "likeCount": 322,
+        "total": 0,
+
         "images": [
             {
                 "src": "/images/portfolio/lg/portfolio-01.jpg"
@@ -372,6 +374,7 @@
         "title": "تحويل الأموال",
         "slug": "transferMoney",
         "likeCount": 322,
+        "total": 0,
         "images": [
             {
                 "src": "/images/portfolio/lg/portfolio-01.jpg"

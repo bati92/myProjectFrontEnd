@@ -18,6 +18,8 @@ const Service = ({
     overlay,
     title,
     slug,
+    parentSlug,
+    sectionId,
     price,
     likeCount,
     image,
@@ -38,7 +40,9 @@ const Service = ({
             >
                 <div className="card-thumbnail">
                     {/* {image && ( */}
-                    <Anchor path={`/app/${slug}`}>
+                    <Anchor
+                        path={`/${parentSlug}-sections/${sectionId}/${parentSlug}-order/${slug}`}
+                    >
                         <Image
                             src={
                                 // image ||
@@ -76,7 +80,9 @@ const Service = ({
                     </div> */}
                     {/* {!disableShareDropdown && <ShareDropdown />} */}
                 </div>
-                <Anchor path={`/app/${slug}`}>
+                <Anchor
+                    path={`/${parentSlug}-sections/${sectionId}/${parentSlug}-order/${slug}`}
+                >
                     <span className="product-name">{title}</span>
                 </Anchor>
                 <span className="latest-bid">السعر: {price?.amount}</span>
@@ -92,6 +98,7 @@ Service.propTypes = {
     overlay: PropTypes.bool,
     title: PropTypes.string.isRequired,
     slug: PropTypes.number.isRequired,
+    parentSlug: PropTypes.string.isRequired,
     price: PropTypes.shape({
         amount: PropTypes.number.isRequired,
         currency: PropTypes.string.isRequired,
