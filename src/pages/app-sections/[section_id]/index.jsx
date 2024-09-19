@@ -6,16 +6,18 @@ export async function getServerSideProps(context) {
     return {
         props: {
             ...data,
+            sectionId: context.query.section_id,
         },
     };
 }
 
-const Home = ({ myItems, className }) => {
+const Home = ({ myItems, sectionId, className }) => {
     return (
         <PageLayoutServices
             pageTitle="التطبيقات"
             items={myItems?.apps}
             resourceType="app"
+            sectionId={sectionId}
         />
     );
 };

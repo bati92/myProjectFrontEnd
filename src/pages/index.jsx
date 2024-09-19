@@ -40,7 +40,6 @@ const Home = ({ totalRecords }) => {
     const content = normalizedData(homepageData?.content || []);
 
     const [services, setServices] = useState(myStaticServices);
-
     // const updatedServices = services.map((service) => {
     //     return {
     //         ...service,
