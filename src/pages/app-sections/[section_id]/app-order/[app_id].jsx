@@ -9,34 +9,18 @@ import ProductCollection from "@components/product-details/collection";
 import BidTab from "@components/product-details/bid-tab";
 import PlaceBet from "@components/product-details/place-bet";
 import { ImageType } from "@utils/types";
-import axios from "axios";
+import { getData } from "@utils/getData";
 
 export async function getServerSideProps(context) {
-    try {
-        console.log("home-sticky-pin sidebar-header position-relative");
-        const result = await axios.get(
-            `http://127.0.0.1:8000/api/app/${context.query.app_id}`
-        );
-        console.log(result.data.app);
-        console.log(`http://127.0.0.1:8000/api/app/${context.query.app_id}`);
-        return {
-            props: {
-                className: "home-sticky-pin sidebar-header position-relative",
-                myApp: result?.data?.app,
-            },
-        };
-    } catch (error) {
-        console.log(error);
-
-        return {
-            props: {
-                className: "home-sticky-pin sidebar-header position-relative",
-            },
-        };
-    }
+    const data = await getData(`app/${context.query.app_id}`);
+    return {
+        props: {
+            ...data,
+        },
+    };
 }
 
-const ProductDetailsArea = ({ myApp }) => (
+const ProductDetailsArea = ({ myItems }) => (
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
@@ -48,17 +32,17 @@ const ProductDetailsArea = ({ myApp }) => (
                 <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
                     <div className="rn-pd-content-area">
                         <ProductTitle
-                            title={myApp?.name}
-                            likeCount={myApp?.likeCount}
+                            title={myItems?.app?.name}
+                            likeCount={myItems?.app?.likeCount}
                         />
                         <span className="bid">
                             Height bid{" "}
                             <span className="price">
-                                {myApp?.price}
+                                {myItems?.app?.price}
                                 {/* {myApp.price.currency} */}
                             </span>
                         </span>
-                        <h6 className="title-name">{myApp?.note}</h6>
+                        <h6 className="title-name">{myItems?.app?.note}</h6>
 
                         <Button color="primary-alta" path="#">
                             Unlockable content included

@@ -1,23 +1,21 @@
 import { getData } from "@utils/getData";
-import PageLayout from "@components/page-layout";
+import PageLayoutSections from "@components/page-layout-sections";
 
 export async function getServerSideProps(context) {
-    const data = await getData(context.query.section_id, "app-sections");
+    const data = await getData("app-sections");
     return {
         props: {
-            ...data, // Pass the fetched data as props
-            resourceType: "app", // You can pass this to identify the type
+            ...data,
         },
     };
 }
 
-const Home = ({ myItems, sectionId, resourceType }) => {
+const Home = ({ myItems, className }) => {
     return (
-        <PageLayout
-            pageTitle="التطبيقات" // Page title in Arabic
-            myApps={myItems} // Data fetched from the API
-            sectionId={sectionId} // Section ID from the query
-            resourceType={resourceType} // Optional: Identify resource type
+        <PageLayoutSections
+            pageTitle="التطبيقات"
+            items={myItems?.app_sections?.data}
+            resourceType="app"
         />
     );
 };

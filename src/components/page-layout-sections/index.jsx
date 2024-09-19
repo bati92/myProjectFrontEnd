@@ -1,4 +1,11 @@
-const PageLayout = ({ pageTitle, myApps, sectionId, resourceType }) => {
+import { normalizedData } from "@utils/methods";
+import homepageData from "../../data/homepages/home-08.json";
+import SEO from "@components/seo";
+import Wrapper from "@layout/wrapper";
+import Header from "@layout/header/header-02";
+import Footer from "@layout/footer/footer-02";
+import ExploreServiceArea from "@containers/explore-service/service-categories";
+const PageLayoutSections = ({ pageTitle, items, sectionId, resourceType }) => {
     const content = normalizedData(homepageData?.content || []);
 
     return (
@@ -9,7 +16,7 @@ const PageLayout = ({ pageTitle, myApps, sectionId, resourceType }) => {
                 id="main-content"
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15 pt-5"
             >
-                {!myApps || myApps.length === 0 ? (
+                {!items || items.length === 0 ? (
                     <h2 className="text-center">لا توجد بيانات متاحة</h2>
                 ) : (
                     <ExploreServiceArea
@@ -20,7 +27,7 @@ const PageLayout = ({ pageTitle, myApps, sectionId, resourceType }) => {
                             ...content["explore-product-section"],
                             parentSlug: resourceType, // Optional: Pass resource type for dynamic display
                             sectionId: sectionId,
-                            products: myApps, // Fetched data (apps, transfers, etc.)
+                            products: items, // Fetched data (apps, transfers, etc.)
                         }}
                     />
                 )}
@@ -30,4 +37,4 @@ const PageLayout = ({ pageTitle, myApps, sectionId, resourceType }) => {
     );
 };
 
-export default PageLayout;
+export default PageLayoutSections;
