@@ -14,7 +14,7 @@ const Home = ({ myItems, className }) => {
     return (
         <PageLayoutSections
             pageTitle="التطبيقات"
-            items={myItems?.app_sections?.data}
+            items={myItems?.appSections?.data}
             resourceType="app"
         />
     );

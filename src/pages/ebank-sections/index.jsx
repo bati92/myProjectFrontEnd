@@ -14,7 +14,7 @@ const Home = ({ myItems, className }) => {
     return (
         <PageLayoutSections
             pageTitle="البنوك الإلكترونية"
-            items={myItems?.ebank_sections?.data}
+            items={myItems?.ebankSections?.data}
             resourceType="ebank"
         />
     );

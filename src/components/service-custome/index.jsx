@@ -23,6 +23,8 @@ const Service = ({
     price,
     likeCount,
     hasSection,
+    iban,
+    accountName,
     image,
     disableShareDropdown,
 }) => {
@@ -65,9 +67,24 @@ const Service = ({
                 <Anchor path={servicePath}>
                     <span className="product-name">{title}</span>
                 </Anchor>
-                <span className="latest-bid">السعر: {price?.amount}</span>
-                <br></br>
-                {/* <span className="latest-bid">ملاحظة : {note}</span> */}
+                {parentSlug !== "transfer-money-firm" ? (
+                    <>
+                        <span className="latest-bid">
+                            السعر: {price?.amount}
+                        </span>
+                        <br></br>
+                        {/* <span className="latest-bid">ملاحظة : {note}</span> */}
+                    </>
+                ) : (
+                    <>
+                        <span className="latest-bid">iban: {iban}</span>
+                        <br></br>
+                        <span className="latest-bid">
+                            account name : {accountName}
+                        </span>
+                    </>
+                )}
+
                 <ProductBid price={1} likeCount={likeCount} />
             </div>
         </>
@@ -81,9 +98,12 @@ Service.propTypes = {
     serviceId: PropTypes.number.isRequired,
     parentSlug: PropTypes.string.isRequired,
     price: PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        currency: PropTypes.string.isRequired,
-    }).isRequired,
+        amount: PropTypes.number,
+        currency: PropTypes.string,
+    }),
+    iban: PropTypes.string,
+    accountName: PropTypes.string,
+
     likeCount: PropTypes.number.isRequired,
     image: PropTypes.string,
     disableShareDropdown: PropTypes.bool,

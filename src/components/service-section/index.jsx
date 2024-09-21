@@ -28,20 +28,21 @@ const Service = ({
     image,
     authors,
     hasSections,
+    directToOrder,
     disableShareDropdown,
 }) => {
     // const [showBidModal, setShowBidModal] = useState(false);
     // const handleBidModal = () => {
     //     setShowBidModal((prev) => !prev);
     // };
-    const [servicePath, setServicePath] = useState("");
+    const [servicePath, setServicePath] = useState(`/${slug}s`);
 
     useEffect(() => {
-        let path = "";
+        let path = `/${slug}s`;
         if (hasSections) {
             path = `/${slug}-sections`;
-        } else {
-            path = `/${slug}s`;
+        } else if (directToOrder) {
+            path = `/${slug}-order`;
         }
         setServicePath(path);
     }, [servicePath]);
@@ -117,6 +118,7 @@ const Service = ({
 Service.propTypes = {
     overlay: PropTypes.bool,
     hasSections: PropTypes.bool,
+    directToOrder: PropTypes.bool,
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,

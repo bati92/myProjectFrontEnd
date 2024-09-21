@@ -69,7 +69,6 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                 layout
                             >
                                 <Service
-                                    // title={"grid-item"}
                                     title={prod.title}
                                     slug={prod.slug}
                                     total={prod.total}
@@ -77,6 +76,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                     image={prod.image}
                                     authors={prod.authors}
                                     hasSections={prod.hasSections}
+                                    directToOrder={prod.directToOrder}
                                 />
                             </motion.div>
                         ))}

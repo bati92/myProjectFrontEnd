@@ -86,6 +86,8 @@ const ExploreServiceArea = ({
                                     likeCount={prod.id}
                                     image={prod.image}
                                     hasSection={hasSection}
+                                    iban={prod?.iban}
+                                    accountName={prod?.accountName}
                                 />
                             </motion.div>
                         ))}
