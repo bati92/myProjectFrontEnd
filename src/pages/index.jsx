@@ -9,7 +9,7 @@ import ExploreServiceArea from "@containers/explore-service/service-sections";
 import { normalizedData } from "@utils/methods";
 
 import homepageData from "../data/homepages/home-08.json";
-import myStaticServices from "../data/my-static-services.json"; // Your static services
+import myStaticServices from "../data/my-static-services.json";
 import axios from "axios";
 
 export async function getStaticProps() {

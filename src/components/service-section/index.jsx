@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import Image from "next/image";
@@ -27,12 +27,24 @@ const Service = ({
     likeCount,
     image,
     authors,
+    hasSections,
     disableShareDropdown,
 }) => {
     // const [showBidModal, setShowBidModal] = useState(false);
     // const handleBidModal = () => {
     //     setShowBidModal((prev) => !prev);
     // };
+    const [servicePath, setServicePath] = useState("");
+
+    useEffect(() => {
+        let path = "";
+        if (hasSections) {
+            path = `/${slug}-sections`;
+        } else {
+            path = `/${slug}s`;
+        }
+        setServicePath(path);
+    }, [servicePath]);
     return (
         <>
             <div
@@ -45,7 +57,7 @@ const Service = ({
                 <div className="card-thumbnail">
                     {true && (
                         // {image?.src && (
-                        <Anchor path={`/${slug}-sections`}>
+                        <Anchor path={servicePath}>
                             <Image
                                 src={
                                     "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
@@ -104,6 +116,7 @@ const Service = ({
 
 Service.propTypes = {
     overlay: PropTypes.bool,
+    hasSections: PropTypes.bool,
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     total: PropTypes.number.isRequired,

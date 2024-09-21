@@ -5,7 +5,13 @@ import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import ExploreServiceArea from "@containers/explore-service/service-categories";
-const PageLayoutSections = ({ pageTitle, items, sectionId, resourceType }) => {
+const PageLayoutSections = ({
+    pageTitle,
+    items,
+    sectionId,
+    resourceType,
+    // linkPart,
+}) => {
     const content = normalizedData(homepageData?.content || []);
 
     return (
@@ -23,6 +29,7 @@ const PageLayoutSections = ({ pageTitle, items, sectionId, resourceType }) => {
                         sectionTitle={pageTitle} // Dynamic title
                         id="list-item-3"
                         space={2}
+                        // linkPart={linkPart}
                         data={{
                             ...content["explore-product-section"],
                             parentSlug: resourceType, // Optional: Pass resource type for dynamic display

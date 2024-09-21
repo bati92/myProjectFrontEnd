@@ -3,6 +3,7 @@
         "id": 1,
         "title": "التطبيقات",
         "slug": "app",
+        "hasSections": 1,
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -44,6 +45,7 @@
         "id": 2,
         "title": "البطاقات",
         "slug": "card",
+        "hasSections": 0,
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -85,6 +87,8 @@
         "id": 3,
         "title": "البيانات والاتصالات",
         "slug": "data-communication",
+        "hasSections": 0,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -126,6 +130,8 @@
         "id": 4,
         "title": "البنوك الإلكترونية",
         "slug": "ebank",
+        "hasSections": 1,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -167,6 +173,8 @@
         "id": 5,
         "title": "البطاقات الإلكترونية",
         "slug": "ecard",
+        "hasSections": 1,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -208,6 +216,8 @@
         "id": 6,
         "title": "الألعاب",
         "slug": "game",
+        "hasSections": 1,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -249,6 +259,8 @@
         "id": 7,
         "title": "البرامج",
         "slug": "program",
+        "hasSections": 0,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -290,6 +302,8 @@
         "id": 8,
         "title": "شركات تحويل الأموال",
         "slug": "transferMoneyFirm",
+        "hasSections": 0,
+
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -331,6 +345,8 @@
         "id": 9,
         "title": "التتريك",
         "slug": "turkification",
+        "hasSections": 0,
+
         "likeCount": 322,
         "total": 0,
 
@@ -373,6 +389,8 @@
         "id": 10,
         "title": "تحويل الأموال",
         "slug": "transferMoney",
+        "hasSections": 0,
+
         "likeCount": 322,
         "total": 0,
         "images": [

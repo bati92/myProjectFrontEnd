@@ -8,7 +8,14 @@ import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
 
 //services in eacH service pages example /app page
-const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
+const ExploreServiceArea = ({
+    className,
+    space,
+    data,
+    id,
+    sectionTitle,
+    hasSection,
+}) => {
     const filters = [
         ...new Set(
             flatDeep(data?.products?.map((item) => item.categories) || [])
@@ -69,7 +76,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                             >
                                 <Service
                                     title={prod.name}
-                                    slug={prod.id}
+                                    serviceId={prod.id}
                                     parentSlug={data.parentSlug}
                                     sectionId={data.sectionId}
                                     price={{
@@ -78,6 +85,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                     }}
                                     likeCount={prod.id}
                                     image={prod.image}
+                                    hasSection={hasSection}
                                 />
                             </motion.div>
                         ))}
@@ -93,6 +101,7 @@ ExploreServiceArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
+    hasSection: PropTypes.bool,
     data: PropTypes.shape({
         sectionId: PropTypes.number,
         // section_title: SectionTitleType,

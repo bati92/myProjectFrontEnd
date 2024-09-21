@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import Image from "next/image";
@@ -17,18 +17,26 @@ const ShareDropdown = dynamic(() => import("@components/share-dropdown"), {
 const Service = ({
     overlay,
     title,
-    slug,
+    serviceId,
     parentSlug,
     sectionId,
     price,
     likeCount,
+    hasSection,
     image,
     disableShareDropdown,
 }) => {
-    // const [showBidModal, setShowBidModal] = useState(false);
-    // const handleBidModal = () => {
-    //     setShowBidModal((prev) => !prev);
-    // };
+    const [servicePath, setServicePath] = useState("");
+
+    useEffect(() => {
+        let path = "";
+        if (hasSection) {
+            path = `/${parentSlug}-sections/${sectionId}/${parentSlug}-order/${serviceId}`;
+        } else {
+            path = `/${parentSlug}s/${parentSlug}-order/${serviceId}`;
+        }
+        setServicePath(path);
+    }, [servicePath]);
     return (
         <>
             <div
@@ -40,9 +48,7 @@ const Service = ({
             >
                 <div className="card-thumbnail">
                     {/* {image && ( */}
-                    <Anchor
-                        path={`/${parentSlug}-sections/${sectionId}/${parentSlug}-order/${slug}`}
-                    >
+                    <Anchor path={servicePath}>
                         <Image
                             src={
                                 // image ||
@@ -55,34 +61,8 @@ const Service = ({
                     </Anchor>
                     {/* )} */}
                 </div>
-                <div className="product-share-wrapper">
-                    {/* <div className="profile-share">
-                        <span className="latest-bid">
-                            القسم:{" "}
-                            <Anchor
-                                className="more-author-text"
-                                path={`/app/${slug}`}
-                            >
-                                {section}
-                            </Anchor>
-                        </span>
-                    </div>
-                    <div className="profile-share">
-                        <span className="latest-bid">
-                            الحالة:{" "}
-                            <Anchor
-                                className="more-author-text"
-                                path={`/app/${slug}`}
-                            >
-                                {status ? "فعال" : "غير فعال"}
-                            </Anchor>
-                        </span>
-                    </div> */}
-                    {/* {!disableShareDropdown && <ShareDropdown />} */}
-                </div>
-                <Anchor
-                    path={`/${parentSlug}-sections/${sectionId}/${parentSlug}-order/${slug}`}
-                >
+                <div className="product-share-wrapper"></div>
+                <Anchor path={servicePath}>
                     <span className="product-name">{title}</span>
                 </Anchor>
                 <span className="latest-bid">السعر: {price?.amount}</span>
@@ -96,8 +76,9 @@ const Service = ({
 
 Service.propTypes = {
     overlay: PropTypes.bool,
+    hasSection: PropTypes.bool,
     title: PropTypes.string.isRequired,
-    slug: PropTypes.number.isRequired,
+    serviceId: PropTypes.number.isRequired,
     parentSlug: PropTypes.string.isRequired,
     price: PropTypes.shape({
         amount: PropTypes.number.isRequired,

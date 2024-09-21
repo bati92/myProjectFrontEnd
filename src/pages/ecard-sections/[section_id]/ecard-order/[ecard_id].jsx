@@ -12,7 +12,7 @@ import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 
 export async function getServerSideProps(context) {
-    const data = await getData(`ebank/${context.query.ebank_id}`);
+    const data = await getData(`ecard/${context.query.ecard_id}`);
     return {
         props: {
             ...data,
@@ -26,23 +26,23 @@ const ProductDetailsArea = ({ myItems }) => (
             <div className="row g-5">
                 {/* <div className="col-lg-7 col-md-12 col-sm-12">
                     <Sticky>
-                        <GalleryTab images={myebank?.image} />
+                        <GalleryTab images={myecard?.image} />
                     </Sticky>
                 </div> */}
                 <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
                     <div className="rn-pd-content-area">
                         <ProductTitle
-                            title={myItems?.ebank?.name}
-                            likeCount={myItems?.ebank?.likeCount}
+                            title={myItems?.ecard?.name}
+                            likeCount={myItems?.ecard?.likeCount}
                         />
                         <span className="bid">
                             Height bid{" "}
                             <span className="price">
-                                {myItems?.ebank?.price}
-                                {/* {myebank.price.currency} */}
+                                {myItems?.ecard?.price}
+                                {/* {myecard.price.currency} */}
                             </span>
                         </span>
-                        <h6 className="title-name">{myItems?.ebank?.note}</h6>
+                        <h6 className="title-name">{myItems?.ecard?.note}</h6>
 
                         <Button color="primary-alta" path="#">
                             Unlockable content included

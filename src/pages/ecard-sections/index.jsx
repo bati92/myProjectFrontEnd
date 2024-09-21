@@ -2,7 +2,7 @@ import { getData } from "@utils/getData";
 import PageLayoutSections from "@components/page-layout-sections";
 
 export async function getServerSideProps(context) {
-    const data = await getData("ebank-sections");
+    const data = await getData("ecard-sections");
     return {
         props: {
             ...data,
@@ -13,9 +13,9 @@ export async function getServerSideProps(context) {
 const Home = ({ myItems, className }) => {
     return (
         <PageLayoutSections
-            pageTitle="البنوك الإلكترونية"
-            items={myItems?.ebank_sections?.data}
-            resourceType="ebank"
+            pageTitle="البطاقات الإلكترونية"
+            items={myItems?.ecard_sections?.data}
+            resourceType="ecard"
         />
     );
 };

@@ -76,6 +76,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                                     likeCount={prod.id}
                                     image={prod.image}
                                     authors={prod.authors}
+                                    hasSections={prod.hasSections}
                                 />
                             </motion.div>
                         ))}

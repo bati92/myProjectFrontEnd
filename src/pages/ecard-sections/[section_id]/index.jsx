@@ -3,7 +3,7 @@ import PageLayoutServices from "@components/page-layout-services";
 import myStaticServices from "../../../data/my-static-services.json";
 
 export async function getServerSideProps(context) {
-    const data = await getData(`ebank-sections/${context.query.section_id}`);
+    const data = await getData(`ecard-sections/${context.query.section_id}`);
     return {
         props: {
             ...data,
@@ -13,13 +13,13 @@ export async function getServerSideProps(context) {
 }
 
 const Home = ({ myItems, sectionId, className }) => {
-    const item = myStaticServices.find((item) => item.slug === "ebank");
+    const item = myStaticServices.find((item) => item.slug === "ecard");
     const hasSections = item ? item.hasSections : null;
     return (
         <PageLayoutServices
-            pageTitle="البنوك الإلكترونية"
-            items={myItems?.ebanks}
-            resourceType="ebank"
+            pageTitle="البطاقات الإلكترونية"
+            items={myItems?.ecards}
+            resourceType="ecard"
             sectionId={sectionId}
             hasSection={hasSections}
         />
