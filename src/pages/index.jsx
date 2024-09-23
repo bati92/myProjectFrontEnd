@@ -71,7 +71,7 @@ const Home = ({ totalRecords }) => {
     // // Fetch totals when the component mounts
     useEffect(() => {
         // fetchTotals();
-        const updatedServices = services.map((service) => {
+        const updatedServices = services?.map((service) => {
             return {
                 ...service,
                 total: totalRecords[`${service.slug}Records`] || 0,

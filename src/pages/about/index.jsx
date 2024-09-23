@@ -9,13 +9,8 @@ import FunfactArea from "@containers/funfact";
 import CTAArea from "@containers/cta";
 import BlogArea from "@containers/blog/layout-01";
 import { normalizedData } from "@utils/methods";
-import { getAllPosts } from "../lib/api";
-import axios from "axios";
-
-// Demo data
-import aboutData from "../data/innerpages/about.json";
-const result = axios.get("https://jsonplaceholder.typicode.com/todos");
-console.log(result.data);
+import { getData } from "@utils/getData";
+import aboutData from "../../data/innerpages/about.json";
 
 const About = ({ posts }) => {
     const content = normalizedData(aboutData?.content || []);
@@ -36,21 +31,27 @@ const About = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-    const posts = getAllPosts([
-        "title",
-        "date",
-        "slug",
-        "image",
-        "category",
-        "timeToRead",
-    ]);
-
+    const data = await getData(`settings`);
     return {
         props: {
-            posts: posts.slice(0, 4),
+            ...data,
             className: "template-color-1",
         },
     };
+    // const posts = getAllPosts([
+    //     "title",
+    //     "date",
+    //     "slug",
+    //     "image",
+    //     "category",
+    //     "timeToRead",
+    // ]);
+
+    // return {
+    //     props: {
+    //         posts: posts.slice(0, 4),
+    //     },
+    // };
 }
 
 About.propTypes = {
