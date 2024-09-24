@@ -1,92 +1,101 @@
+import react, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Button from "@ui/button";
 import ErrorText from "@ui/error-text";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-
+import axios from "axios";
 const LoginForm = ({ className }) => {
     const router = useRouter();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        mode: "onChange",
+    const [userField, setUserField] = useState({
+        email: "",
+        password: "",
     });
-    const onSubmit = (data, e) => {
-        e.preventDefault();
-        // eslint-disable-next-line no-console
-        console.log(data);
-        router.push({
-            pathname: "/",
-        });
+    const changeUserFieldHandler = (e) => {
+        const { name, value } = e.target;
+        setUserField((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
+    const csrf = () => axios.get("http://localhost:8000/sanctum/csrf-cookie");
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // await csrf();
+            console.log(userField);
+            const response = await axios.post(
+                "http://localhost:8000/api/login",
+                userField
+            );
+            const data = response.data;
+            if (response) {
+                // احفظ الـ token في الحالة أو التخزين المحلي
+                console.log("http://localhost:8000/api/login");
 
+                localStorage.setItem("token", data.token);
+                const token = localStorage.getItem("lobana", "token");
+                console.log(localStorage.getItem("token"), "lobana");
+                router.push("/");
+                /* const token = localStorage.getItem('token');
+
+             if (token) {
+              // استخدم الـ token في الطلبات المحمية
+              const response = await fetch('http://your-laravel-app.test/api/protected-route', {
+               method: 'GET',
+               headers: {
+               'Authorization': `Bearer ${token}`,
+                  },
+                });
+                }*/
+            } else {
+                // التعامل مع الأخطاء
+                console.log(data.message, "http://localhost:8000/api/login");
+            }
+        } catch (err) {
+            console.log(err, "http://localhost:8000/api/login");
+        }
+    };
     return (
         <div className={clsx("form-wrapper-one", className)}>
-            <h4>Login</h4>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <h4> </h4>
+            <form>
                 <div className="mb-5">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                        Email address
+                    <label htmlFor="email" className="form-label">
+                        البريد الالكتروني
                     </label>
                     <input
                         type="email"
-                        id="exampleInputEmail1"
-                        {...register("exampleInputEmail1", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                message: "invalid email address",
-                            },
-                        })}
+                        id="email"
+                        name="email"
+                        required=""
+                        onChange={(e) => changeUserFieldHandler(e)}
                     />
-                    {errors.exampleInputEmail1 && (
-                        <ErrorText>
-                            {errors.exampleInputEmail1?.message}
-                        </ErrorText>
-                    )}
                 </div>
+
                 <div className="mb-5">
-                    <label
-                        htmlFor="exampleInputPassword1"
-                        className="form-label"
-                    >
-                        Password
+                    <label htmlFor="password" className="form-label">
+                        كلمة المرور
                     </label>
                     <input
                         type="password"
-                        id="exampleInputPassword1"
-                        {...register("exampleInputPassword1", {
-                            required: "Password is required",
-                        })}
+                        id="password"
+                        name="password"
+                        required=""
+                        onChange={(e) => changeUserFieldHandler(e)}
                     />
-                    {errors.exampleInputPassword1 && (
-                        <ErrorText>
-                            {errors.exampleInputPassword1?.message}
-                        </ErrorText>
-                    )}
                 </div>
-                <div className="mb-5 rn-check-box">
-                    <input
-                        type="checkbox"
-                        className="rn-check-box-input"
-                        id="exampleCheck1"
-                        {...register("exampleCheck1")}
-                    />
-                    <label
-                        className="rn-check-box-label"
-                        htmlFor="exampleCheck1"
-                    >
-                        Remember me leter
-                    </label>
-                </div>
-                <Button type="submit" size="medium" className="mr--15">
-                    Log In
+                <Button
+                    type="submit"
+                    size="medium"
+                    onClick={(e) => onSubmit(e)}
+                    className="mr--15"
+                >
+                    تسجيل الدخول
                 </Button>
                 <Button path="/sign-up" color="primary-alta" size="medium">
-                    Sign Up
+                    تسجيل جديد
                 </Button>
             </form>
         </div>

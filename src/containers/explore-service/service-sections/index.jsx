@@ -20,17 +20,17 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
         setProducts(data?.products);
     }, [data?.products]);
 
-    const filterHandler = (filterKey) => {
-        const prods = data?.products ? [...data.products] : [];
-        if (filterKey === "all") {
-            setProducts(data?.products);
-            return;
-        }
-        const filterProds = prods.filter((prod) =>
-            prod.categories.includes(filterKey)
-        );
-        setProducts(filterProds);
-    };
+    // const filterHandler = (filterKey) => {
+    //     const prods = data?.products ? [...data.products] : [];
+    //     if (filterKey === "all") {
+    //         setProducts(data?.products);
+    //         return;
+    //     }
+    //     const filterProds = prods.filter((prod) =>
+    //         prod.categories.includes(filterKey)
+    //     );
+    //     setProducts(filterProds);
+    // };
 
     return (
         <div
@@ -53,12 +53,12 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                             />
                         )}
                     </div>
-                    <div className="col-lg-8">
+                    {/* <div className="col-lg-8">
                         <FilterButtons
                             buttons={filters}
                             filterHandler={filterHandler}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="col-lg-12">
                     <motion.div layout className="isotope-list item-4">
