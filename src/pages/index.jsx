@@ -154,23 +154,41 @@ export async function getStaticProps() {
 const Home = () => {
     const content = normalizedData(homepageData?.content || []);
     const [services, setServices] = useState(myStaticServices);
-    const [totalRecords, setTotalRecords] = useState({});
 
     useEffect(() => {
+        const getUserData = async () => {
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://127.0.0.1:8000/api/user", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                const userData = await response.json();
+            } else {
+                console.error("Failed to fetch user data");
+            }
+        };
+
+        getUserData();
+
         const fetchTotals = async () => {
-            const token = localStorage.getItem("authToken"); // Get the token from localStorage
+            const token = localStorage.getItem("token");
 
             try {
                 const result = await axios.get(
                     "http://127.0.0.1:8000/api/totalRecords",
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                            Authorization: `Bearer ${token}`,
                         },
                     }
                 );
                 const fetchedTotalRecords = result.data;
-                setTotalRecords(fetchedTotalRecords); // Set fetched records to state
 
                 const updatedServices = services.map((service) => {
                     return {
@@ -179,7 +197,7 @@ const Home = () => {
                             fetchedTotalRecords[`${service.slug}Records`] || 0,
                     };
                 });
-                setServices(updatedServices); // Update services with totals
+                setServices(updatedServices);
             } catch (error) {
                 console.log("Error fetching totals:", error);
             }

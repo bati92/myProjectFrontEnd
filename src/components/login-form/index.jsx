@@ -19,7 +19,7 @@ const LoginForm = ({ className }) => {
             [name]: value,
         }));
     };
-    const csrf = () => axios.get("http://localhost:8000/sanctum/csrf-cookie");
+    // const csrf = () => axios.get("http://localhost:8000/sanctum/csrf-cookie");
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -31,26 +31,9 @@ const LoginForm = ({ className }) => {
             );
             const data = response.data;
             if (response) {
-                // احفظ الـ token في الحالة أو التخزين المحلي
-                console.log("http://localhost:8000/api/login");
-
                 localStorage.setItem("token", data.token);
-                const token = localStorage.getItem("lobana", "token");
-                console.log(localStorage.getItem("token"), "lobana");
                 router.push("/");
-                /* const token = localStorage.getItem('token');
-
-             if (token) {
-              // استخدم الـ token في الطلبات المحمية
-              const response = await fetch('http://your-laravel-app.test/api/protected-route', {
-               method: 'GET',
-               headers: {
-               'Authorization': `Bearer ${token}`,
-                  },
-                });
-                }*/
             } else {
-                // التعامل مع الأخطاء
                 console.log(data.message, "http://localhost:8000/api/login");
             }
         } catch (err) {
