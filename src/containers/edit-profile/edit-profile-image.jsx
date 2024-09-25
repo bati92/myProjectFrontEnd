@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const EditProfileImage = () => {
+const EditProfileImage = ({ authUser }) => {
     const [selectedImage, setSelectedImage] = useState({
         profile: "",
         cover: "",

@@ -5,6 +5,8 @@ import Button from "@ui/button";
 import ErrorText from "@ui/error-text";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+
 import axios from "axios";
 const LoginForm = ({ className }) => {
     const router = useRouter();
@@ -31,13 +33,14 @@ const LoginForm = ({ className }) => {
             );
             const data = response.data;
             if (response) {
-                localStorage.setItem("token", data.token);
+                localStorage.setItem("token", data?.token);
                 router.push("/");
             } else {
-                console.log(data.message, "http://localhost:8000/api/login");
+                toast(data.message);
+                console.log(data.message);
             }
         } catch (err) {
-            console.log(err, "http://localhost:8000/api/login");
+            console.log(err);
         }
     };
     return (
@@ -53,6 +56,7 @@ const LoginForm = ({ className }) => {
                         id="email"
                         name="email"
                         required=""
+                        autocomplete="username"
                         onChange={(e) => changeUserFieldHandler(e)}
                     />
                 </div>
@@ -66,6 +70,7 @@ const LoginForm = ({ className }) => {
                         id="password"
                         name="password"
                         required=""
+                        autocomplete="current-password"
                         onChange={(e) => changeUserFieldHandler(e)}
                     />
                 </div>

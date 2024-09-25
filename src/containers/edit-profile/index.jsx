@@ -9,7 +9,7 @@ import PersonalInformation from "./personal-information";
 import ChangePassword from "./change-password";
 import NotificationSetting from "./notification-setting";
 
-const EditProfile = () => (
+const EditProfile = ({ authUser, token }) => (
     <div className="edit-profile-area rn-section-gapTop">
         <div className="container">
             <div className="row plr--70 padding-control-edit-wrapper pl_md--0 pr_md--0 pl_sm--0 pr_sm--0">
@@ -45,13 +45,22 @@ const EditProfile = () => (
                     <div className="col-lg-9 col-md-9 col-sm-12 mt_sm--30">
                         <TabContent className="tab-content-edit-wrapepr">
                             <TabPane eventKey="nav-home">
-                                <PersonalInformation />
+                                <PersonalInformation
+                                    authUser={authUser}
+                                    token={token}
+                                />
                             </TabPane>
                             <TabPane eventKey="nav-homes">
-                                <EditProfileImage />
+                                <EditProfileImage
+                                    authUser={authUser}
+                                    token={token}
+                                />
                             </TabPane>
                             <TabPane eventKey="nav-profile">
-                                <ChangePassword />
+                                <ChangePassword
+                                    authUser={authUser}
+                                    token={token}
+                                />
                             </TabPane>
                         </TabContent>
                     </div>

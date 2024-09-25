@@ -2,8 +2,9 @@ import { useForm } from "react-hook-form";
 import Button from "@ui/button";
 import ErrorText from "@ui/error-text";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
-const ChangePassword = () => {
+const ChangePassword = ({ authUser }) => {
     const {
         register,
         handleSubmit,
@@ -13,11 +14,36 @@ const ChangePassword = () => {
     } = useForm({
         mode: "onChange",
     });
-    const notify = () => toast("Your password has changed");
+    const [user, setUser] = useState(authUser);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser({ ...user, [name]: value });
+    };
+    const updateUser = async (userId, updatedData) => {
+        try {
+            const response = await axios.patch(
+                `http://localhost:8000/api/users/${userId}`,
+                updatedData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log("Your password has changed");
+            return true;
+        } catch (error) {
+            console.log("Failed to update user:", error);
+            return false;
+        }
+    };
+    // const notify = () => toast("Your password has changed");
     const onSubmit = (_data, e) => {
         e.preventDefault();
-        notify();
-        reset();
+        updateUser(user.id, user)
+            ? toast("Your password has changed")
+            : toast("error");
     };
     return (
         <div className="nuron-information">
@@ -79,6 +105,7 @@ const ChangePassword = () => {
                             {...register("NewPass", {
                                 required: "New Password is required",
                             })}
+                            onChange={(e) => handleChange(e)}
                         />
                         {errors.NewPass && (
                             <ErrorText>{errors.NewPass?.message}</ErrorText>
@@ -105,7 +132,7 @@ const ChangePassword = () => {
                     )}
                 </div>
                 <Button className="save-btn-edit" size="medium" type="submit">
-                    Save
+                    حفظ
                 </Button>
             </form>
         </div>

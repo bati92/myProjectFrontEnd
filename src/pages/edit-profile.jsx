@@ -1,71 +1,61 @@
-// import SEO from "@components/seo";
-// import Wrapper from "@layout/wrapper";
-// import Header from "@layout/header/header-01";
-// import Footer from "@layout/footer/footer-01";
-// import Breadcrumb from "@components/breadcrumb";
-// import EditProfileArea from "@containers/edit-profile";
-
-// export async function getStaticProps() {
-//     return { props: { className: "template-color-1" } };
-// }
-
-// const EditProfile = () => (
-//     <Wrapper>
-//         <SEO pageTitle="Edit Profile" />
-//         <Header />
-//         <main id="main-content">
-//             <Breadcrumb pageTitle="Edit Profile" currentPage="Edit Profile" />
-//             <EditProfileArea />
-//         </main>
-//         <Footer />
-//     </Wrapper>
-// );
-
-// export default EditProfile;
-
+import { useState, useEffect } from "react";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-01";
 import Footer from "@layout/footer/footer-01";
 import Breadcrumb from "@components/breadcrumb";
 import EditProfileArea from "@containers/edit-profile";
-
+import withAuth from "@components/auth/withAuth";
+import LoadingSpinner from "@components/spinner/index";
 import axios from "axios";
 
-export async function getstaticSideProps(context) {
-    try {
-        const result = await axios.get(
-            "http://127.0.0.1:8000/api/app-sections"
-        );
-        console.log(result.data.app_sections.data);
-        console.log("http://127.0.0.1:8000/api/app-sections");
-        return {
-            props: {
-                className: "home-sticky-pin sidebar-header position-relative",
-                myApps: result?.data?.app_sections?.data,
-            },
-        };
-    } catch (error) {
-        console.log(error);
-
-        return {
-            props: {
-                className: "template-color-1",
-            },
-        };
-    }
+export async function getStaticProps() {
+    return {
+        props: {
+            className: "template-color-1",
+        },
+    };
 }
 
-const EditProfile = () => (
-    <Wrapper>
-        <SEO pageTitle="تعديل الملف الشخصي" />
-        <Header />
-        <main id="main-content">
-            <Breadcrumb pageTitle="Edit Profile" currentPage="Edit Profile" />
-            <EditProfileArea />
-        </main>
-        <Footer />
-    </Wrapper>
-);
+const EditProfile = ({ token }) => {
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        const getUserData = async () => {
+            axios
+                .get("http://127.0.0.1:8000/api/logged-in-user", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    setUser(response.data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data", error);
+                    setLoading(false);
+                });
+        };
+        getUserData();
+    }, []);
 
-export default EditProfile;
+    if (loading) return <LoadingSpinner />;
+
+    return (
+        <Wrapper>
+            <SEO pageTitle="تعديل الملف الشخصي" />
+            <Header />
+            <main id="main-content">
+                <Breadcrumb
+                    pageTitle="تعديل الملف الشخصي"
+                    currentPage="Edit Profile"
+                />
+                <EditProfileArea authUser={user} token={token} />
+            </main>
+            <Footer />
+        </Wrapper>
+    );
+};
+
+export default withAuth(EditProfile);

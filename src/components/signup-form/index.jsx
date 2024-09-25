@@ -5,6 +5,7 @@ import Button from "@ui/button";
 import ErrorText from "@ui/error-text";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const SignupForm = ({ className }) => {
@@ -37,6 +38,7 @@ const SignupForm = ({ className }) => {
                 userField,
                 csrf
             );
+            toast(response.data);
             console.log(response.data);
         } catch (err) {
             console.log(err);
