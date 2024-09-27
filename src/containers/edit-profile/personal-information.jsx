@@ -1,7 +1,6 @@
 import Button from "@ui/button";
 import NiceSelect from "@ui/nice-select";
-import { useEffect, useState } from "react";
-import LoadingSpinner from "@components/spinner/index";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 

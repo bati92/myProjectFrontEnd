@@ -8,9 +8,7 @@ import HeroArea from "@containers/hero/layout-08";
 import homepageData from "../data/homepages/home-08.json";
 import ExploreServiceArea from "@containers/explore-service/service-sections";
 import { normalizedData } from "@utils/methods";
-import PropTypes from "prop-types";
 import myStaticServices from "../data/my-static-services.json";
-import withAuth from "@components/auth/withAuth";
 import axios from "axios";
 
 export async function getStaticProps() {
@@ -21,43 +19,28 @@ export async function getStaticProps() {
     };
 }
 
-const Home = ({ token }) => {
+const Home = () => {
     const content = normalizedData(homepageData?.content || []);
     const [services, setServices] = useState(myStaticServices);
+    const [slider, setSlider] = useState([]);
 
     useEffect(() => {
-        // const token = localStorage.getItem("token");
-        // const getUserData = async () => {
-        //     try {
-        //         const response = await axios.get(
-        //             "http://127.0.0.1:8000/api/user",
-        //             {
-        //                 headers: {
-        //                     Authorization: `Bearer ${token}`,
-        //                 },
-        //             }
-        //         );
-        //         if (response.ok) {
-        //             const userData = await response.json();
-        //             console.log(userData);
-        //         } else {
-        //             console.error("Failed to fetch user data");
-        //         }
-        //     } catch (error) {
-        //         console.log("Error fetching totals:", error);
-        //     }
-        // };
-        // getUserData();
+        const fetchSlider = async () => {
+            try {
+                const result = await axios.get(
+                    "http://127.0.0.1:8000/api/slider"
+                );
+                setSlider(result.data.slider.data);
+            } catch (error) {
+                console.log("Error fetching slider:", error);
+            }
+        };
+        fetchSlider();
 
         const fetchTotals = async () => {
             try {
                 const result = await axios.get(
-                    "http://127.0.0.1:8000/api/totalRecords",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
+                    "http://127.0.0.1:8000/api/totalRecords"
                 );
                 const fetchedTotalRecords = result.data;
 
@@ -86,7 +69,7 @@ const Home = ({ token }) => {
             >
                 <div className="list-item-1">
                     <TopBarArea />
-                    <HeroArea data={content["hero-section"]} />
+                    <HeroArea data={slider} />
                 </div>
                 <ExploreServiceArea
                     id="list-item-3"
@@ -102,4 +85,4 @@ const Home = ({ token }) => {
     );
 };
 
-export default withAuth(Home);
+export default Home;
