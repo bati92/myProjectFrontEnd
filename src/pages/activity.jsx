@@ -1,24 +1,82 @@
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
-import Header from "@layout/header/header-01";
-import Footer from "@layout/footer/footer-01";
+import Header from "@layout/header/header-02";
+import Footer from "@layout/footer/footer-02";
+import TopBarArea from "@containers/top-bar";
 import ActivityArea from "@containers/activity";
-
-// Demo Data
-import activityData from "../data/activity.json";
+import React,{useState,useEffect} from "react";
+import axios from "axios";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
-const Home = () => (
+
+const Home = () =>  {
+    //const content = normalizedData(homepageData?.content || []);
+    const [auth, setAuth] = useState("");
+    const [agents, setAgents] = useState([])
+    
+    
+        useEffect(() => {
+            const fetchauth = async () => {
+                try {
+                  const token = localStorage.getItem('token'); 
+                  const result = await axios.get(
+                    "http://127.0.0.1:8000/api/logged-in-user",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`, // Pass token in Authorization header
+                        },
+                    }
+                );
+               console.log("the auth",result.data);
+                    setAuth( result.data);
+    
+                    
+                } catch (error) {
+                    console.log("Error fetching auth:", error);
+                }
+             };
+              fetchauth();
+    
+            const fetchAgents = async () => {
+                try {
+                    const token = localStorage.getItem('token'); // Ensure token is defined here as well
+                    const result = await axios.get(
+                        "http://127.0.0.1:8000/api/agents/A",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`, // Pass token in Authorization header
+                            },
+                        }
+                    );
+        
+                   
+                 
+                        setAgents(result.data.agents);
+                     
+                    console.log("the agents",result.data.agents);
+                } catch (error) {
+                    console.log("Error fetching totals:", error);
+                }
+            };
+            fetchAgents();
+       
+    
+    
+        }, []);
+    
+return (
     <Wrapper>
         <SEO pageTitle="Acivity" />
         <Header />
+        <TopBarArea  />
         <main id="main-content">
-            <ActivityArea data={{ activities: activityData }} />
+            <ActivityArea data={agents} />
         </main>
         <Footer />
     </Wrapper>
-);
+)
+};
 
 export default Home;

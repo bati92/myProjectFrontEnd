@@ -5,26 +5,16 @@ import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 
-export async function getServerSideProps(context) {
-    const data = await getData(
-        `transfer-money-firm/${context.query.transfer_money_firm_id}`
-    );
-    return {
-        props: {
-            ...data,
-        },
-    };
-}
+import OrderForm from "@components/order-form/transfer";
 
-const ProductDetailsArea = ({ myItems }) => (
+const ProductDetailsArea = ({  }) => (
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
                 <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
                     <div className="rn-pd-content-area">
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
+                       
+                <  OrderForm  />     
                     </div>
                 </div>
             </div>

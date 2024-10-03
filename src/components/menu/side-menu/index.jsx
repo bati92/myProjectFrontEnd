@@ -6,19 +6,15 @@ const SideMenu = ({ menu }) => (
         <ul className="mainmenu list-group">
             {menu?.map((nav) => (
                 <li key={nav.id} className="nav-item">
-                    <Link
+                    <a
                         activeClass="active"
                         className="nav-link smoth-animation"
                         href={`http://localhost:3000/${nav.path}`}
-                        to={nav.path}
-                        spy
-                        smooth
-                        offset={-50}
-                        duration={500}
+                       
                     >
                         {nav?.icon && <i className={nav.icon} />}
                         {nav.text}
-                    </Link>
+                    </a>
                 </li>
             ))}
         </ul>

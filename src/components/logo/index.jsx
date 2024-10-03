@@ -5,25 +5,15 @@ import clsx from "clsx";
 
 const Logo = ({ className, logo }) => (
     <div className={clsx("logo-thumbnail logo-custom-css", className)}>
-        {logo?.[0]?.src && (
+        {logo && (
             <Anchor className="logo-light" path="/">
                 <Image
-                    src={logo[0].src}
-                    alt={logo[0]?.alt || "nft-logo"}
+                    src={logo}
+                    alt="nft-logo"
                     width={106}
                     height={35}
                     priority
-                />
-            </Anchor>
-        )}
-        {logo?.[1]?.src && (
-            <Anchor className="logo-dark" path="/">
-                <Image
-                    src={logo[1].src}
-                    alt={logo[1]?.alt || "nft-logo"}
-                    width={106}
-                    height={35}
-                    priority
+                    unoptimized 
                 />
             </Anchor>
         )}
@@ -34,7 +24,7 @@ Logo.propTypes = {
     className: PropTypes.string,
     logo: PropTypes.arrayOf(
         PropTypes.shape({
-            src: PropTypes.string.isRequired,
+            src: PropTypes.string,
             alt: PropTypes.string,
         })
     ),

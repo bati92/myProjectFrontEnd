@@ -17,13 +17,13 @@
     }
 
     @media #{$md-layout} {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 30px !important;;
+        padding-right: 30px !important;;
     }
 
     @media #{$sm-layout} {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 15px  !important;;
+        padding-right: 15px !important;;
     }
 }
 
@@ -181,6 +181,7 @@
     display: flex;
     justify-content: space-between;
     padding: 25px 0;
+    padding-right:300px;
     align-items: center;
     position: relative;
     @media #{$md-layout} {
@@ -224,7 +225,7 @@
     .contact-area {
         display: flex;
         align-items: center;
-        margin: -5px;
+        margin: 12px;
         @media #{$sm-layout} {
             flex-wrap: wrap;
         }

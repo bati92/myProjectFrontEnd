@@ -7,7 +7,7 @@ import { IDType, ImageType } from "@utils/types";
 import { flatDeep } from "@utils/methods";
 
 const ActivityArea = ({ space, className, data }) => {
-    const [activities, setActivities] = useState(data?.activities || []);
+ /*   const [activities, setActivities] = useState(data?.activities || []);
     const marketFilters = [
         ...new Set(
             flatDeep(data?.activities.map((activity) => activity.marketFilters))
@@ -26,7 +26,7 @@ const ActivityArea = ({ space, className, data }) => {
                 activity.userFilters.includes(filter)
         );
         setActivities(newActivities);
-    };
+    };*/
 
     return (
         <div
@@ -38,64 +38,22 @@ const ActivityArea = ({ space, className, data }) => {
         >
             <div className="container">
                 <div className="row mb--30">
-                    <h3 className="title">All following Acivity</h3>
+                    <h3 className="title"></h3>
                 </div>
-                <div className="row g-6 activity-direction">
+                <div className="row g-12 activity-direction">
                     <div className="col-lg-8 mb_dec--15">
-                        {activities?.map((item) => (
+                        {data?.map((item) => (
                             <Activity
-                                key={item.id}
-                                image={item.image}
-                                title={item.title}
-                                path={item.slug}
-                                desc={item.description}
-                                time={item.time}
-                                date={item.date}
-                                author={item.author}
-                                status={item.status}
+                               
+                                 author={item}
+                                image="/images/portfolio/portfolio-07.jpg"
+                               
+                              
+                              
                             />
                         ))}
                     </div>
-                    <div className="col-lg-4">
-                        <div className="filter-wrapper">
-                            <Sticky top="100px">
-                                <div className="widge-wrapper rbt-sticky-top-adjust">
-                                    <div className="inner">
-                                        <h3>Market filter</h3>
-                                        <div className="sing-filter">
-                                            {marketFilters?.map((item) => (
-                                                <button
-                                                    key={item}
-                                                    type="button"
-                                                    onClick={() =>
-                                                        filterHandler(item)
-                                                    }
-                                                >
-                                                    {item}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="inner">
-                                        <h3>Filter by users</h3>
-                                        <div className="sing-filter">
-                                            {userFilters?.map((item) => (
-                                                <button
-                                                    key={item}
-                                                    onClick={() =>
-                                                        filterHandler(item)
-                                                    }
-                                                    type="button"
-                                                >
-                                                    {item}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </Sticky>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
         </div>

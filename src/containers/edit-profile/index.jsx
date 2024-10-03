@@ -31,13 +31,7 @@ const EditProfile = ({ authUser, token }) => (
                                         المعلومات الشخصية
                                     </Nav.Link>
 
-                                    <Nav.Link
-                                        eventKey="nav-profile"
-                                        as="button"
-                                    >
-                                        <i className="feather-unlock" />
-                                        تغيير كلمة المرور
-                                    </Nav.Link>
+                             
                                 </Nav>
                             </nav>
                         </Sticky>
@@ -50,12 +44,7 @@ const EditProfile = ({ authUser, token }) => (
                                     token={token}
                                 />
                             </TabPane>
-                            <TabPane eventKey="nav-homes">
-                                <EditProfileImage
-                                    authUser={authUser}
-                                    token={token}
-                                />
-                            </TabPane>
+                     
                             <TabPane eventKey="nav-profile">
                                 <ChangePassword
                                     authUser={authUser}

@@ -6,7 +6,7 @@ import Breadcrumb from "@components/breadcrumb";
 import RankingArea from "@containers/ranking";
 
 // Demo data for the ranking page
-import rankingData from "../data/ranking.json";
+import rankingData from "../data/agent.json";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };

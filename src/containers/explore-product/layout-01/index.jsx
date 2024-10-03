@@ -22,75 +22,7 @@ function reducer(state, action) {
 }
 
 const ExploreProductArea = ({ className, space, data }) => {
-    const itemsToFilter = [...data.products];
-    const [state, dispatch] = useReducer(reducer, {
-        filterToggle: false,
-        products: data.products || [],
-        inputs: { price: [0, 100] },
-    });
-    const filterRef = useRef(null);
-    const filterHandler = () => {
-        dispatch({ type: "FILTER_TOGGLE" });
-        if (!filterRef.current) return;
-        slideToggle(filterRef.current);
-    };
 
-    const slectHandler = ({ value }, name) => {
-        dispatch({ type: "SET_INPUTS", payload: { [name]: value } });
-    };
-
-    const priceHandler = (value) => {
-        dispatch({ type: "SET_INPUTS", payload: { price: value } });
-    };
-
-    const sortHandler = ({ value }) => {
-        const sortedProducts = state.products.sort((a, b) => {
-            if (value === "most-liked") {
-                return a.likeCount < b.likeCount ? 1 : -1;
-            }
-            return a.likeCount > b.likeCount ? 1 : -1;
-        });
-        dispatch({ type: "SET_PRODUCTS", payload: sortedProducts });
-    };
-
-    const filterMethods = (item, filterKey, value) => {
-        if (value === "all") return false;
-        let itemKey = filterKey;
-        if (filterKey === "category") {
-            itemKey = "categories";
-        }
-        if (filterKey === "price") {
-            return (
-                item[itemKey].amount <= value[0] / 100 ||
-                item[itemKey].amount >= value[1] / 100
-            );
-        }
-        if (Array.isArray(item[itemKey])) {
-            return !item[itemKey].includes(value);
-        }
-        if (filterKey === "collection") {
-            return item[itemKey].name !== value;
-        }
-        return item[itemKey] !== value;
-    };
-
-    const itemFilterHandler = useCallback(() => {
-        let filteredItems = [];
-
-        filteredItems = itemsToFilter.filter((item) => {
-            // eslint-disable-next-line no-restricted-syntax
-            for (const key in state.inputs) {
-                if (filterMethods(item, key, state.inputs[key])) return false;
-            }
-            return true;
-        });
-        dispatch({ type: "SET_PRODUCTS", payload: filteredItems });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state.inputs]);
-
-    useEffect(() => {
-        itemFilterHandler();
-    }, [itemFilterHandler]);
     return (
         <div
             className={clsx(
@@ -102,54 +34,32 @@ const ExploreProductArea = ({ className, space, data }) => {
             <div className="container">
                 <div className="row mb--50 align-items-center">
                     <div className="col-lg-6 col-md-6 col-sm-6 col-12">
-                        {data?.section_title && (
-                            <SectionTitle
-                                className="mb--0"
-                                {...data.section_title}
-                            />
-                        )}
+                      
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
-                        <FilterButton
-                            open={state.filterToggle}
-                            onClick={filterHandler}
-                        />
-                    </div>
+                  
                 </div>
 
-                <ProductFilter
-                    ref={filterRef}
-                    slectHandler={slectHandler}
-                    sortHandler={sortHandler}
-                    priceHandler={priceHandler}
-                    inputs={state.inputs}
-                />
+           
                 <div className="row g-5">
-                    {state.products.length > 0 ? (
+                    {data.length > 0 ? (
                         <>
-                            {state.products.slice(0, 10).map((prod) => (
+                            {data.map((prod) => (
                                 <div
                                     key={prod.id}
                                     className="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
                                 >
                                     <Product
                                         overlay
-                                        placeBid={!!data.placeBid}
-                                        title={prod.title}
-                                        slug={prod.slug}
-                                        latestBid={prod.latestBid}
-                                        price={prod.price}
-                                        likeCount={prod.likeCount}
-                                        auction_date={prod.auction_date}
-                                        image={prod.images?.[0]}
-                                        authors={prod.authors}
-                                        bitCount={prod.bitCount}
+                                        title={prod.name}
+   
+                                        image={prod.image?.null}
+                                        slug={prod.id}
                                     />
                                 </div>
                             ))}
                         </>
                     ) : (
-                        <p>No item to show</p>
+                        <p>لايوجد بيانات</p>
                     )}
                 </div>
             </div>

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import Web3 from "web3";
 import SearchForm from "@components/search-form/layout-03";
 import Anchor from "@ui/anchor";
@@ -9,10 +9,12 @@ import BurgerButton from "@ui/burger-button";
 import FlyoutSearchForm from "@components/search-form/layout-02";
 import MobileMenu from "@components/menu/mobile-menu-02";
 import UserDropdown from "@components/user-dropdown";
-import { useOffcanvas, useFlyoutSearch } from "@hooks";
 
+import { useOffcanvas, useFlyoutSearch } from "@hooks";
+import axios  from "axios";
 // Demo Data
 import sideMenuData from "../../data/general/menu-02.json";
+import { toast } from "react-toastify";
 
 const TopBarArea = () => {
     const { search, searchHandler } = useFlyoutSearch();
@@ -21,7 +23,41 @@ const TopBarArea = () => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [ethBalance, setEthBalance] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [auth, setAuth] = useState(true);
 
+     
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+
+        if (!storedToken) {
+          setIsAuthenticated(false);
+        } else {
+           
+        setIsAuthenticated(true);
+            setLoading(false);
+        }
+        const fetchauth = async () => {
+            try {
+              const token = localStorage.getItem('token'); 
+              const result = await axios.get(
+                "http://127.0.0.1:8000/api/logged-in-user",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Pass token in Authorization header
+                    },
+                }
+            );
+           console.log(result.data);
+                setAuth( result.data);
+
+                
+            } catch (error) {
+                console.log("Error fetching auth:", error);
+            }
+         };
+          fetchauth();
+    }, []);
     const detectCurrentProvider = () => {
         let provider;
         if (window.ethereum) {
@@ -79,20 +115,8 @@ const TopBarArea = () => {
                         </div>
                         <FlyoutSearchForm isOpen={search} />
                     </div>
-                    <div className="setting-option">
-                        <div className="icon-box">
-                            <Anchor title="Contact With Us" path="/contact">
-                                <i className="feather-phone" />
-                            </Anchor>
-                        </div>
-                    </div>
-                    <div className="setting-option">
-                        <div className="icon-box">
-                            <Anchor title="Message" path="/contact">
-                                <i className="feather-message-circle" />
-                            </Anchor>
-                        </div>
-                    </div>
+               
+              
                     <div className="setting-option rn-icon-list notification-badge">
                         <div className="icon-box">
                             <Anchor path="/activity">
@@ -131,6 +155,8 @@ const TopBarArea = () => {
                             <UserDropdown
                                 onDisconnect={onDisconnect}
                                 ethBalance={ethBalance}
+                                auth={auth}
+
                             />
                         </div>
                     )}

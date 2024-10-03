@@ -100,7 +100,7 @@ const Service = ({
                     </div>
                     {!disableShareDropdown && <ShareDropdown />}
                 </div>
-                <Anchor path={`/${slug}`}>
+                  <Anchor path={servicePath}>
                     <span className="product-name">{title}</span>
                 </Anchor>
 

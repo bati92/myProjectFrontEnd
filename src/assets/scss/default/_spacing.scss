@@ -40,11 +40,14 @@
 
 .rn-section-gapTop {
     padding-top: 100px;
+    padding-right:320px;
     @media #{$md-layout} {
         padding-top: 80px;
+        padding-right:5px;
     }
     @media #{$sm-layout} {
         padding-top: 80px;
+        padding-right:5px;
     }
 }
 .rn-section-gapTop-2 {

@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
-import Header from "@layout/header/header-01";
-import Footer from "@layout/footer/footer-01";
+import Header from "@layout/header/header-02";
+import Footer from "@layout/footer/footer-02";
 import CTAArea from "@containers/cta";
 import { normalizedData } from "@utils/methods";
 import { getData } from "@utils/getData";

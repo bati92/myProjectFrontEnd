@@ -31,6 +31,7 @@ const LoginForm = ({ className }) => {
                 "http://localhost:8000/api/login",
                 userField
             );
+            console.log(response.data);
             const data = response.data;
             if (response) {
                 localStorage.setItem("token", data?.token);
@@ -39,10 +40,14 @@ const LoginForm = ({ className }) => {
                 toast(data.message);
                 console.log(data.message);
             }
-        } catch (err) {
-            console.log(err);
-        }
-    };
+        }   catch(error){
+            if (error.response) {
+                // The request was made, and the server responded with a status code
+                console.log('Error Data:', error.response.data);
+                console.log('Error Status:', error.response.status);
+                console.log('Error Headers:', error.response.headers);
+           }}
+          };
     return (
         <div className={clsx("form-wrapper-one", className)}>
             <h4> </h4>

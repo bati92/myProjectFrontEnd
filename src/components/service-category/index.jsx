@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Anchor from "@ui/anchor";
 import ProductBid from "@components/product-bid";
 
+
 const CountdownTimer = dynamic(() => import("@ui/countdown/layout-01"), {
     ssr: false,
 });
@@ -49,6 +50,7 @@ const ServiceCategory = ({
                 <Anchor path={`/${slug}-sections/${id}`}>
                     <span className="product-name">{title}</span>
                 </Anchor>
+                
 
                 <ProductBid price={1} likeCount={likeCount} />
             </div>

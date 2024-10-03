@@ -153,9 +153,7 @@ const PersonalInformation = ({ authUser, token }) => {
                 >
                     حفظ
                 </Button>
-                <Button path="/login" color="primary-alta" size="medium">
-                    تسجيل دخول
-                </Button>
+               
             </form>
         </div>
     );

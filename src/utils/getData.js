@@ -3,8 +3,10 @@ import axios from "axios";
 export const getData = async (endPoint) => {
     try {
         const result = await axios.get(`http://127.0.0.1:8000/api/${endPoint}`);
+        console.log(result);
         return {
             myItems: result?.data,
+
             className: "home-sticky-pin sidebar-header position-relative",
         };
     } catch (error) {

@@ -9,9 +9,9 @@ import { IDType, ImageType } from "@utils/types";
 const POSTS_PER_PAGE = 31;
 
 const RankingArea = ({ className, space, data }) => {
-    const [ranking, setRanking] = useState([]);
+   /* const [ranking, setRanking] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const numberOfPages = Math.ceil(data.ranking.length / POSTS_PER_PAGE);
+   // const numberOfPages = Math.ceil(data.ranking.length / POSTS_PER_PAGE);
     const paginationHandler = (page) => {
         setCurrentPage(page);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -21,10 +21,10 @@ const RankingArea = ({ className, space, data }) => {
         const start = (currentPage - 1) * POSTS_PER_PAGE;
         setRanking(data.ranking.slice(start, start + POSTS_PER_PAGE));
     }, [currentPage, data.ranking]);
-
+*/
     useEffect(() => {
-        rankingHandler();
-    }, [currentPage, rankingHandler]);
+        console.log(data);
+    });
 
     return (
         <div
@@ -46,121 +46,51 @@ const RankingArea = ({ className, space, data }) => {
                                 <thead>
                                     <tr>
                                         <th>
-                                            <span>SL</span>
+                                            <span></span>
                                         </th>
                                         <th>
-                                            <span>Product</span>
+                                            <span>اسم المستخدم</span>
                                         </th>
                                         <th>
-                                            <span>Volume</span>
+                                            <span>الرصيد</span>
                                         </th>
+                                  
                                         <th>
-                                            <span>24h%</span>
-                                        </th>
-                                        <th>
-                                            <span>7d%</span>
-                                        </th>
-                                        <th>
-                                            <span>Floor Price</span>
-                                        </th>
-                                        <th>
-                                            <span>Owners</span>
-                                        </th>
-                                        <th>
-                                            <span>Items</span>
+                                            <span>اضافة</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="ranking">
-                                    {ranking?.map((item, index) => (
-                                        <tr
-                                            key={item.id}
-                                            className={
-                                                index % 2 === 0
-                                                    ? "color-light"
-                                                    : ""
-                                            }
-                                        >
-                                            <td>
-                                                <span>{index + 1}.</span>
-                                            </td>
-                                            <td>
-                                                <div className="product-wrapper d-flex align-items-center">
-                                                    {item?.product?.image
-                                                        ?.src && (
+                                {data.map((agent) => (
+                                    <tr key={agent.id}>  
+                                       <td>
+                                       <div className="product-wrapper d-flex align-items-center">
+                                                    
                                                         <Anchor
                                                             path={
-                                                                item.product
-                                                                    .slug
+                                                                "#"
                                                             }
-                                                            className="thumbnail"
-                                                        >
+                                                            className="thumbnail"      >
                                                             <Image
                                                                 src={
-                                                                    item.product
-                                                                        .image
-                                                                        .src
+                                                                    "/images/portfolio/portfolio-07.jpg"
                                                                 }
                                                                 alt="Nft_Profile"
                                                                 width={56}
                                                                 height={56}
                                                             />
                                                         </Anchor>
-                                                    )}
-
-                                                    <span>
-                                                        {item.product.title}
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span>{item.volume}</span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    className={
-                                                        item["24h%"].status ===
-                                                        "-"
-                                                            ? "color-danger"
-                                                            : "color-green"
-                                                    }
-                                                >
-                                                    {item["24h%"].status}
-                                                    {item["24h%"].charge}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    className={
-                                                        item["7d%"].status ===
-                                                        "-"
-                                                            ? "color-danger"
-                                                            : "color-green"
-                                                    }
-                                                >
-                                                    {item["7d%"].status}
-                                                    {item["7d%"].charge}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span>{item.floor_price}</span>
-                                            </td>
-                                            <td>
-                                                <span>{item.owners}</span>
-                                            </td>
-                                            <td>
-                                                <span>{item.items}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                 
+                                                    </div>
+                                        </td>      
+                                    <td><span>  {agent.first_name} {agent.last_name} </span>
+                                     </td>  
+                                    </tr>
+                                       ))}
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination
-                            currentPage={currentPage}
-                            numberOfPages={numberOfPages}
-                            onClick={paginationHandler}
-                        />
+                    
                     </div>
                 </div>
             </div>
@@ -168,7 +98,7 @@ const RankingArea = ({ className, space, data }) => {
     );
 };
 
-RankingArea.propTypes = {
+/*RankingArea.propTypes = {
     className: PropTypes.string,
     space: PropTypes.oneOf([1]),
     data: PropTypes.shape({
@@ -195,7 +125,7 @@ RankingArea.propTypes = {
             })
         ),
     }),
-};
+};*/
 RankingArea.defaultProps = {
     space: 1,
 };

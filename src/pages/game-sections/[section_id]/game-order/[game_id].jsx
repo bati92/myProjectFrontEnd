@@ -11,6 +11,7 @@ import PlaceBet from "@components/product-details/place-bet";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 
+import OrderForm from "@components/order-form/game";
 export async function getServerSideProps(context) {
     const data = await getData(`game/${context.query.game_id}`);
     return {
@@ -44,22 +45,9 @@ const ProductDetailsArea = ({ myItems }) => (
                         </span>
                         <h6 className="title-name">{myItems?.game?.note}</h6>
 
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
-                        {/* <div className="rn-bid-details">
-                            <BidTab
-                                bids={product?.bids}
-                                owner={product.owner}
-                                properties={product?.properties}
-                                tags={product?.tags}
-                                history={product?.history}
-                            />
-                            <PlaceBet
-                                highest_bid={product.highest_bid}
-                                auction_date={product?.auction_date}
-                            />
-                        </div> */}
+                       
+                        {myItems?.game && <OrderForm game={myItems.game} />}
+                        {}
                     </div>
                 </div>
             </div>

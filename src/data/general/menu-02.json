@@ -2,49 +2,50 @@
     {
         "id": 1,
         "text": "الصفحة الرئيسية",
-        "path": "list-item-1",
-        "icon": "feather-home"
+        "path": "/",
+        "icon": "feather feather-home"
     },
-    {
-        "id": 2,
-        "text": "المفضلة",
-        "path": "list-item-2",
-        "icon": "feather-heart"
-    },
+  
     {
         "id": 3,
         "text": "عملائي",
-        "path": "list-item-3",
+        "path": "/agents",
         "icon": "feather feather-users"
     },
     {
         "id": 4,
         "text": "إضافة رصيد",
-        "path": "list-item-4",
-        "icon": "feather-dollar-sign"
+        "path": "/",
+        "icon": "feather feather-dollar-sign"
     },
     {
         "id": 5,
         "text": " دفعاتي",
-        "path": "list-item-5",
-        "icon": "feather-dollar-sign"
+        "path": "/",
+        "icon": "feather feather-dollar-sign"
     },
     {
         "id": 6,
         "text": " طلباتي",
-        "path": "list-item-6",
-        "icon": "feather-dollar-sign"
+        "path": "/",
+        "icon": "feather feather-dollar-sign"
     },
     {
         "id": 7,
         "text": " محفظتي",
-        "path": "list-item-7",
-        "icon": "feather-dollar-sign"
+        "path": "/",
+        "icon": "feather feather-dollar-sign"
     },
     {
         "id": 8,
         "text": " وكلاؤنا",
-        "path": "list-item-8",
+        "path": "/wakils",
         "icon": "feather feather-users"
+    },
+    {
+        "id": 2,
+        "text": "المفضلة",
+        "path": "/",
+        "icon": "feather feather-heart"
     }
 ]

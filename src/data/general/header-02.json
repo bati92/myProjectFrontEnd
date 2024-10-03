@@ -2,7 +2,7 @@
     "id": "header-data-2",
     "logo": [
         {
-            "src": "/images/logo/logo-white.png"
+            "src": "http://localhost:8000/assets/images/setting/logo-white.png"
         },
         {
             "src": "/images/logo/logo-dark.png"

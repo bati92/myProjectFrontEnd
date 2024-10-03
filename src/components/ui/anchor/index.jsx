@@ -62,7 +62,7 @@ Anchor.defaultProps = {
 };
 
 Anchor.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     path: PropTypes.string.isRequired,
     className: PropTypes.string,
     rel: PropTypes.string,

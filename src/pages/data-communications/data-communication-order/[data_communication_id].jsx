@@ -5,6 +5,7 @@ import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 
+import OrderForm from "@components/order-form/data-comunication";
 export async function getServerSideProps(context) {
     const data = await getData(
         `data-communication/${context.data_communication_id}`
@@ -36,9 +37,8 @@ const ProductDetailsArea = ({ myItems }) => (
                             {myItems?.dataCommunication?.note}
                         </h6>
 
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
+                       
+                        {myItems?.dataCommunication && <OrderForm data={myItems.dataCommunication} />}
                     </div>
                 </div>
             </div>

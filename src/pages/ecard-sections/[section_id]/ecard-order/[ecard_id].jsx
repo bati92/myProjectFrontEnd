@@ -10,6 +10,7 @@ import BidTab from "@components/product-details/bid-tab";
 import PlaceBet from "@components/product-details/place-bet";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
+import OrderForm from "@components/order-form/e-card";
 
 export async function getServerSideProps(context) {
     const data = await getData(`ecard/${context.query.ecard_id}`);
@@ -44,9 +45,8 @@ const ProductDetailsArea = ({ myItems }) => (
                         </span>
                         <h6 className="title-name">{myItems?.ecard?.note}</h6>
 
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
+                        {myItems?.ecard && <OrderForm ecard={myItems.ecard} />}
+                   
                         {/* <div className="rn-bid-details">
                             <BidTab
                                 bids={product?.bids}

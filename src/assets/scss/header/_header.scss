@@ -90,7 +90,7 @@
             height: auto;
             position: absolute;
             top: 90%;
-            right: 0;
+            right: -210px;
             z-index: 90;
             opacity: 0;
             visibility: hidden;
@@ -112,6 +112,7 @@
             .rn-inner-top {
                 display: block;
                 margin-bottom: 26px;
+                text-align: center;
 
                 .title {
                     font-size: 16px;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
-import Header from "@layout/header/header-01";
-import Footer from "@layout/footer/footer-01";
+import Header from "@layout/header/header-02";
+import Footer from "@layout/footer/footer-02";
 import Breadcrumb from "@components/breadcrumb";
 import EditProfileArea from "@containers/edit-profile";
 import withAuth from "@components/auth/withAuth";

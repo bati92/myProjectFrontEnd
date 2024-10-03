@@ -5,6 +5,8 @@ import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 
+import OrderForm from "@components/order-form/program";
+
 export async function getServerSideProps(context) {
     const data = await getData(`program/${context.query.program_id}`);
     return {
@@ -32,9 +34,9 @@ const ProductDetailsArea = ({ myItems }) => (
                         </span>
                         <h6 className="title-name">{myItems?.program?.note}</h6>
 
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
+                     
+                        {myItems?.program && <OrderForm program={myItems.program} />}
+                    
                     </div>
                 </div>
             </div>

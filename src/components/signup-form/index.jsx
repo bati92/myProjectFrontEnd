@@ -9,13 +9,15 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const SignupForm = ({ className }) => {
+    const [errorMessage, setErrorMessage] = useState(null);
     const [userField, setUserField] = useState({
         name: "",
         first_name: "",
         last_name: "",
         mobile: "",
         code: "",
-        role: "3",
+        role: "4",
+        agent_id:"1",
         nationality: "",
         email: "",
         password: "",
@@ -28,21 +30,30 @@ const SignupForm = ({ className }) => {
             [name]: value,
         }));
     };
+
+    const router = useRouter();
     const csrf = () => axios.get("/sanctum/csrf-cookie");
     const onSubmit = async (e) => {
         e.preventDefault();
-        try {
+      
             console.log(userField);
             const response = await axios.post(
                 "http://localhost:8000/api/register",
                 userField,
                 csrf
             );
-            toast(response.data);
+            
             console.log(response.data);
-        } catch (err) {
-            console.log(err);
-        }
+            const data = response.data;
+          
+          
+          
+              if(data)
+                   { localStorage.setItem("token", data?.token);
+                    router.push("/login");
+                   }
+            toast(response.data);
+            
     };
     return (
         <div className={clsx("form-wrapper-one", className)}>
@@ -968,22 +979,7 @@ const SignupForm = ({ className }) => {
                     </select>
                 </div>
 
-                <div className="mb-5">
-                    <label htmlFor="mobile" className="form-label label100">
-                        الوظيفة{" "}
-                    </label>
-                    <select
-                        required=""
-                        className="myinput25"
-                        onChange={(e) => changeUserFieldHandler(e)}
-                        name="role"
-                    >
-                        <option value="3">اختر الوظيفة </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
+           
                 <div className="mb-5">
                     <label htmlFor="password" className="form-label">
                         كلمة المرور
@@ -1024,6 +1020,7 @@ const SignupForm = ({ className }) => {
                     تسجيل دخول
                 </Button>
             </form>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
     );
 };

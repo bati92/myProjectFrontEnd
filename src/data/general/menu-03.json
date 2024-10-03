@@ -2,13 +2,13 @@
     {
         "id": 1,
         "text": "المعلومات الشخصية",
-        "path": "#!",
+        "path": "/edit-profile",
         "icon": "feather-settings"
     },
     {
         "id": 2,
         "text": "من نحن",
-        "path": "/support",
+        "path": "/about",
         "icon": "feather-activity"
     }
 ]

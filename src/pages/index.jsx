@@ -57,6 +57,9 @@ const Home = () => {
             }
         };
         fetchTotals();
+   
+
+
     }, []);
 
     return (
@@ -68,7 +71,7 @@ const Home = () => {
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15"
             >
                 <div className="list-item-1">
-                    <TopBarArea />
+                    <TopBarArea  />
                     <HeroArea data={slider} />
                 </div>
                 <ExploreServiceArea
