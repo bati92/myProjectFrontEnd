@@ -49,33 +49,37 @@ const LoginForm = ({ className }) => {
            }}
           };
     return (
-        <div className={clsx("form-wrapper-one", className)}>
-            <h4> </h4>
+        <div className={clsx("form-wrapper-one product-style-one ", className)}>
+            <h4 className="mycenter">تسجيل الدخول </h4>
             <form>
                 <div className="mb-5">
                     <label htmlFor="email" className="form-label">
-                        البريد الالكتروني
                     </label>
                     <input
                         type="email"
                         id="email"
                         name="email"
+                        placeholder=" البريد الالكتروني
+"
                         required=""
                         autocomplete="username"
+                         className="withRadius"
                         onChange={(e) => changeUserFieldHandler(e)}
                     />
                 </div>
 
                 <div className="mb-5">
                     <label htmlFor="password" className="form-label">
-                        كلمة المرور
+                       
                     </label>
                     <input
                         type="password"
                         id="password"
                         name="password"
+                        placeholder=" كلمة المرور"
                         required=""
                         autocomplete="current-password"
+                        className="withRadius"
                         onChange={(e) => changeUserFieldHandler(e)}
                     />
                 </div>
@@ -88,7 +92,7 @@ const LoginForm = ({ className }) => {
                     تسجيل الدخول
                 </Button>
                 <Button path="/sign-up" color="primary-alta" size="medium">
-                    تسجيل جديد
+                     انشاء حساب جديد
                 </Button>
             </form>
         </div>
