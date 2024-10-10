@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const getData = async (endPoint) => {
     try {
-        const result = await axios.get(`http://127.0.0.1:8000/api/${endPoint}`);
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const result = await axios.get(`${apiBaseUrl}/${endPoint}`);
         console.log(result);
         return {
             myItems: result?.data,

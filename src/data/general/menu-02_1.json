@@ -5,7 +5,12 @@
         "path": "/",
         "icon": "feather feather-home"
     },
-  
+    {
+        "id": 2,
+        "text": "من نحن",
+        "path": "/about",
+        "icon": "feather-activity"
+    },
     {
         "id": 3,
         "text": "تسجيل دخول",

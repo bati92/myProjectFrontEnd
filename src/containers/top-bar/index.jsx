@@ -40,6 +40,7 @@ const TopBarArea = () => {
         const fetchauth = async () => {
             try {
               const token = localStorage.getItem('token'); 
+              console.log('then token',token);
               const result = await axios.get(
                 "http://127.0.0.1:8000/api/logged-in-user",
                 {

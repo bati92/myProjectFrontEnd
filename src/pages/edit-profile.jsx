@@ -7,6 +7,7 @@ import Breadcrumb from "@components/breadcrumb";
 import EditProfileArea from "@containers/edit-profile";
 import withAuth from "@components/auth/withAuth";
 import LoadingSpinner from "@components/spinner/index";
+import TopBarArea from "@containers/top-bar";
 import axios from "axios";
 
 export async function getStaticProps() {
@@ -46,6 +47,7 @@ const EditProfile = ({ token }) => {
         <Wrapper>
             <SEO pageTitle="تعديل الملف الشخصي" />
             <Header />
+            <TopBarArea/>
             <main id="main-content">
                 <Breadcrumb
                     pageTitle="تعديل الملف الشخصي"

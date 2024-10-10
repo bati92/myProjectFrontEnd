@@ -25,10 +25,13 @@ const Home = () => {
     const [slider, setSlider] = useState([]);
 
     useEffect(() => {
+        
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+   
         const fetchSlider = async () => {
             try {
                 const result = await axios.get(
-                    "http://127.0.0.1:8000/api/slider"
+                    `${apiBaseUrl}/slider`
                 );
                 setSlider(result.data.slider.data);
             } catch (error) {
@@ -40,7 +43,7 @@ const Home = () => {
         const fetchTotals = async () => {
             try {
                 const result = await axios.get(
-                    "http://127.0.0.1:8000/api/totalRecords"
+                    `${apiBaseUrl}/totalRecords`
                 );
                 const fetchedTotalRecords = result.data;
 

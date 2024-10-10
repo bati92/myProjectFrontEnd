@@ -1,10 +1,12 @@
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
-import Header from "@layout/header/header-01";
-import Footer from "@layout/footer/footer-01";
+import Header from "@layout/header/header-02";
+import Footer from "@layout/footer/footer-02";
 import Breadcrumb from "@components/breadcrumb";
+import TopBarArea from "@containers/top-bar";
 import ProductArea from "@containers/explore-product/mylayout";
 import React,{useState,useEffect} from "react";
+import withAuth from "@components/auth/withAuth";
 import axios from "axios";
 
 export async function getStaticProps() {
@@ -50,12 +52,13 @@ const Company = () => {
     <Wrapper>
         <SEO pageTitle="Product" />
         <Header />
+        <TopBarArea  />
         <main id="main-content">
-            <Breadcrumb pageTitle="Our Product" currentPage="Our Product" />
+         
             <ProductArea data={ data } />
         </main>
         <Footer />
     </Wrapper>
 );};
 
-export default Company;
+export default  withAuth(Company);

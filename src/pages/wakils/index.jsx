@@ -17,12 +17,15 @@ const Home = () =>  {
     const [agents, setAgents] = useState([])
     
     
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         useEffect(() => {
             const fetchauth = async () => {
                 try {
+                    
                   const token = localStorage.getItem('token'); 
                   const result = await axios.get(
-                    "http://127.0.0.1:8000/api/logged-in-user",
+                      `${apiBaseUrl}/logged-in-user`
+                   ,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`, // Pass token in Authorization header
@@ -42,8 +45,7 @@ const Home = () =>  {
             const fetchAgents = async () => {
                 try {
                     const token = localStorage.getItem('token'); // Ensure token is defined here as well
-                    const result = await axios.get(
-                        "http://127.0.0.1:8000/api/agents/A",
+                    const result = await axios.get(`${apiBaseUrl}/agents/A`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`, // Pass token in Authorization header

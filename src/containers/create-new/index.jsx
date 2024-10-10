@@ -1,395 +1,321 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import Link from 'next/link';
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import Button from "@ui/button";
+import NiceSelect from "@ui/nice-select";
 import ProductModal from "@components/modals/product-modal";
 import ErrorText from "@ui/error-text";
+import axios from "axios";
+import Image from "next/image";
+import Anchor from "@ui/anchor";
 import { toast } from "react-toastify";
 
-const CreateNewArea = ({ className, space }) => {
-    const [showProductModal, setShowProductModal] = useState(false);
-    const [selectedImage, setSelectedImage] = useState();
-    const [hasImageError, setHasImageError] = useState(false);
-    const [previewData, setPreviewData] = useState({});
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset,
-    } = useForm({
-        mode: "onChange",
+const CreateNewArea = ({ className, space,data }) => {
+    const [transferOrderField, setTransferOrderField] = useState({
+        transfer_money_firm_id : data? data.id: "",
+        user_id: "",
+        sender: "",
+        value: 0,
+        currency:"",
+        decnot_no:"",
+        password:"",
+        account_salary_name:"",
+        account_salary_id:"",
+        process_no:"",
     });
-
-    const notify = () => toast("Your product has submitted");
-    const handleProductModal = () => {
-        setShowProductModal(false);
+    useEffect(() => {
+        const token= localStorage.getItem('token');
+        const getUserData = async () => {
+            axios
+                .get("http://127.0.0.1:8000/api/logged-in-user", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    setTransferOrderField((prevFields) => ({
+                        ...prevFields,
+                        user_id: response.data.id,  // Update the field based on the name and value
+                    }));
+                  console.log('after logger user',transferOrderField);
+                    
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data", error);
+                   
+                });
+        };
+        getUserData();
+    }, []);
+    const handle = (e) => {
+        // Check if e.target exists, otherwise handle it differently
+        if (e && e.target) {
+            const { name, value } = e.target;
+            setTransferOrderField((prevFields) => ({
+                ...prevFields,
+                [name]: value,  // Update the field based on the name and value
+            }));
+        } else {
+            // If NiceSelect doesn't pass `e.target`, you might directly update with the selected value
+            const { name, value } = e; // Or however the selected value is structured
+            setTransferOrderField((prevFields) => ({
+                ...prevFields,
+                [name]: value,
+            }));
+        }
+        console.log(transferOrderField);
     };
-
-    // This function will be triggered when the file field change
-    const imageChange = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setSelectedImage(e.target.files[0]);
+    const onSubmit = async (e) => {
+        const token= localStorage.getItem('token');
+        e.preventDefault();
+        try {
+            const response = await axios.post(
+                `http://localhost:8000/api/charge`, 
+                transferOrderField, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(response);
+            toast("تم تسجيل طلبك");
+        } catch (error) {   
+            
+            if (error.response) {
+                // The request was made, and the server responded with a status code
+                console.log('Error Data:', error.response.data);
+                console.log('Error Status:', error.response.status);
+                console.log('Error Headers:', error.response.headers);
+           }
         }
     };
-
-    const onSubmit = (data, e) => {
-        const { target } = e;
-        const submitBtn =
-            target.localName === "span" ? target.parentElement : target;
-        const isPreviewBtn = submitBtn.dataset?.btn;
-        setHasImageError(!selectedImage);
-        if (isPreviewBtn && selectedImage) {
-            setPreviewData({ ...data, image: selectedImage });
-            setShowProductModal(true);
-        }
-        if (!isPreviewBtn) {
-            notify();
-            reset();
-            setSelectedImage();
-        }
-    };
+    
     return (
-        <>
+    
             <div
                 className={clsx(
-                    "create-area",
-                    space === 1 && "rn-section-gapTop",
+                    "create-area ",
+                    space === 1 && "rn-section-gapTop mysection",
                     className
                 )}
             >
-                <form action="#" onSubmit={handleSubmit(onSubmit)}>
+                
+                    <form action="#" name="myform" >
+                        <div className="container">
+                
+                            <div className="row g-5">
+                            <div className="mt--100 mt_sm--30 mt_md--30  d-lg-block">
+                            
+                                    <div className="col-md-6">
+                                            {[19,20].includes(data.id)?(
+                                                <div className="input-box pb--20">
+
+                                                <p>
+                                                            يرجى تأكيد الراتب الى الحساب :
+                                                    </p>
+
+                                                        <input id="iban" name="iban" disabled value={data.iban}  />
+                                                                                            
+                                                </div> ):(
+                                                <div className="input-box pb--20">
+
+                                                    <p> 
+                                                    يرجى إرسال المبلغ إلى هذا الحساب:  </p>
+                                                            
+                                                        <input  disabled value={data.iban} name="iban" id="iban"/>
+                                                                                            
+                                                </div> 
+                                            
+                                            )}
+                                            
+                                            <Button type="" size="medium"  className="mr--15">
+                                            شراء                   </Button>
+                                            <p className="noteBank">
+
+                                                {data.note}
+                                                </p>
+                                    </div>
+                            
+                                    
+                            </div>
+                        
+                                
+                            
+                            
+                            </div>
+                        </div>
+                    </form>
+              
                     <div className="container">
-                        <div className="row g-5">
-                            <div className="col-lg-3 offset-1 ml_md--0 ml_sm--0">
-                                <div className="upload-area">
-                                    <div className="upload-formate mb--30">
-                                        <h6 className="title">Upload file</h6>
+               
+                        <div className="row g-5 ">
+                        <div className="col-lg-3 offset-1 ml_md--0 ml_sm--0 ">
+                                <div className="upload-area mymargin-top" >
+                                    <div className="upload-formate mb--30 ">
+                                        <h6 className="title">هام جداً</h6>
                                         <p className="formate">
-                                            Drag or choose your file to upload
+                                            يرجى ارسال اشعار التحويل.... قبل تعبئة الاستمارة
                                         </p>
                                     </div>
 
                                     <div className="brows-file-wrapper">
-                                        <input
-                                            name="file"
-                                            id="file"
-                                            type="file"
-                                            className="inputfile"
-                                            data-multiple-caption="{count} files selected"
-                                            multiple
-                                            onChange={imageChange}
-                                        />
-                                        {selectedImage && (
-                                            <img
-                                                id="createfileImage"
-                                                src={URL.createObjectURL(
-                                                    selectedImage
-                                                )}
-                                                alt=""
-                                                data-black-overlay="6"
-                                            />
+                                      <a href="https://api.whatsapp.com/send?phone=+90 553 406 00 15">
+                                           <i className="feather-upload myicon" />
+                                            <p className="text-center mt--10">
+                                            ارسال الاشعار عبر  الواتس اب
+                                            </p>
+                                      </a>
+                                                            
+
+                                    </div>
+                                  
+                                </div>
+                        </div>
+                        <div className="col-lg-7">
+                            <div className="form-wrapper-one">
+                                <div className="row">
+                                   <form name="form_change">
+                                        {/* Field for Sender Name */}
+                                        <div className="col-md-12">
+                                            {[1, 15, 16, 14].includes(data.id) ? (
+                                                <div className="input-box pb--20">
+                                                    <input
+                                                        id="sender"
+                                                        placeholder="اسم المرسل"
+                                                        name="sender"
+                                                        defaultValue=""
+                                                        onChange={e => handle(e)}
+                                                    />
+                                            
+                                                </div>
+                                            ) : null}
+                                        </div>
+
+                                        {/* Field for Process Number */}
+                                        <div className="col-md-12">
+                                            {[15, 16].includes(data.id) ? (
+                                                <div className="input-box pb--20">
+                                                    <input
+                                                        id="process_no"
+                                                        placeholder="رقم العملية"
+                                                        name="process_no"
+                                                        defaultValue=""
+                                                        onChange={e => handle(e)}
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </div>
+
+                                        {/* Field for Notification Number */}
+                                        <div className="col-md-12">
+                                            {[4, 5, 6, 7, 8].includes(data.id) ? (
+                                                <div className="input-box pb--20">
+                                                    <input
+                                                        id="dekont_no"
+                                                        placeholder="لتسهيل عملية التحويل يرجى ادخال رمز الاشعار"
+                                                        name="dekont_no"
+                                                        defaultValue=""
+                                                        onChange={e => handle(e)}
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </div>
+
+                                        {/* Field for Password */}
+                                        <div className="col-md-12">
+                                            {[4, 5, 6, 7, 8].includes(data.id) ? (
+                                                <div className="input-box pb--20">
+                                                    <input
+                                                        id="password"
+                                                        placeholder=" لتسهيل عملية السحب يرجى ادخال الرقم السري"
+                                                        name="password"
+                                                        onChange={e => handle(e)}
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </div>
+
+                                        {/* Fields for Account ID and Name */}
+                                        {[19, 20].includes(data.id) && (
+                                            <>
+                                                <div className="col-md-12">
+                                                    <div className="input-box pb--20">
+                                                        <input
+                                                            id="account_salary_id"
+                                                            placeholder="ايدي المستخدم"
+                                                            name="account_salary_id"
+                                                            defaultValue=""
+                                                            onChange={e => handle(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="input-box pb--20">
+                                                        <input
+                                                            id="account_salary_name"
+                                                            placeholder="اسم المستخدم"
+                                                            name="account_salary_name"
+                                                            defaultValue=""
+                                                            onChange={e => handle(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </>
                                         )}
 
-                                        <label
-                                            htmlFor="file"
-                                            title="No File Choosen"
-                                        >
-                                            <i className="feather-upload" />
-                                            <span className="text-center">
-                                                Choose a File
-                                            </span>
-                                            <p className="text-center mt--10">
-                                                PNG, GIF, WEBP, MP4 or MP3.{" "}
-                                                <br /> Max 1Gb.
-                                            </p>
-                                        </label>
-                                    </div>
-                                    {hasImageError && !selectedImage && (
-                                        <ErrorText>Image is required</ErrorText>
-                                    )}
-                                </div>
-
-                                <div className="mt--100 mt_sm--30 mt_md--30 d-none d-lg-block">
-                                    <h5> Note: </h5>
-                                    <span>
-                                        {" "}
-                                        Service fee : <strong>2.5%</strong>{" "}
-                                    </span>{" "}
-                                    <br />
-                                    <span>
-                                        {" "}
-                                        You will receive :{" "}
-                                        <strong>25.00 ETH $50,000</strong>
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="col-lg-7">
-                                <div className="form-wrapper-one">
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="name"
-                                                    className="form-label"
-                                                >
-                                                    Product Name
-                                                </label>
-                                                <input
-                                                    id="name"
-                                                    placeholder="e. g. `Digital Awesome Game`"
-                                                    {...register("name", {
-                                                        required:
-                                                            "Name is required",
-                                                    })}
-                                                />
-                                                {errors.name && (
-                                                    <ErrorText>
-                                                        {errors.name?.message}
-                                                    </ErrorText>
-                                                )}
+                                        {/* Field for Value */}
+                                        {[1, 2, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20].includes(data.id) ? (
+                                            <div className="col-md-12">
+                                                <div className="input-box pb--20">
+                                                    <input
+                                                        id="value"
+                                                        placeholder="القيمة"
+                                                        name="value"
+                                                        defaultValue="0"
+                                                        onChange={e => handle(e)}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <>
+                                                <div className="col-md-12">
+                                                    <div className="input-box pb--20">
+                                                        <input
+                                                            id="value"
+                                                            placeholder="القيمة"
+                                                            name="value"
+                                                            defaultValue="0"
+                                                            onChange={e => handle(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                             
+                                            </>
+                                        )}
 
-                                        <div className="col-md-12">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Discription"
-                                                    className="form-label"
-                                                >
-                                                    Discription
-                                                </label>
-                                                <textarea
-                                                    id="discription"
-                                                    rows="3"
-                                                    placeholder="e. g. “After purchasing the product you can get item...”"
-                                                    {...register(
-                                                        "discription",
-                                                        {
-                                                            required:
-                                                                "Discription is required",
-                                                        }
-                                                    )}
-                                                />
-                                                {errors.discription && (
-                                                    <ErrorText>
-                                                        {
-                                                            errors.discription
-                                                                ?.message
-                                                        }
-                                                    </ErrorText>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="price"
-                                                    className="form-label"
-                                                >
-                                                    Item Price in $
-                                                </label>
-                                                <input
-                                                    id="price"
-                                                    placeholder="e. g. `20$`"
-                                                    {...register("price", {
-                                                        pattern: {
-                                                            value: /^[0-9]+$/,
-                                                            message:
-                                                                "Please enter a number",
-                                                        },
-                                                        required:
-                                                            "Price is required",
-                                                    })}
-                                                />
-                                                {errors.price && (
-                                                    <ErrorText>
-                                                        {errors.price?.message}
-                                                    </ErrorText>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Size"
-                                                    className="form-label"
-                                                >
-                                                    Size
-                                                </label>
-                                                <input
-                                                    id="size"
-                                                    placeholder="e. g. `Size`"
-                                                    {...register("size", {
-                                                        required:
-                                                            "Size is required",
-                                                    })}
-                                                />
-                                                {errors.size && (
-                                                    <ErrorText>
-                                                        {errors.size?.message}
-                                                    </ErrorText>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Propertie"
-                                                    className="form-label"
-                                                >
-                                                    Properties
-                                                </label>
-                                                <input
-                                                    id="propertiy"
-                                                    placeholder="e. g. `Propertie`"
-                                                    {...register("propertiy", {
-                                                        required:
-                                                            "Propertiy is required",
-                                                    })}
-                                                />
-                                                {errors.propertiy && (
-                                                    <ErrorText>
-                                                        {
-                                                            errors.propertiy
-                                                                ?.message
-                                                        }
-                                                    </ErrorText>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-12">
-                                            <div className="input-box pb--20">
-                                                <label
-                                                    htmlFor="Royality"
-                                                    className="form-label"
-                                                >
-                                                    Royality
-                                                </label>
-                                                <input
-                                                    id="royality"
-                                                    placeholder="e. g. `20%`"
-                                                    {...register("royality", {
-                                                        required:
-                                                            "Royality is required",
-                                                    })}
-                                                />
-                                                {errors.royality && (
-                                                    <ErrorText>
-                                                        {
-                                                            errors.royality
-                                                                ?.message
-                                                        }
-                                                    </ErrorText>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="putonsale"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="putonsale"
-                                                >
-                                                    Put on Sale
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="instantsaleprice"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="instantsaleprice"
-                                                >
-                                                    Instant Sale Price
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-4 col-sm-4">
-                                            <div className="input-box pb--20 rn-check-box">
-                                                <input
-                                                    className="rn-check-box-input"
-                                                    type="checkbox"
-                                                    id="unlockpurchased"
-                                                />
-                                                <label
-                                                    className="rn-check-box-label"
-                                                    htmlFor="unlockpurchased"
-                                                >
-                                                    Unlock Purchased
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-md-12 col-xl-4">
-                                            <div className="input-box">
-                                                <Button
-                                                    color="primary-alta"
-                                                    fullwidth
-                                                    type="submit"
-                                                    data-btn="preview"
-                                                    onClick={handleSubmit(
-                                                        onSubmit
-                                                    )}
-                                                >
-                                                    Preview
-                                                </Button>
-                                            </div>
-                                        </div>
-
+                                        {/* Submit Button */}
                                         <div className="col-md-12 col-xl-8 mt_lg--15 mt_md--15 mt_sm--15">
                                             <div className="input-box">
-                                                <Button type="submit" fullwidth>
-                                                    Submit Item
-                                                </Button>
+                                                <Button type="submit" id="submit" fullwidth onClick={(e) => onSubmit(e)}>طلب</Button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div className="mt--100 mt_sm--30 mt_md--30 d-block d-lg-none">
-                                <h5> Note: </h5>
-                                <span>
-                                    {" "}
-                                    Service fee : <strong>2.5%</strong>{" "}
-                                </span>{" "}
-                                <br />
-                                <span>
-                                    {" "}
-                                    You will receive :{" "}
-                                    <strong>25.00 ETH $50,000</strong>
-                                </span>
-                            </div>
+                        </div>
+
+                          
+                        
                         </div>
                     </div>
-                </form>
+              
             </div>
-            {showProductModal && (
-                <ProductModal
-                    show={showProductModal}
-                    handleModal={handleProductModal}
-                    data={previewData}
-                />
-            )}
-        </>
+       
+       
     );
 };
 

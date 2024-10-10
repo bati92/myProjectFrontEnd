@@ -60,9 +60,7 @@ const Service = ({
                         // {image?.src && (
                         <Anchor path={servicePath}>
                             <Image
-                                src={
-                                    "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
-                                }
+                                src={image}
                                 // src={image.src}
 
                                 alt={image?.alt || "NFT_portfolio"}

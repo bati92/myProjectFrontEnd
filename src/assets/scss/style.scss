@@ -134,10 +134,13 @@ body{
     direction: rtl;
 }
 .myinput70{
-    width:70%
+    width:70%;
+    display: inline-block;
 }
 .myinput25{
-    width:25%
+    width:25%;
+    
+    display: inline-block;
 }
 .myinput50{
     width:50%
@@ -160,6 +163,27 @@ border-radius: 35px !important;
 .companyCard.product-style-one::before {
 
     transform: rotate(0deg) translateX(0px) translateY(0px);
+}
+.noteBank{
+    white-space: pre-line;
+    padding: 10px 0px ;;
+}
+.mysection.rn-section-gapTop{
+    margin-top: 10px !important;
+}
+.breadcrumb-list{
+    display: none;
+}
+.myicon{
+    
+    display: block;
+    margin: 15px;
+    text-align: center;
+    font-size: 50px;
+
+}
+.mymargin-top{
+    margin-top: 60px;
 }
 
 

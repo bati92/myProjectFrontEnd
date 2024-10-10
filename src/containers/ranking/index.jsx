@@ -6,7 +6,6 @@ import Anchor from "@ui/anchor";
 import Pagination from "@components/pagination-02";
 import { IDType, ImageType } from "@utils/types";
 
-const POSTS_PER_PAGE = 31;
 
 const RankingArea = ({ className, space, data }) => {
    /* const [ranking, setRanking] = useState([]);
@@ -39,52 +38,35 @@ const RankingArea = ({ className, space, data }) => {
                     <div className="col-12">
                         <div className="table-title-area d-flex">
                             <i className="feather-briefcase" />
-                            <h3>The top NFTs on Nuron</h3>
+                            <h3>دفعاتي</h3>
                         </div>
                         <div className="box-table table-responsive">
                             <table className="table upcoming-projects">
                                 <thead>
                                     <tr>
+                                      
                                         <th>
-                                            <span></span>
+                                            <span>القيمة </span>
                                         </th>
                                         <th>
-                                            <span>اسم المستخدم</span>
-                                        </th>
-                                        <th>
-                                            <span>الرصيد</span>
+                                            <span>التاريخ</span>
                                         </th>
                                   
                                         <th>
-                                            <span>اضافة</span>
+                                            <span>الحالة</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="ranking">
-                                {data.map((agent) => (
-                                    <tr key={agent.id}>  
-                                       <td>
-                                       <div className="product-wrapper d-flex align-items-center">
-                                                    
-                                                        <Anchor
-                                                            path={
-                                                                "#"
-                                                            }
-                                                            className="thumbnail"      >
-                                                            <Image
-                                                                src={
-                                                                    "/images/portfolio/portfolio-07.jpg"
-                                                                }
-                                                                alt="Nft_Profile"
-                                                                width={56}
-                                                                height={56}
-                                                            />
-                                                        </Anchor>
-                                                 
-                                                    </div>
-                                        </td>      
-                                    <td><span>  {agent.first_name} {agent.last_name} </span>
+                                {data.map((order) => (
+                                    <tr key={order.id}>  
+                                         
+                                    <td><span>  {order.value}  </span>
                                      </td>  
+                                     <td><span>  {order.created_at}  </span>
+                                     </td>
+                                     <td><span>  {order.status}  </span>
+                                     </td>
                                     </tr>
                                        ))}
                                 </tbody>
