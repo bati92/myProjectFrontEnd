@@ -10,9 +10,7 @@ const ProductTitle = ({ className, title, likeCount }) => (
                 <i className="feather-heart" />
                 <span>{likeCount}</span>
             </div>
-            <div className="count">
-                <ShareDropdown />
-            </div>
+       
         </div>
     </div>
 );

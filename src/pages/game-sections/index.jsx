@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
 const Home = ({ myItems, className }) => {
     return (
         <PageLayoutSections
-            pageTitle="الألعاب"
+            pageTitle="الألعاب" 
             items={myItems?.gameSections?.data}
             resourceType="game"
         />

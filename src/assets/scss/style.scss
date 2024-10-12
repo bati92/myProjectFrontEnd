@@ -190,3 +190,20 @@ margin:10px}
     text-align: center;
 }
 
+.mydiv{
+    width:50%;
+    margin: auto;
+    margin-top: 100px;
+    @media #{$sm-layout} {
+        width:100%;
+        margin-top: 10px;
+    }
+    
+        @media #{$md-layout} {
+            width: 80%;
+            margin-top: 10px;
+        }
+    }
+
+   
+

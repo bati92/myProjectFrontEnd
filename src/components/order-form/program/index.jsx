@@ -20,7 +20,8 @@ const OrdeForm = ({ className ,program}) => {
     
 
           e.preventDefault();
-  const response=await axios.post(`http://localhost:8000/api/program/order/${program.id}`,programField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/program/order/${program.id}`,programField,csrf);
      console.log(response.data);
        }
        catch(error){

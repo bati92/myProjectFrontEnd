@@ -13,6 +13,7 @@ const SignUp = () => (
     <Wrapper>
         <SEO pageTitle="انشاء حساب جديد" />
         <main id="main-content">
+            <Breadcrumb pageTitle="انشاء حساب جديد" currentPage="Sign Up" />
             <SignUpArea />
         </main>
     </Wrapper>

@@ -23,8 +23,8 @@ const OrderForm = () => {
     
 
           e.preventDefault();
-          console.log(turkificationOrderField);
-  const response=await axios.post(`http://localhost:8000/api/turkification/order`,turkificationOrderField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/turkification/order`,turkificationOrderField,csrf);
    
        
      console.log(response.data);

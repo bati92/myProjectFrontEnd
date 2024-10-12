@@ -21,14 +21,14 @@ const LoginForm = ({ className }) => {
             [name]: value,
         }));
     };
-    // const csrf = () => axios.get("http://localhost:8000/sanctum/csrf-cookie");
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             // await csrf();
-            console.log(userField);
+            
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             const response = await axios.post(
-                "http://localhost:8000/api/login",
+               `${apiBaseUrl}/login`,
                 userField
             );
             console.log(response.data);

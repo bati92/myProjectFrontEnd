@@ -25,11 +25,8 @@ const ProductDetailsArea = ({ myItems }) => (
                             title={myItems?.card?.name}
                             likeCount={myItems?.card?.likeCount}
                         />
-                        <span className="bid">
-                            Height bid{" "}
-                            <span className="price">
-                                {myItems?.card?.price}
-                            </span>
+                        <span className="bid"> 
+                           
                         </span>
                         <h6 className="title-name">{myItems?.card?.note}</h6>
 

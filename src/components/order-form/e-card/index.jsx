@@ -32,7 +32,8 @@ const OrdeForm = ({ ecard }) => {
     
 
           e.preventDefault();
-  const response=await axios.post(`http://localhost:8000/api/ecard/order/${ecard.id}`,ecardField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/ecard/order/${ecard.id}`,ecardField,csrf);
    //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
        
      console.log(response.data);

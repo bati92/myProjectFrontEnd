@@ -30,13 +30,15 @@ const SignupForm = ({ agent_info,className,myRole, myAgent }) => {
         }));
     };
     const router = useRouter();
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
     const csrf = () => axios.get("/sanctum/csrf-cookie");
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(agent_info);
             const response = await axios.post(
-                `http://localhost:8000/api/register/${agent_info.agent_info}`,
+                `${apiBaseUrl}/register/${agent_info.agent_info}`,
                 userField,
                 csrf
             );

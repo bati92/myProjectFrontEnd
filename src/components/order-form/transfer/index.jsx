@@ -32,8 +32,8 @@ const OrderForm = () => {
     
 
           e.preventDefault();
-          console.log(transferOrderField);
-  const response=await axios.post(`http://localhost:8000/api/transfer/order`,transferOrderField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/transfer/order`,transferOrderField,csrf);
    
        
      console.log(response.data);

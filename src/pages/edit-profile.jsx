@@ -21,10 +21,12 @@ export async function getStaticProps() {
 const EditProfile = ({ token }) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({});
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     useEffect(() => {
         const getUserData = async () => {
             axios
-                .get("http://127.0.0.1:8000/api/logged-in-user", {
+                .get(`${apiBaseUrl}/logged-in-user`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

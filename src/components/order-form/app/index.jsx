@@ -35,7 +35,9 @@ const OrdeForm = ({ className ,app }) => {
     
 
           e.preventDefault();
-  const response=await axios.post(`http://localhost:8000/api/app/order/${app.id}`,appField,csrf);
+          
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const response=await axios.post(`${apiBaseUrl}/app/order/${app.id}`,appField,csrf);
    //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
        
      console.log(response.data);

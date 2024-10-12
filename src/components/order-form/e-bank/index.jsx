@@ -34,7 +34,8 @@ const OrdeForm = ({ ebank }) => {
 
           e.preventDefault();
           console.log(ebankField);
-  const response=await axios.post(`http://localhost:8000/api/ebank/order/${ebank.id}`,ebankField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/ebank/order/${ebank.id}`,ebankField,csrf);
    //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
        
      console.log(response.data);

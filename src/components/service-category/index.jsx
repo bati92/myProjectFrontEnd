@@ -27,36 +27,30 @@ const ServiceCategory = ({
     disableShareDropdown,
 }) => {
     return (
-        <>
-            <div
-                className={clsx("product-style-one", !overlay && "no-overlay")}
-            >
-                <div className="card-thumbnail">
-                    {/* {image && ( */}
-                    <Anchor path={`/${slug}-sections/${id}`}>
-                        <Image
-                            src={
-                                // image ||
-                                "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
-                            }
-                            alt={title}
-                            width={533}
-                            height={533}
-                        />
-                    </Anchor>
-                    {/* )} */}
-                </div>
-                <div className="product-share-wrapper"></div>
+        <div className={clsx("product-style-one", !overlay && "no-overlay")}>
+            <div className="card-thumbnail">
                 <Anchor path={`/${slug}-sections/${id}`}>
-                    <span className="product-name">{title}</span>
+                    <Image
+                        src={image ? image : `/images/services/${slug}.jpg`}
+                        alt={title}
+                        width={533}
+                        height={533}
+                    />
                 </Anchor>
-                
-
-                <ProductBid price={1} likeCount={likeCount} />
             </div>
-        </>
+            <div className="product-share-wrapper">
+                {!disableShareDropdown && (
+                    <ShareDropdown /> // Assuming a ShareDropdown component
+                )}
+            </div>
+            <Anchor path={`/${slug}-sections/${id}`}>
+                <span className="product-name">{title}</span>
+            </Anchor>
+            <ProductBid price={1} likeCount={likeCount} />
+        </div>
     );
 };
+
 
 ServiceCategory.propTypes = {
     overlay: PropTypes.bool,

@@ -49,19 +49,16 @@ const Service = ({
                 )}
             >
                 <div className="card-thumbnail">
-                    {/* {image && ( */}
+                    { image && ( 
                     <Anchor path={servicePath}>
                         <Image
-                            src={
-                                // image ||
-                                "https://static.semrush.com/blog/uploads/media/39/4f/394f92fd06792246f5833d1ab3c05c4d/reverse-image-search.svg"
-                            }
+                            src={ image }
                             alt={title}
                             width={533}
                             height={533}
                         />
                     </Anchor>
-                    {/* )} */}
+                     )} 
                 </div>
                 <div className="product-share-wrapper"></div>
                 <Anchor path={servicePath}>
@@ -70,7 +67,7 @@ const Service = ({
                 {parentSlug !== "transfer-money-firm" ? (
                     <>
                         <span className="latest-bid">
-                            السعر: {price?.amount}
+                            السعر: {price?.amount}TLd
                         </span>
                         <br></br>
                         {/* <span className="latest-bid">ملاحظة : {note}</span> */}

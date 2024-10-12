@@ -14,23 +14,7 @@ import axios from "axios";
 const Header = () => {
     
 const [isAuthenticated, setIsAuthenticated] = useState(false);
-  /*
-useEffect(() => {
-  const checkAuth = async () => {
-    try {
-    
-      const res = await axios.get(
-        "http://localhost:8000/api/auth-check"
-    );
-     // const data = await res.json();
-     console.log(res.data);
-      setIsAuthenticated(res.data.authenticated);
-    } catch (error) {
-      console.error('Error checking authentication', error);
-    }
-  };
-  checkAuth();
-}, []);*/
+
         const [loading, setLoading] = useState(true);
         const [auth, setAuth] = useState({
           name: "",
@@ -47,6 +31,7 @@ useEffect(() => {
       });  
         const [logo, setLogoSrc] = useState('');
         
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         
         useEffect(() => {
             const storedToken = localStorage.getItem("token");
@@ -62,9 +47,9 @@ useEffect(() => {
             const fetchLogo = async () => {
               try {
                   const result = await axios.get(
-                     "http://127.0.0.1:8000/api/about-us"
+                     `${apiBaseUrl}/about-us`
                   );
-                  setLogoSrc( `http://localhost:8000/assets/images/setting/${result.data.setting.logo}`);
+                  setLogoSrc( `${apiBaseUrl}/assets/images/setting/${result.data.setting.logo}`);
             
               
               } catch (error) {

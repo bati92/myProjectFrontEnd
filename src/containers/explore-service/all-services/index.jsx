@@ -23,6 +23,7 @@ const ExploreServiceArea = ({
     ];
     const [products, setProducts] = useState([]);
     useEffect(() => {
+       console.log(data);
         setProducts(data?.products);
     }, [data?.products]);
 
@@ -84,7 +85,7 @@ const ExploreServiceArea = ({
                                         currency: "TL",
                                     }}
                                     likeCount={prod.id}
-                                    image={prod.image}
+                                    image={prod.image_url}
                                     hasSection={hasSection}
                                     iban={prod?.iban}
                                     accountName={prod?.accountName}

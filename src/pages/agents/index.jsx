@@ -21,9 +21,12 @@ const Home = () =>  {
     
             const fetchAgents = async () => {
                 try {
+                    
+                    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
                     const token = localStorage.getItem('token'); // Ensure token is defined here as well
                     const result = await axios.get(
-                        "http://127.0.0.1:8000/api/agents/B",
+                        `${apiBaseUrl}/agents/B`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`, // Pass token in Authorization header

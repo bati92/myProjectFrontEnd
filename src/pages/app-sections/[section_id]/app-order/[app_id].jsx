@@ -33,24 +33,20 @@ const ProductDetailsArea = ({ myItems }) => (
                     </Sticky>
                 </div> */
                 }
-                <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
-                    <div className="rn-pd-content-area">
+                <div className="col-lg-12 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div className="rn-pd-content-area product-style-one mydiv">
                         <ProductTitle
                             title={myItems?.app?.name}
                             likeCount={myItems?.app?.likeCount}
                         />
                         <span className="bid">
-                            Height bid{" "}
+                          
                             <span className="price">
-                                {myItems?.app?.price}
-                                {/* {myApp.price.currency} */}
                             </span>
                         </span>
                         <h6 className="title-name">{myItems?.app?.note}</h6>
 
-                        <Button color="primary-alta" path="#">
-                            Unlockable content included
-                        </Button>
+                      
                         <OrderForm app={myItems?.app} />
                         {
                         /* <div className="rn-bid-details">

@@ -33,7 +33,8 @@ const OrdeForm = ({ data }) => {
     
 
           e.preventDefault();
-  const response=await axios.post(`http://localhost:8000/api/data-comumunication/order/${data.id}`,dataField,csrf);
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response=await axios.post(`${apiBaseUrl}/order/${data.id}`,dataField,csrf);
    //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
        
      console.log(response.data);

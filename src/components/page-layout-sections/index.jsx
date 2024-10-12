@@ -5,6 +5,11 @@ import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import ExploreServiceArea from "@containers/explore-service/service-categories";
+import { useEffect } from "react";
+
+
+
+
 const PageLayoutSections = ({
     pageTitle,
     items,
@@ -12,6 +17,12 @@ const PageLayoutSections = ({
     resourceType,
     // linkPart,
 }) => {
+    useEffect(() => {
+        
+        console.log("mmm",items);
+            
+        });
+    
     const content = normalizedData(homepageData?.content || []);
 
     return (

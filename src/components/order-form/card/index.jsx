@@ -31,7 +31,9 @@ const OrdeForm = ({ card }) => {
     const csrf = () => axios.get('/sanctum/csrf-cookie');
     const onSubmit = async ( e) => {
           e.preventDefault();
-          const response=await axios.post(`http://localhost:8000/api/card/order/${card.id}`,cardField,csrf);
+          
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const response=await axios.post(`${apiBaseUrl}/card/order/${card.id}`,cardField,csrf);
           console.log(response.data);
        
       };

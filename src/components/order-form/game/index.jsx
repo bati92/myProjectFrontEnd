@@ -31,7 +31,8 @@ const OrdeForm = ({ game }) => {
               console.log(gameField);
     
               e.preventDefault();
-      const response=await axios.post(`http://localhost:8000/api/game/order/${game.id}`,gameField,csrf);
+              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+            const response=await axios.post(`${apiBaseUrl}/game/order/${game.id}`,gameField,csrf);
            
          console.log(response.data);
            }
@@ -69,7 +70,8 @@ const OrdeForm = ({ game }) => {
                 </div>
 
              
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}  className="mr--15">
+                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}
+                  className="mr--15">
                       شراء                   </Button>
                 <Button path="/" color="primary-alta" size="medium">
                     الغاء الأمر 

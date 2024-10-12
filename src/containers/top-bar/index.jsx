@@ -38,11 +38,13 @@ const TopBarArea = () => {
             setLoading(false);
         }
         const fetchauth = async () => {
-            try {
+            try { 
+                
+              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
               const token = localStorage.getItem('token'); 
               console.log('then token',token);
               const result = await axios.get(
-                "http://127.0.0.1:8000/api/logged-in-user",
+                `${apiBaseUrl} /logged-in-user`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass token in Authorization header

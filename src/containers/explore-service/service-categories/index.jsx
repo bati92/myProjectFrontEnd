@@ -81,7 +81,7 @@ const ExploreServiceCategoryArea = ({
                                     slug={data.parentSlug}
                                     // total={prod.total}
                                     likeCount={prod.id}
-                                    image={prod.image}
+                                    image={prod.image_url}
                                     authors={prod.authors}
                                 />
                             </motion.div>
