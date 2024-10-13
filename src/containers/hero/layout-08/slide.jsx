@@ -3,17 +3,21 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 import PlaceBidModal from "@components/modals/placebid-modal";
 
-const SingleSlide = ({ image, title }) => {
+const SingleSlide = ({ title, image }) => {
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const [showBidModal, setShowBidModal] = useState(false);
     const handleBidModal = () => {
         setShowBidModal((prev) => !prev);
+       console.log('image',image);
     };
     return (
         <>
+        
             <Image
                 className="slider-bg"
-                src={`http://localhost:8000/images/sliders/${image}`}
-                alt={title}
+                src={image}
+                alt={image}
                 quality={100}
                 priority
                 fill

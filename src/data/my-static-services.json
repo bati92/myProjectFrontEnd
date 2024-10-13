@@ -90,7 +90,7 @@
     {
         "id": 3,
         "image": "/images/services/data.jpg",
-        "title": "البيانات والاتصالات",
+        "title": "البيانات والاتصالات ",
         "slug": "data-communication",
         "hasSections": false,
         "directToOrder": false,
@@ -179,10 +179,10 @@
     },
     {
         "id": 5,
-        "title": " البطاقات الرقمية",
+        "title": " بطاقات سرفر التكنولوجيا الدولي ",
         
-        "image": "/images/services/ecard.jpg",
-        "slug": "ecard",
+        "image": "/images/services/card.jpg",
+        "slug": "card",
         "hasSections": true,
         "directToOrder": false,
 

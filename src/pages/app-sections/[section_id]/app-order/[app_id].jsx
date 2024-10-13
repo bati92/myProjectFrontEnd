@@ -12,7 +12,8 @@ import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 import OrderForm from "@components/order-form/app";
 import withAuth from "@components/auth/withAuth";
-
+import { useState ,useEffect} from "react";
+import axios from "axios";
 export async function getServerSideProps(context) {
     const data = await getData(`app/${context.query.app_id}`);
     return {
@@ -22,17 +23,45 @@ export async function getServerSideProps(context) {
     };
 }
 
-const ProductDetailsArea = ({ myItems }) => (
+const ProductDetailsArea = ({ myItems }) => {
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    useEffect(() => {
+        
+    
+        const fetchauth = async () => {
+            try { 
+                
+              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+              const token = localStorage.getItem('token'); 
+              console.log('then token',token);
+              const result = await axios.get(
+                `${apiBaseUrl}/logged-in-user`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Pass token in Authorization header
+                    },
+                }
+            );
+           
+           setUser( result.data);
+
+                
+            } catch (error) {
+                console.log("Error fetching auth:", error);
+            }
+         };
+          fetchauth();
+    }, []);
+    
+    
+    return (
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
-                {
-                /* <div className="col-lg-7 col-md-12 col-sm-12">
-                    <Sticky>
-                        <GalleryTab images={myApp?.image} />
-                    </Sticky>
-                </div> */
-                }
+              
                 <div className="col-lg-12 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
                     <div className="rn-pd-content-area product-style-one mydiv">
                         <ProductTitle
@@ -47,7 +76,7 @@ const ProductDetailsArea = ({ myItems }) => (
                         <h6 className="title-name">{myItems?.app?.note}</h6>
 
                       
-                        <OrderForm app={myItems?.app} />
+                        <OrderForm app={myItems?.app} user={user} />
                         {
                         /* <div className="rn-bid-details">
                             <BidTab
@@ -69,6 +98,7 @@ const ProductDetailsArea = ({ myItems }) => (
         </div>
     </div>
 );
+};
 
 ProductDetailsArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),

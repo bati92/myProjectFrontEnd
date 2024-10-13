@@ -30,20 +30,17 @@ const ProductDetailsArea = ({ myItems }) => (
                         <GalleryTab images={myecard?.image} />
                     </Sticky>
                 </div> */}
-                <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
-                    <div className="rn-pd-content-area">
+                <div className="col-lg-12 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div className="rn-pd-content-area product-style-one mydiv">
                         <ProductTitle
                             title={myItems?.ecard?.name}
                             likeCount={myItems?.ecard?.likeCount}
                         />
                         <span className="bid">
-                            Height bid{" "}
                             <span className="price">
-                                {myItems?.ecard?.price}
-                                {/* {myecard.price.currency} */}
                             </span>
                         </span>
-                        <h6 className="title-name">{myItems?.ecard?.note}</h6>
+                        <h6 className="title-name"></h6>
 
                         {myItems?.ecard && <OrderForm ecard={myItems.ecard} />}
                    

@@ -3,7 +3,7 @@ import PageLayoutServices from "@components/page-layout-services";
 import myStaticServices from "../../data/my-static-services.json";
 
 export async function getServerSideProps(context) {
-    const data = await getData(`data-communication`);
+    const data = await getData(`data-communications`);
     return {
         props: {
             ...data,

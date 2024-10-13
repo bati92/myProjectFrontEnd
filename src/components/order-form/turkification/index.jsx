@@ -4,25 +4,24 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+import { ToastContainer ,toast} from "react-toastify";
 const primaryPrice=100;
-const OrderForm = () => {
+const OrderForm = ({user}) => {
+    const initialState = {
+        ime: "",
+        price: primaryPrice,
+        user_id:  user?user.id:"" ,
+    };
     const [turkificationOrderField, setTurkificationOrderField] = useState({
         ime: "",
-      
         price: primaryPrice,
-        user_id: 1,
+        user_id:  user?user.id:"" ,s
        
     });
-
-
-
-   
     const csrf = () => axios.get('/sanctum/csrf-cookie');
     const onSubmit = async ( e) => {
     try{
-    
-
-          e.preventDefault();
+      e.preventDefault();
           const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         const response=await axios.post(`${apiBaseUrl}/turkification/order`,turkificationOrderField,csrf);
    
@@ -83,6 +82,7 @@ const OrderForm = () => {
             <p>
             ? هذا المنتج يعمل بشكل يدوي ويستغرق بعض الوقت ليصل للزبون      </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

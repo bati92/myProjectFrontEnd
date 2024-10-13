@@ -34,6 +34,7 @@ const Home = () => {
                     `${apiBaseUrl}/slider`
                 );
                 setSlider(result.data.slider.data);
+       
             } catch (error) {
                 console.log("Error fetching slider:", error);
             }
@@ -46,7 +47,7 @@ const Home = () => {
                     `${apiBaseUrl}/totalRecords`
                 );
                 const fetchedTotalRecords = result.data;
-
+                console.log(fetchedTotalRecords);
                 const updatedServices = services.map((service) => {
                     return {
                         ...service,
@@ -55,6 +56,7 @@ const Home = () => {
                     };
                 });
                 setServices(updatedServices);
+               // console.log("jj",services);
             } catch (error) {
                 console.log("Error fetching totals:", error);
             }
@@ -75,7 +77,7 @@ const Home = () => {
             >
                 <div className="list-item-1">
                     <TopBarArea  />
-                    <HeroArea data={slider} />
+                  {slider &&  <HeroArea data={slider} />} 
                 </div>
                 <ExploreServiceArea
                     id="list-item-3"

@@ -17,6 +17,7 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
     ];
     const [products, setProducts] = useState([]);
     useEffect(() => {
+      //  console.log('data',data);
         setProducts(data?.products);
     }, [data?.products]);
 

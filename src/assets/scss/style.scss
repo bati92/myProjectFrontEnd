@@ -130,6 +130,7 @@
 @import "elements/newsletter";
 @import "elements/forum";
 @import "elements/white-version";
+
 body{
     direction: rtl;
 }
@@ -204,6 +205,12 @@ margin:10px}
             margin-top: 10px;
         }
     }
-
-   
+.rn-banner-area{
+    padding:30px
+}
+.myspan{
+    background: var(--color-primary);
+    color: white;
+    padding: 5px;
+}
 

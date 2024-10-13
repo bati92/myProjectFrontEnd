@@ -4,14 +4,20 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+import { ToastContainer,toast } from "react-toastify";
 
-const OrdeForm = ({ data }) => {
-
+const OrdeForm = ({ dataCommunication,user }) => {
+    const initialState = {
+        count:"",
+        price:   dataCommunication ? dataCommunication.price : "",
+        user_id:  user?user.id:"" ,
+        data_id: dataCommunication ? dataCommunication.id : "",
+    };
     const [dataField,setDataField]=useState({  mobile:"",
         count:"",
-        price:   data ? data.price : "",
-        user_id: data ? data.id : "",
-        data_id: data ? data.id : "",
+        price:   dataCommunication ? dataCommunication.price : "",
+        user_id:  user?user.id:"" ,
+        data_id: dataCommunication ? dataCommunication.id : "",
         
       });
 
@@ -19,7 +25,8 @@ const OrdeForm = ({ data }) => {
 
       useEffect(() => {
         // منطق تحديث السعر بناءً على count
-        const updatedPrice = dataField.count * data.price; // على سبيل المثال، كل وحدة تساوي 10
+        const updatedPrice = dataField.count * dataCommunication.price; // على سبيل المثال، كل وحدة تساوي 10
+        console.log(updatedPrice);
         setDataField((prevFields) => ({
           ...prevFields,
           price: updatedPrice
@@ -34,10 +41,10 @@ const OrdeForm = ({ data }) => {
 
           e.preventDefault();
           const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-        const response=await axios.post(`${apiBaseUrl}/order/${data.id}`,dataField,csrf);
-   //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
+        const response=await axios.post(`${apiBaseUrl}/data-comumunication/order/${dataCommunication.id}`,dataField,csrf);
        
-     console.log(response.data);
+    toast('تم  تسجيل طلبك');
+    setDataField(initialState);
        }
        catch(error){
         if (error.response) {
@@ -54,7 +61,7 @@ const OrdeForm = ({ data }) => {
             <form >
                 <div className="tagcloud"> 
                 <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                     50TL
+                 { dataCommunication.price}
                      </Link></h3>
                    
                 </div>
@@ -70,7 +77,7 @@ const OrdeForm = ({ data }) => {
                         placeholder="  العدد"
                        value={dataField.count}
 
-                        onChange={e=> setCardField({ ...dataField, count: e.target.value })}
+                        onChange={e=> setDataField({ ...dataField, count: e.target.value })}
                      
                     />
                        <input
@@ -98,7 +105,7 @@ const OrdeForm = ({ data }) => {
                         required=""
                         placeholder="رقم الهاتف"
                         value={dataField.mobile}
-                        onSelect={e=> setCardField({ ...dataField, mobile: e.target.value })}
+                        onChange={e=> setDataField({ ...dataField, mobile: e.target.value })}
                      
                     />
                 </div>
@@ -117,9 +124,11 @@ const OrdeForm = ({ data }) => {
             </br>
             <div>
 
-            <p>ملاحظة ملاحظة ....
-            </p>
+            <p>
+{                dataCommunication.note
+}            </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

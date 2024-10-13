@@ -81,7 +81,7 @@ const CreateNewArea = ({ className, space,data }) => {
                     },
                 }
             );
-            console.log(response);
+            
             toast("تم تسجيل طلبك");
         } catch (error) {   
             

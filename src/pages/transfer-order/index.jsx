@@ -4,23 +4,51 @@ import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
-
+import { useState,useEffect } from "react";
 import OrderForm from "@components/order-form/transfer";
+import axios from "axios";
+const ProductDetailsArea = ({  }) =>{ 
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    useEffect(() => {
+        
+    const token = localStorage.getItem('token');
+        const getUserData = async () => {
 
-const ProductDetailsArea = ({  }) => (
+            axios.get(`${apiBaseUrl}/logged-in-user`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    setUser(response.data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data", error);
+                    setLoading(false);
+                });
+        };
+        getUserData();
+    }, []);
+    
+    return (
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
-                <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
-                    <div className="rn-pd-content-area">
+                <div className="col-lg-12  col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div className="rn-pd-content-area product-style-one mydiv">
                        
-                <  OrderForm  />     
+                <  OrderForm user_id={user.id} />     
                     </div>
                 </div>
             </div>
         </div>
     </div>
 );
+};
 
 ProductDetailsArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),

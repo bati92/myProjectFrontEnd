@@ -73,13 +73,13 @@ return (
             {isAuthenticated ? (<SideMenu menu={helpMenuData} />  ) : null}
           
             </div>
-          {headerData?.author && (
+          {isAuthenticated ?  (
               <AuthorProfile
-                  name={headerData.author.name}
-                  image={headerData.author.image}
-                  balance={headerData.author.balance}
+                  name={auth.name}
+                  image={auth.image}
+                  balance={auth.balance}
               />
-          )}
+          ):null}
       </div>
    </div>
 );

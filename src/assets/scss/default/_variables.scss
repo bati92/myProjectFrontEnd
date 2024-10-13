@@ -1,4 +1,6 @@
 :root {
+    
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap');
     // themes color
     --color-primary: #00a3ff;
     --color-primary-alta: #212e48;
@@ -73,8 +75,8 @@
     --transition: 0.4s;
 
     // Font Family
-    --font-primary: "Aljazeera", system-ui;
-    --font-secondary: "Aljazeera", system-ui;
+    --font-primary:"El Messiri", sans-serif;
+    --font-secondary:"El Messiri", sans-serif;
 
     //Fonts Size
     --font-size-b1: 18px;

@@ -4,13 +4,20 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
-
-const OrdeForm = ({ card }) => {
-    
+import{ ToastContainer, toast } from 'react-toastify';
+import { useStyleRegistry } from "styled-jsx";
+const OrdeForm = ({ card,user }) => {
+    const initialState = {
+        player_no: "",
+        count: "",
+        price: app ? app.price : "",
+        user_id: user?user.id:"" ,
+        app_id: app ? app.id : "",
+    };
     const [cardField,setCardField]=useState({  
         count:0,
         price:   card ? card.price : "",
-        user_id: card ? card.id : "",
+        user_id:  user?user.id:"" ,
         card_id: card ? card.id : "",
         
       });
@@ -34,7 +41,7 @@ const OrdeForm = ({ card }) => {
           
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const response=await axios.post(`${apiBaseUrl}/card/order/${card.id}`,cardField,csrf);
-          console.log(response.data);
+        toast('تم تسجيل طلبك');
        
       };
     return (
@@ -91,6 +98,7 @@ const OrdeForm = ({ card }) => {
                 {card.note}
             </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

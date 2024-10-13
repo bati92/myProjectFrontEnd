@@ -60,10 +60,7 @@ const ExploreServiceCategoryArea = ({
                         )}
                     </div>
                     <div className="col-lg-8">
-                        <FilterButtons
-                            buttons={filters}
-                            filterHandler={filterHandler}
-                        />
+                     
                     </div>
                 </div>
                 <div className="col-lg-12">

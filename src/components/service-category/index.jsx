@@ -39,9 +39,7 @@ const ServiceCategory = ({
                 </Anchor>
             </div>
             <div className="product-share-wrapper">
-                {!disableShareDropdown && (
-                    <ShareDropdown /> // Assuming a ShareDropdown component
-                )}
+             
             </div>
             <Anchor path={`/${slug}-sections/${id}`}>
                 <span className="product-name">{title}</span>

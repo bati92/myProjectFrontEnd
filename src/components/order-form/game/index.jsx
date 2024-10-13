@@ -4,11 +4,19 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+import { ToastContainer } from "react-toastify";
 
-const OrdeForm = ({ game }) => {
+const OrdeForm = ({ game,user }) => {
+    const initialState = {
+        user_id:  user?user.id:"" ,
+        user_id_game:"",
+        game_id: game ? game.id : "",
+        price:game ? game.price : "",
+        count:"0",
+    };
     console.log({game}); 
     const [gameField,setGameField]=useState({
-        user_id: game ? game.id : "",
+        user_id: user?user.id:"" ,
         user_id_game:"",
         game_id: game ? game.id : "",
         price:game ? game.price : "",
@@ -28,13 +36,12 @@ const OrdeForm = ({ game }) => {
          
             
     
-              console.log(gameField);
     
               e.preventDefault();
               const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             const response=await axios.post(`${apiBaseUrl}/game/order/${game.id}`,gameField,csrf);
-           
-         console.log(response.data);
+           setGameField(initialState);
+           toast('تم تسجيل طلبك');
            }
            catch(error){
             if (error.response) {
@@ -86,6 +93,7 @@ const OrdeForm = ({ game }) => {
             <p>{game.note}
             </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

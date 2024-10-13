@@ -19,10 +19,10 @@ const Footer = ({ className }) => (
                         <Logo logo={footerData.logo} />
                         <p
                             className="description mt--30"
-                            dangerouslySetInnerHTML={{
-                                __html: footerData.copyright_text,
-                            }}
-                        />
+                           
+                        >
+                            جميع الحقوق محفوظة لسرفر التكنولجيا الدولي
+                            </p>
                     </div>
                 </div>
             </div>

@@ -4,13 +4,20 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+
+import { ToastContainer,toast,user } from "react-toastify";
 const primaryprice=110;
 const OrdeForm = ({ ebank }) => {
+    const initialState = {
+        count:"",
+        price:   ebank ? ebank.price : "",
+        user_id: user?user.id:"" ,
+        ebank_id: ebank ? ebank.id : "",
+    };
     const [ebankField,setEbankField]=useState({  mobile:"",
         count:"",
-        
         price:   ebank ? ebank.price : "",
-        user_id: ebank ? ebank.id : "",
+        user_id:  user?user.id:"" ,
         ebank_id: ebank ? ebank.id : "",
         
       });
@@ -38,7 +45,8 @@ const OrdeForm = ({ ebank }) => {
         const response=await axios.post(`${apiBaseUrl}/ebank/order/${ebank.id}`,ebankField,csrf);
    //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
        
-     console.log(response.data);
+  toast('تم تسجيل طلبك');
+  setEbankField(initialState);
        }
        catch(error){
         if (error.response) {
@@ -120,6 +128,7 @@ const OrdeForm = ({ ebank }) => {
             <p>
 {ebank.note}            </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

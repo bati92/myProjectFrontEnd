@@ -4,13 +4,20 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+import { ToastContainer } from "react-toastify";
 const primaryPrice=100;
-const OrderForm = () => {
+const OrderForm = ({user}) => {
+    const initialState = {
+        mobile: "",
+        count: "",
+        price: primaryPrice,
+        user_id: user?user.id:"" ,
+    };
     const [transferOrderField, setTransferOrderField] = useState({
         mobile: "",
         count: "",
         price: primaryPrice,
-        user_id: 1,
+        user_id:  user?user.id:"" ,
        
     });
 
@@ -34,9 +41,9 @@ const OrderForm = () => {
           e.preventDefault();
           const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         const response=await axios.post(`${apiBaseUrl}/transfer/order`,transferOrderField,csrf);
-   
-       
-     console.log(response.data);
+      console.log(transferOrderField);
+        setTransferOrderField(initialState);
+        toast('تم تسجيل طلبك');
        }
        catch(error){
         if (error.response) {
@@ -118,6 +125,7 @@ const OrderForm = () => {
             <p>
             ? هذا المنتج يعمل بشكل يدوي ويستغرق بعض الوقت ليصل للزبون      </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

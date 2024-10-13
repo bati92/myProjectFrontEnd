@@ -8,19 +8,7 @@ import { IDType, ImageType } from "@utils/types";
 
 
 const RankingArea = ({ className, space, data }) => {
-   /* const [ranking, setRanking] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-   // const numberOfPages = Math.ceil(data.ranking.length / POSTS_PER_PAGE);
-    const paginationHandler = (page) => {
-        setCurrentPage(page);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    const rankingHandler = useCallback(() => {
-        const start = (currentPage - 1) * POSTS_PER_PAGE;
-        setRanking(data.ranking.slice(start, start + POSTS_PER_PAGE));
-    }, [currentPage, data.ranking]);
-*/
+ 
     useEffect(() => {
         console.log(data);
     });
@@ -38,7 +26,7 @@ const RankingArea = ({ className, space, data }) => {
                     <div className="col-12">
                         <div className="table-title-area d-flex">
                             <i className="feather-briefcase" />
-                            <h3>دفعاتي</h3>
+                            <h3>طلباتي</h3>
                         </div>
                         <div className="box-table table-responsive">
                             <table className="table upcoming-projects">
@@ -46,12 +34,17 @@ const RankingArea = ({ className, space, data }) => {
                                     <tr>
                                       
                                         <th>
-                                            <span>القيمة </span>
+                                            <span>الخدمة </span>
                                         </th>
                                         <th>
                                             <span>التاريخ</span>
                                         </th>
-                                  
+                                        <th>
+                                            <span>السعر</span>
+                                        </th>
+                                        <th>
+                                            <span>العدد</span>
+                                        </th>
                                         <th>
                                             <span>الحالة</span>
                                         </th>
@@ -61,9 +54,13 @@ const RankingArea = ({ className, space, data }) => {
                                 {data.map((order) => (
                                     <tr key={order.id}>  
                                          
-                                    <td><span>  {order.value}  </span>
+                                    <td><span>  {order.name}  </span>
                                      </td>  
                                      <td><span>  {order.created_at}  </span>
+                                     </td>
+                                     <td><span>  {order.price}  </span>
+                                     </td>
+                                     <td><span>  {order.count}  </span>
                                      </td>
                                      <td><span className="myspan">  {order.status}  </span>
                                      </td>
@@ -80,34 +77,6 @@ const RankingArea = ({ className, space, data }) => {
     );
 };
 
-/*RankingArea.propTypes = {
-    className: PropTypes.string,
-    space: PropTypes.oneOf([1]),
-    data: PropTypes.shape({
-        ranking: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: IDType,
-                product: PropTypes.shape({
-                    title: PropTypes.string,
-                    slug: PropTypes.string,
-                    image: ImageType,
-                }),
-                volume: PropTypes.string,
-                "24h%": PropTypes.shape({
-                    charge: PropTypes.string,
-                    status: PropTypes.oneOf(["-", "+"]),
-                }),
-                "7d%": PropTypes.shape({
-                    charge: PropTypes.string,
-                    status: PropTypes.oneOf(["-", "+"]),
-                }),
-                floor_price: PropTypes.string,
-                owners: PropTypes.string,
-                items: PropTypes.string,
-            })
-        ),
-    }),
-};*/
 RankingArea.defaultProps = {
     space: 1,
 };

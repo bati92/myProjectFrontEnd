@@ -4,14 +4,20 @@ import ErrorText from "@ui/error-text";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
+import { ToastContainer,toast } from "react-toastify";
 const primaryprice=110;
-const OrdeForm = ({ className ,program}) => {
-  
+const OrdeForm = ({ className ,program,user}) => {
+    const initialState = {
+        price:   program ? program.price : "",
+        user_id:  user?user.id:"" ,
+        program_id: program ? program.id : "",
+        count:"0",
+    };
     const [programField,setProgramField]=useState({  
         price:   program ? program.price : "",
-        user_id: program ? program.id : "",
+        user_id:  user?user.id:"" ,
         program_id: program ? program.id : "",
-        count:"55",
+        count:"0",
         
       });
     const csrf = () => axios.get('/sanctum/csrf-cookie');
@@ -22,7 +28,8 @@ const OrdeForm = ({ className ,program}) => {
           e.preventDefault();
           const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         const response=await axios.post(`${apiBaseUrl}/program/order/${program.id}`,programField,csrf);
-     console.log(response.data);
+        setProgramField(initialState);
+        toast('تم تسجيل طلبك');
        }
        catch(error){
         if (error.response) {
@@ -58,6 +65,7 @@ const OrdeForm = ({ className ,program}) => {
                 {program.note}
             </p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

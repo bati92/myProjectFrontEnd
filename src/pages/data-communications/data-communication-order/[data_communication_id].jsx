@@ -4,11 +4,12 @@ import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
-
+import { useEffect } from "react";
 import OrderForm from "@components/order-form/data-comunication";
 export async function getServerSideProps(context) {
+   
     const data = await getData(
-        `data-communication/${context.data_communication_id}`
+        `data-communication/${context.query.data_communication_id}`
     );
     return {
         props: {
@@ -17,34 +18,48 @@ export async function getServerSideProps(context) {
     };
 }
 
-const ProductDetailsArea = ({ myItems }) => (
+
+const ProductDetailsArea = ({ myItems }) => {
+    
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            console.log("pppppp",myItems); // You can update your state here if needed
+        } catch (error) {
+            console.error("Error fetching slider:", error); // Use `console.error` for errors
+        }
+    };
+
+    fetchData(); // Call the async function
+
+}, []); // 
+return(
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
-                <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
-                    <div className="rn-pd-content-area">
+                <div className="col-lg-12 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div className="rn-pd-content-area  product-style-one mydiv">
                         <ProductTitle
                             title={myItems?.dataCommunication?.name}
                             likeCount={myItems?.dataCommunication?.likeCount}
                         />
                         <span className="bid">
-                            Height bid{" "}
+                      
                             <span className="price">
-                                {myItems?.dataCommunication?.price}
                             </span>
                         </span>
                         <h6 className="title-name">
-                            {myItems?.dataCommunication?.note}
                         </h6>
 
                        
-                        {myItems?.dataCommunication && <OrderForm data={myItems.dataCommunication} />}
+                        {myItems?.dataCommunication && <OrderForm dataCommunication={myItems.dataCommunication} />}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 );
+};
 
 ProductDetailsArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),

@@ -23,7 +23,7 @@ const ExploreServiceArea = ({
     ];
     const [products, setProducts] = useState([]);
     useEffect(() => {
-       console.log(data);
+       console.log("mmii",data);
         setProducts(data?.products);
     }, [data?.products]);
 

@@ -5,22 +5,31 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Link } from "react-scroll";
+ 
+import{ ToastContainer, toast } from 'react-toastify';
 
-const OrdeForm = ({ className ,app }) => {
+const OrdeForm = ({ className ,app,user }) => {
     const router = useRouter();
-
+    const initialState = {
+        count:"",
+        price:   app ? app.price : "",
+        user_id: user?user.id :"",
+        app_id: app ? app.id : "",
+    };
     const [appField,setAppField]=useState({  player_no:"",
         count:"",
         price:   app ? app.price : "",
-        user_id: app ? app.id : "",
+        user_id:  user?user.id :"",
         app_id: app ? app.id : "",
         
-      });
+      }); 
 
 
 
       useEffect(() => {
-        // منطق تحديث السعر بناءً على count
+      console.log(user.id);
+      console.log(appField.user_id);
+
         const updatedPrice = appField.count * app.price; // على سبيل المثال، كل وحدة تساوي 10
         setAppField((prevFields) => ({
           ...prevFields,
@@ -37,10 +46,14 @@ const OrdeForm = ({ className ,app }) => {
           e.preventDefault();
           
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const response=await axios.post(`${apiBaseUrl}/app/order/${app.id}`,appField,csrf);
-   //   const response=await axios.post(`http://localhost:8000/api/myuser`,csrf);
-       
-     console.log(response.data);
+console.log(appField);
+    const response=await axios.post(`${apiBaseUrl}/app/order/${app.id}`,appField,csrf);
+   
+    toast("تم تسجيل طلبك");
+  
+   
+    setAppField(initialState);
+
        }
        catch(error){
         if (error.response) {
@@ -121,6 +134,7 @@ const OrdeForm = ({ className ,app }) => {
             <p>{app.note}
             </p>
             </div>
+            <ToastContainer />
         </div>
     );
 };

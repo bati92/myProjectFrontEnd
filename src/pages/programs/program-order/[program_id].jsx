@@ -20,19 +20,19 @@ const ProductDetailsArea = ({ myItems }) => (
     <div className={clsx("product-details-area")}>
         <div className="container">
             <div className="row g-5">
-                <div className="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
-                    <div className="rn-pd-content-area">
+                <div className="col-lg-12 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div className="rn-pd-content- product-style-one mydiv">
                         <ProductTitle
                             title={myItems?.program?.name}
                             likeCount={myItems?.program?.likeCount}
                         />
                         <span className="bid">
-                            Height bid{" "}
+                         
                             <span className="price">
-                                {myItems?.program?.price}
+                           
                             </span>
                         </span>
-                        <h6 className="title-name">{myItems?.program?.note}</h6>
+                        <h6 className="title-name"></h6>
 
                      
                         {myItems?.program && <OrderForm program={myItems.program} />}

@@ -44,7 +44,7 @@ const TopBarArea = () => {
               const token = localStorage.getItem('token'); 
               console.log('then token',token);
               const result = await axios.get(
-                `${apiBaseUrl} /logged-in-user`,
+                `${apiBaseUrl}/logged-in-user`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass token in Authorization header

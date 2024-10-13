@@ -3,7 +3,7 @@ import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import TopBarArea from "@containers/top-bar";
-import ActivityArea from "@containers/ranking";
+import ActivityArea from "@containers/ranking_1";
 import React,{useState,useEffect} from "react";
 import axios from "axios";
 
@@ -45,7 +45,7 @@ const Home = () =>  {
             const fetchAgents = async () => {
                 try {
                     const token = localStorage.getItem('token');
-                    const result = await axios.get(`${apiBaseUrl}/myPayments/${auth.id}`, {
+                    const result = await axios.get(`${apiBaseUrl}/myRequests/${auth.id}`, {
                         headers: {
                             Authorization: `Bearer ${token}`, // Pass token in Authorization header
                         },
@@ -65,7 +65,7 @@ const Home = () =>  {
     
 return (
     <Wrapper>
-        <SEO pageTitle="myPayments" />
+        <SEO pageTitle="myRequests" />
         <Header />
         <TopBarArea  />
         <main id="main-content">
