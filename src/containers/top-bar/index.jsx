@@ -42,7 +42,7 @@ const TopBarArea = () => {
                 
               const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
               const token = localStorage.getItem('token'); 
-              console.log('then token',token);
+            
               const result = await axios.get(
                 `${apiBaseUrl}/logged-in-user`,
                 {

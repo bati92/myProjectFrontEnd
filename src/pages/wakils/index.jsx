@@ -6,6 +6,7 @@ import TopBarArea from "@containers/top-bar";
 import ActivityArea from "@containers/activity";
 import React,{useState,useEffect} from "react";
 import axios from "axios";
+import withAuth from "@components/auth/withAuth";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -81,4 +82,4 @@ return (
 )
 };
 
-export default Home;
+export default withAuth(Home);

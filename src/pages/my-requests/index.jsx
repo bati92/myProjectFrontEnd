@@ -5,6 +5,7 @@ import Footer from "@layout/footer/footer-02";
 import TopBarArea from "@containers/top-bar";
 import ActivityArea from "@containers/ranking_1";
 import React,{useState,useEffect} from "react";
+import withAuth from "@components/auth/withAuth";
 import axios from "axios";
 
 export async function getStaticProps() {
@@ -76,4 +77,4 @@ return (
 )
 };
 
-export default Home;
+export default withAuth(Home);

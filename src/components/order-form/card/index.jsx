@@ -6,13 +6,14 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-scroll";
 import{ ToastContainer, toast } from 'react-toastify';
 import { useStyleRegistry } from "styled-jsx";
+
 const OrdeForm = ({ card,user }) => {
     const initialState = {
         player_no: "",
         count: "",
-        price: app ? app.price : "",
+        price: card ? card.price : "",
         user_id: user?user.id:"" ,
-        app_id: app ? app.id : "",
+        app_id: card ? card.id : "",
     };
     const [cardField,setCardField]=useState({  
         count:0,
@@ -43,6 +44,7 @@ const OrdeForm = ({ card,user }) => {
     const response=await axios.post(`${apiBaseUrl}/card/order/${card.id}`,cardField,csrf);
         toast('تم تسجيل طلبك');
        
+    setDataField(initialState);
       };
     return (
         <div className="form-wrapper-one registration-area">

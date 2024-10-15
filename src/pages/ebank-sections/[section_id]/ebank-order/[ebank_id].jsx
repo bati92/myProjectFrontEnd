@@ -10,6 +10,7 @@ import BidTab from "@components/product-details/bid-tab";
 import PlaceBet from "@components/product-details/place-bet";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
+import withAuth from "@components/auth/withAuth";
 import OrderForm from "@components/order-form/e-bank";
 
 
@@ -94,4 +95,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);

@@ -5,6 +5,7 @@ import Footer from "@layout/footer/footer-02";
 import Breadcrumb from "@components/breadcrumb";
 import CreateNewArea from "@containers/create-new";
 import { getData } from "@utils/getData";
+import withAuth from "@components/auth/withAuth";
 import TopBarArea from "@containers/top-bar";
 
 export async function getServerSideProps(context) {
@@ -31,4 +32,4 @@ const Home = (data) => (
     </Wrapper>
 );
 
-export default Home;
+export default withAuth( Home);

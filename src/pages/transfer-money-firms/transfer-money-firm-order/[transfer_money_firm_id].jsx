@@ -4,7 +4,7 @@ import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
-
+import withAuth from "@components/auth/withAuth";
 export async function getServerSideProps(context) {
     const data = await getData(
         `transfer-money-firm/${context.query.transfer_money_firm_id}`
@@ -72,4 +72,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);

@@ -8,7 +8,12 @@ import { Link } from "react-scroll";
  
 import{ ToastContainer, toast } from 'react-toastify';
 
-const OrdeForm = ({ className ,app,user }) => {
+const OrdeForm = ({ className ,app }) => {
+    
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
+    
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const router = useRouter();
     const initialState = {
         count:"",
@@ -24,11 +29,33 @@ const OrdeForm = ({ className ,app,user }) => {
         
       }); 
 
-
+    
 
       useEffect(() => {
-      console.log(user.id);
-      console.log(appField.user_id);
+   
+       { const token= localStorage.getItem('token');
+          const getUserData = async () => {
+              axios
+                  .get("http://127.0.0.1:8000/api/logged-in-user", {
+                      headers: {
+                          Authorization: `Bearer ${token}`,
+                      },
+                  })
+                  .then((response) => {
+                      setUser(response.data);
+                    console.log('after logger user',user);
+                    setAppField((prevFields) => ({
+                        ...prevFields,
+                        user_id: user.id,
+                      }));
+                  })
+                  .catch((error) => {
+                      console.error("Error fetching user data", error);
+                     
+                  });
+          };
+          getUserData();
+        }
 
         const updatedPrice = appField.count * app.price; // على سبيل المثال، كل وحدة تساوي 10
         setAppField((prevFields) => ({
@@ -46,14 +73,14 @@ const OrdeForm = ({ className ,app,user }) => {
           e.preventDefault();
           
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-console.log(appField);
+
     const response=await axios.post(`${apiBaseUrl}/app/order/${app.id}`,appField,csrf);
    
     toast("تم تسجيل طلبك");
   
    
     setAppField(initialState);
-
+ 
        }
        catch(error){
         if (error.response) {

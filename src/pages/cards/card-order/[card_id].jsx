@@ -4,7 +4,8 @@ import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+import withAuth from "@components/auth/withAuth";
 import OrderForm from "@components/order-form/card";
 
 export async function getServerSideProps(context) {
@@ -94,4 +95,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);

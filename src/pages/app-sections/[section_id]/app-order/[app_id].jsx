@@ -24,37 +24,7 @@ export async function getServerSideProps(context) {
 }
 
 const ProductDetailsArea = ({ myItems }) => {
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({});
-    
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    useEffect(() => {
-        
-    
-        const fetchauth = async () => {
-            try { 
-                
-              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-              const token = localStorage.getItem('token'); 
-              console.log('then token',token);
-              const result = await axios.get(
-                `${apiBaseUrl}/logged-in-user`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`, // Pass token in Authorization header
-                    },
-                }
-            );
-           
-           setUser( result.data);
-
-                
-            } catch (error) {
-                console.log("Error fetching auth:", error);
-            }
-         };
-          fetchauth();
-    }, []);
+  
     
     
     return (
@@ -76,7 +46,8 @@ const ProductDetailsArea = ({ myItems }) => {
                         <h6 className="title-name">{myItems?.app?.note}</h6>
 
                       
-                        <OrderForm app={myItems?.app} user={user} />
+                        <OrderForm app={myItems?.app} 
+                        />
                         {
                         /* <div className="rn-bid-details">
                             <BidTab

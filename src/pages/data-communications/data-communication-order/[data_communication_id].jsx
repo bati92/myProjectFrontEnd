@@ -6,6 +6,7 @@ import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 import { useEffect } from "react";
 import OrderForm from "@components/order-form/data-comunication";
+import withAuth from "@components/auth/withAuth";
 export async function getServerSideProps(context) {
    
     const data = await getData(
@@ -87,4 +88,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);

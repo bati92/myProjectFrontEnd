@@ -9,7 +9,7 @@ import TopBarArea from "@containers/top-bar";
 import HeroArea from "@containers/hero/layout-08";
 import ExploreServiceArea from "@containers/explore-service/service-categories";
 import { useEffect,useState } from "react";
-
+import axios from "axios";
 
 
 
@@ -22,8 +22,11 @@ const PageLayoutSections = ({
 }) => {
     const [slider, setSlider] = useState([]);
     useEffect(() => {
+
         const fetchSlider = async () => {
             try {
+                
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
                 const result = await axios.get(
                     `${apiBaseUrl}/slider`
                 );

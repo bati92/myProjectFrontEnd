@@ -4,7 +4,7 @@ import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
-
+import withAuth from "@components/auth/withAuth";
 import OrderForm from "@components/order-form/turkification";
 
 export async function getServerSideProps(context) {
@@ -58,4 +58,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);

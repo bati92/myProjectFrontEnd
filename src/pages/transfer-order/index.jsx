@@ -5,6 +5,7 @@ import ProductTitle from "@components/product-details/title";
 import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 import { useState,useEffect } from "react";
+import withAuth from "@components/auth/withAuth";
 import OrderForm from "@components/order-form/transfer";
 import axios from "axios";
 const ProductDetailsArea = ({  }) =>{ 
@@ -76,4 +77,4 @@ ProductDetailsArea.defaultProps = {
     space: 1,
 };
 
-export default ProductDetailsArea;
+export default withAuth(ProductDetailsArea);
