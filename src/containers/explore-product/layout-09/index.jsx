@@ -4,10 +4,8 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import SectionTitle from "@components/section-title/layout-03";
 import Service from "@components/single-service";
-// import Product from "@components/product/layout-01/index - Copy";
 import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
-import { SectionTitleType, ProductType } from "@utils/types";
 
 const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
     const filters = [
@@ -16,6 +14,7 @@ const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
         ),
     ];
     const [products, setProducts] = useState([]);
+
     useEffect(() => {
         setProducts(data?.products);
     }, [data?.products]);
@@ -72,7 +71,6 @@ const ExploreProductArea = ({ className, space, data, id, sectionTitle }) => {
                                     title={prod.name}
                                     slug={prod.id}
                                     price={prod.price}
-                                    // status={prod.status}
                                     likeCount={prod.id}
                                     image={prod.image}
                                 />
@@ -90,11 +88,17 @@ ExploreProductArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
-    // data: PropTypes.shape({
-    //     section_title: SectionTitleType,
-    //     products: PropTypes.arrayOf(ProductType),
-    //     placeBid: PropTypes.bool,
-    // }),
+    data: PropTypes.shape({
+        products: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                name: PropTypes.string.isRequired,
+                price: PropTypes.number,
+                categories: PropTypes.arrayOf(PropTypes.string),
+                image: PropTypes.string,
+            })
+        ),
+    }).isRequired,
 };
 
 ExploreProductArea.defaultProps = {

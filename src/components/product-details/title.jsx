@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import ShareDropdown from "../share-dropdown";
 
 const ProductTitle = ({ className, title, likeCount }) => (
     <div className={clsx("pd-title-area", className)}>
@@ -10,7 +9,6 @@ const ProductTitle = ({ className, title, likeCount }) => (
                 <i className="feather-heart" />
                 <span>{likeCount}</span>
             </div>
-       
         </div>
     </div>
 );

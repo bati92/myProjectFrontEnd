@@ -8,22 +8,22 @@
 
     @media #{$laptop-device} {
         padding-right: 300px !important;
-       // padding-right: 30px;
+        // padding-right: 30px;
     }
 
     @media #{$lg-layout} {
-        padding-right: 300px  !important;
-     //   padding-right: 30px;
+        padding-right: 300px !important;
+        //   padding-right: 30px;
     }
 
     @media #{$md-layout} {
-        padding-left: 30px !important;;
-        padding-right: 30px !important;;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
     }
 
     @media #{$sm-layout} {
-        padding-left: 15px  !important;;
-        padding-right: 15px !important;;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
     }
 }
 
@@ -181,7 +181,7 @@
     display: flex;
     justify-content: space-between;
     padding: 25px 0;
-    padding-right:300px;
+    padding-right: 300px;
     align-items: center;
     position: relative;
     @media #{$md-layout} {

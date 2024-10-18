@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import TopBarArea from "@containers/top-bar";
 import HeroArea from "@containers/hero/layout-08";
-import homepageData from "../data/homepages/home-08.json";
-import ExploreServiceArea from "@containers/explore-service/service-sections";
-import { normalizedData } from "@utils/methods";
-import myStaticServices from "../data/my-static-services.json";
+import ExploreServiceArea from "@containers/explore-service/service-sections"; // Move this import up
+import { normalizedData } from "@utils/methods"; // Move this import up
 import axios from "axios";
+import homepageData from "../data/homepages/home-08.json";
+import myStaticServices from "../data/my-static-services.json";
 
 export async function getStaticProps() {
     return {
@@ -25,47 +25,39 @@ const Home = () => {
     const [slider, setSlider] = useState([]);
 
     useEffect(() => {
-        
         const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-   
+
         const fetchSlider = async () => {
             try {
-                const result = await axios.get(
-                    `${apiBaseUrl}/slider`
-                );
+                const result = await axios.get(`${apiBaseUrl}/slider`);
                 setSlider(result.data.slider.data);
-       
             } catch (error) {
-                console.log("Error fetching slider:", error);
+                // Log the error only in development mode
+                if (process.env.NODE_ENV === "development") {
+                    console.error("Error fetching slider:", error);
+                }
             }
         };
         fetchSlider();
 
         const fetchTotals = async () => {
             try {
-                const result = await axios.get(
-                    `${apiBaseUrl}/totalRecords`
-                );
+                const result = await axios.get(`${apiBaseUrl}/totalRecords`);
                 const fetchedTotalRecords = result.data;
-                console.log(fetchedTotalRecords);
-                const updatedServices = services.map((service) => {
-                    return {
-                        ...service,
-                        total:
-                            fetchedTotalRecords[`${service.slug}Records`] || 0,
-                    };
-                });
+                const updatedServices = services.map((service) => ({
+                    ...service,
+                    total: fetchedTotalRecords[`${service.slug}Records`] || 0,
+                }));
                 setServices(updatedServices);
-               // console.log("jj",services);
             } catch (error) {
-                console.log("Error fetching totals:", error);
+                // Log the error only in development mode
+                if (process.env.NODE_ENV === "development") {
+                    console.error("Error fetching totals:", error);
+                }
             }
         };
         fetchTotals();
-   
-
-
-    }, []);
+    }, [services]);
 
     return (
         <Wrapper>
@@ -76,8 +68,8 @@ const Home = () => {
                 className="rn-nft-mid-wrapper nft-left-sidebar-nav pr--40 pr_sm--15"
             >
                 <div className="list-item-1">
-                    <TopBarArea  />
-                  {slider &&  <HeroArea data={slider} />} 
+                    <TopBarArea />
+                    {slider && <HeroArea data={slider} />}
                 </div>
                 <ExploreServiceArea
                     id="list-item-3"

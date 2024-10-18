@@ -4,11 +4,9 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import SectionTitle from "@components/section-title/layout-03";
 import ServiceCategory from "@components/service-category";
-import { flatDeep } from "@utils/methods";
-import FilterButtons from "@components/filter-buttons";
-import { SectionTitleType, ProductType } from "@utils/types";
+import { ProductType } from "@utils/types"; // Removed 'flatDeep' as it's unused
 
-//services sections in home page
+// Services sections in the home page
 const ExploreServiceCategoryArea = ({
     className,
     space,
@@ -16,27 +14,11 @@ const ExploreServiceCategoryArea = ({
     id,
     sectionTitle,
 }) => {
-    const filters = [
-        ...new Set(
-            flatDeep(data?.products?.map((item) => item.categories) || [])
-        ),
-    ];
     const [products, setProducts] = useState([]);
+
     useEffect(() => {
         setProducts(data?.products);
     }, [data?.products]);
-
-    const filterHandler = (filterKey) => {
-        const prods = data?.products ? [...data.products] : [];
-        if (filterKey === "all") {
-            setProducts(data?.products);
-            return;
-        }
-        const filterProds = prods.filter((prod) =>
-            prod.categories.includes(filterKey)
-        );
-        setProducts(filterProds);
-    };
 
     return (
         <div
@@ -59,9 +41,7 @@ const ExploreServiceCategoryArea = ({
                             />
                         )}
                     </div>
-                    <div className="col-lg-8">
-                     
-                    </div>
+                    <div className="col-lg-8" />
                 </div>
                 <div className="col-lg-12">
                     <motion.div layout className="isotope-list item-4">
@@ -72,11 +52,9 @@ const ExploreServiceCategoryArea = ({
                                 layout
                             >
                                 <ServiceCategory
-                                    // title={"grid-item"}
                                     id={prod.id}
                                     title={prod.name}
                                     slug={data.parentSlug}
-                                    // total={prod.total}
                                     likeCount={prod.id}
                                     image={prod.image_url}
                                     authors={prod.authors}
@@ -96,10 +74,8 @@ ExploreServiceCategoryArea.propTypes = {
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
     data: PropTypes.shape({
-        // section_title: SectionTitleType,
         parentSlug: PropTypes.string,
         products: PropTypes.arrayOf(ProductType),
-        // placeBid: PropTypes.bool,
     }),
 };
 

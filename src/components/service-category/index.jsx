@@ -1,20 +1,9 @@
-import { useState } from "react";
-import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
 import Anchor from "@ui/anchor";
 import ProductBid from "@components/product-bid";
 
-
-const CountdownTimer = dynamic(() => import("@ui/countdown/layout-01"), {
-    ssr: false,
-});
-
-const ShareDropdown = dynamic(() => import("@components/share-dropdown"), {
-    ssr: false,
-});
-//single service section / category  in services page example in /app page
 // قسم الترجمة في صفحة التطبيقات
 // التطبيقات/قسم الترجمة
 const ServiceCategory = ({
@@ -24,44 +13,33 @@ const ServiceCategory = ({
     slug,
     likeCount,
     image,
-    disableShareDropdown,
-}) => {
-    return (
-        <div className={clsx("product-style-one", !overlay && "no-overlay")}>
-            <div className="card-thumbnail">
-                <Anchor path={`/${slug}-sections/${id}`}>
-                    <Image
-                        src={image ? image : `/images/services/${slug}.jpg`}
-                        alt={title}
-                        width={533}
-                        height={533}
-                    />
-                </Anchor>
-            </div>
-            <div className="product-share-wrapper">
-             
-            </div>
+}) => (
+    <div className={clsx("product-style-one", !overlay && "no-overlay")}>
+        <div className="card-thumbnail">
             <Anchor path={`/${slug}-sections/${id}`}>
-                <span className="product-name">{title}</span>
+                <Image
+                    src={image || `/images/services/${slug}.jpg`}
+                    alt={title}
+                    width={533}
+                    height={533}
+                />
             </Anchor>
-            <ProductBid price={1} likeCount={likeCount} />
         </div>
-    );
-};
-
+        <div className="product-share-wrapper" />
+        <Anchor path={`/${slug}-sections/${id}`}>
+            <span className="product-name">{title}</span>
+        </Anchor>
+        <ProductBid price={1} likeCount={likeCount} />
+    </div>
+);
 
 ServiceCategory.propTypes = {
     overlay: PropTypes.bool,
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    slug: PropTypes.number.isRequired,
-    price: PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        currency: PropTypes.string.isRequired,
-    }).isRequired,
+    slug: PropTypes.string.isRequired, // Changed to string
     likeCount: PropTypes.number.isRequired,
     image: PropTypes.string,
-    disableShareDropdown: PropTypes.bool,
 };
 
 ServiceCategory.defaultProps = {

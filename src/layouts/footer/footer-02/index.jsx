@@ -17,12 +17,9 @@ const Footer = ({ className }) => (
                 <div className="col-lg-12">
                     <div className="inner text-center">
                         <Logo logo={footerData.logo} />
-                        <p
-                            className="description mt--30"
-                           
-                        >
+                        <p className="description mt--30">
                             جميع الحقوق محفوظة لسرفر التكنولجيا الدولي
-                            </p>
+                        </p>
                     </div>
                 </div>
             </div>

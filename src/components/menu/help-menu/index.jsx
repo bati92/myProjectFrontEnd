@@ -4,9 +4,8 @@ import LogoutButton from "@components/logout-button/index";
 
 const HelpMenu = ({ menu }) => (
     <div className="help-center-area mainmenu-nav mt--30">
-        <div id="jjj">  
-
-        <LogoutButton />
+        <div id="jjj">
+            <LogoutButton />
         </div>
         <ul className="mainmenu">
             {menu?.map((nav) => (

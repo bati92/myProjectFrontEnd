@@ -5,6 +5,7 @@
         "es2020": true,
         "node": true
     },
+
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
@@ -15,6 +16,7 @@
         "plugin:@next/next/recommended",
         "airbnb"
     ],
+
     "settings": {
         "react": {
             "version": "detect"
@@ -53,7 +55,6 @@
     "rules": {
         "object-curly-newline": "off",
         "import/prefer-default-export": "off",
-        "prettier/prettier": "error",
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "camelcase": ["off", { "properties": "never" }],
@@ -65,6 +66,8 @@
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": "off",
         "react/jsx-one-expression-per-line": "off",
+        "linebreak-style": ["off"],
+        "prettier/prettier": ["error", { "endOfLine": "auto" }],
         "no-unused-vars": [
             "warn",
             {

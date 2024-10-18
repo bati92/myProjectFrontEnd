@@ -1,8 +1,9 @@
 import { getData } from "@utils/getData";
 import PageLayoutServices from "@components/page-layout-services";
+import PropTypes from "prop-types"; // Changed to double quotes
 import myStaticServices from "../../data/my-static-services.json";
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(_context) {
     const data = await getData(`programs`);
     return {
         props: {
@@ -11,9 +12,9 @@ export async function getServerSideProps(context) {
     };
 }
 
-const Home = ({ myItems, className }) => {
-    const item = myStaticServices.find((item) => item.slug === "program");
-    const hasSections = item ? item.hasSections : null;
+const Home = ({ myItems }) => {
+    const foundItem = myStaticServices.find((item) => item.slug === "program");
+    const hasSections = foundItem ? foundItem.hasSections : null;
     return (
         <PageLayoutServices
             pageTitle="البرامج"
@@ -22,6 +23,20 @@ const Home = ({ myItems, className }) => {
             hasSection={hasSections}
         />
     );
+};
+
+Home.propTypes = {
+    myItems: PropTypes.shape({
+        programs: PropTypes.shape({
+            data: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    name: PropTypes.string.isRequired,
+                    // Add other fields based on your data structure
+                })
+            ).isRequired,
+        }).isRequired,
+    }).isRequired,
 };
 
 export default Home;

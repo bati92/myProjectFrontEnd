@@ -1,168 +1,145 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Button from "@ui/button";
-import ErrorText from "@ui/error-text";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { Link } from "react-scroll";
- 
-import{ ToastContainer, toast } from 'react-toastify';
+import PropTypes from "prop-types";
+import { ToastContainer, toast } from "react-toastify";
 
-const OrdeForm = ({ className ,app }) => {
-    
-    const [loading, setLoading] = useState(true);
+const OrderForm = ({ app }) => {
     const [user, setUser] = useState({});
-    
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const router = useRouter();
     const initialState = {
-        count:"",
-        price:   app ? app.price : "",
-        user_id: user?user.id :"",
+        count: "",
+        price: app ? app.price : "",
+        user_id: user ? user.id : "",
         app_id: app ? app.id : "",
     };
-    const [appField,setAppField]=useState({  player_no:"",
-        count:"",
-        price:   app ? app.price : "",
-        user_id:  user?user.id :"",
-        app_id: app ? app.id : "",
-        
-      }); 
+    const [appField, setAppField] = useState(initialState);
 
-    
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const getUserData = async () => {
+            try {
+                const response = await axios.get(
+                    "http://127.0.0.1:8000/api/logged-in-user",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setUser(response.data);
+                setAppField((prevFields) => ({
+                    ...prevFields,
+                    user_id: response.data.id,
+                }));
+            } catch (error) {
+                // eslint-disable-next-line no-console
+                console.error("Error fetching user data", error);
+            }
+        };
+        getUserData();
+    }, []);
 
-      useEffect(() => {
-   
-       { const token= localStorage.getItem('token');
-          const getUserData = async () => {
-              axios
-                  .get("http://127.0.0.1:8000/api/logged-in-user", {
-                      headers: {
-                          Authorization: `Bearer ${token}`,
-                      },
-                  })
-                  .then((response) => {
-                      setUser(response.data);
-                    console.log('after logger user',user);
-                    setAppField((prevFields) => ({
-                        ...prevFields,
-                        user_id: user.id,
-                      }));
-                  })
-                  .catch((error) => {
-                      console.error("Error fetching user data", error);
-                     
-                  });
-          };
-          getUserData();
-        }
-
-        const updatedPrice = appField.count * app.price; // على سبيل المثال، كل وحدة تساوي 10
+    useEffect(() => {
+        const updatedPrice = appField.count * app.price;
         setAppField((prevFields) => ({
-          ...prevFields,
-          price: updatedPrice
+            ...prevFields,
+            price: updatedPrice,
         }));
+    }, [appField.count, app.price]);
 
-    }, [appField.count]); 
-   
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
-    const onSubmit = async ( e) => {
-    try{
-    
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        try {
+            await axios.post(`${apiBaseUrl}/app/order/${app.id}`, appField);
+            toast("تم تسجيل طلبك");
+            setAppField(initialState);
+        } catch (error) {
+            if (error.response) {
+                // eslint-disable-next-line no-console
+                console.error("Error Data:", error.response.data);
+                // eslint-disable-next-line no-console
+                console.error("Error Status:", error.response.status);
+                // eslint-disable-next-line no-console
+                console.error("Error Headers:", error.response.headers);
+            }
+        }
+    };
 
-          e.preventDefault();
-          
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setAppField({ ...appField, [name]: value });
+    };
 
-    const response=await axios.post(`${apiBaseUrl}/app/order/${app.id}`,appField,csrf);
-   
-    toast("تم تسجيل طلبك");
-  
-   
-    setAppField(initialState);
- 
-       }
-       catch(error){
-        if (error.response) {
-            // The request was made, and the server responded with a status code
-            console.log('Error Data:', error.response.data);
-            console.log('Error Status:', error.response.status);
-            console.log('Error Headers:', error.response.headers);
-       }}
-      };
     return (
         <div className="form-wrapper-one registration-area">
-           
-            <form >
-                <div className="tagcloud"> 
-                <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                    {app.price}
-                     </Link></h3>
-                   
+            <form onSubmit={onSubmit}>
+                <div className="tagcloud">
+                    <h3 className="mb--30">
+                        اتمام عملية الشراء <span> السعر : {app.price}</span>
+                    </h3>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="count" className="form-label">
-                    </label>
+                    <label htmlFor="count" className="form-label">العدد</label>
                     <input
-                       className="withRadius  myinput25"
+                        className="withRadius myinput25"
                         type="number"
                         id="count"
                         name="count"
-                        required=""
-                        placeholder="  العدد"
+                        required
+                        placeholder="العدد"
                         value={appField.count}
-                        onChange={e=> setAppField({ ...appField, count: e.target.value })}
-                     
+                        onChange={handleInputChange}
                     />
-                       <input
-                       className="withRadius  myinput25 mybutton-margin"
+                    <input
+                        className="withRadius myinput25 mybutton-margin"
                         type="number"
                         id="price"
                         name="price"
-                        required=""
-                        placeholder="  الاجمالي"
+                        required
+                        placeholder="الاجمالي"
                         readOnly
-                         value={appField.price}
-                    
-                     
+                        value={appField.price}
                     />
                 </div>
 
-               <div className="mb-5">
-                    <label htmlFor="player_no" className="form-label">
-                    </label>
+                <div className="mb-5">
+                    <label htmlFor="player_no" className="form-label">معرف اللاعب</label>
                     <input
-                       className="withRadius"
+                        className="withRadius"
                         type="text"
                         id="player_no"
                         name="player_no"
-                        required=""
-                        value={appField.player_no}
-                        placeholder=" معرف اللاعب"
-                        onChange={e=> setAppField({ ...appField, player_no: e.target.value })}
-                     
+                        required
+                        value={appField.player_no || ""}
+                        placeholder="معرف اللاعب"
+                        onChange={handleInputChange}
                     />
                 </div>
 
-
-             
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}  className="mr--15">
-                      شراء                   </Button>
+                <Button type="submit" size="medium" className="mr--15">
+                    شراء
+                </Button>
                 <Button path="/" color="primary-alta" size="medium">
-                    الغاء الأمر 
+                    الغاء الأمر
                 </Button>
             </form>
-            <br>
-            </br>
-            <br>
-            </br>
+            <br />
+            <br />
             <div>
-
-            <p>{app.note}
-            </p>
+                <p>{app.note}</p>
             </div>
             <ToastContainer />
         </div>
     );
 };
-export default OrdeForm;
+
+OrderForm.propTypes = {
+    app: PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        note: PropTypes.string,
+    }).isRequired,
+};
+
+export default OrderForm;

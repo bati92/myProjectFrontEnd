@@ -40,30 +40,30 @@
 
 .rn-section-gapTop {
     padding-top: 100px;
-    padding-right:320px;
+    padding-right: 320px;
     @media #{$md-layout} {
         padding-top: 80px;
-        padding-right:5px;
+        padding-right: 5px;
     }
     @media #{$sm-layout} {
         padding-top: 80px;
-        padding-right:5px;
+        padding-right: 5px;
     }
 }
 .rn-section-gapTop_1 {
     padding-top: 100px;
-    padding-right:5px;
-    width:50%;
+    padding-right: 5px;
+    width: 50%;
     margin: auto;
     @media #{$md-layout} {
         padding-top: 80px;
-        padding-right:5px;
-        width:60%;
+        padding-right: 5px;
+        width: 60%;
     }
     @media #{$sm-layout} {
         padding-top: 80px;
-        padding-right:5px;
-        width:100%;
+        padding-right: 5px;
+        width: 100%;
     }
 }
 .rn-section-gapTop-2 {

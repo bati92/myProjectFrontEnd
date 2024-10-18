@@ -1,10 +1,11 @@
-import { normalizedData } from "@utils/methods";
-import homepageData from "../../data/homepages/home-08.json";
+import PropTypes from "prop-types";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import ExploreServiceArea from "@containers/explore-service/all-services";
+import { normalizedData } from "@utils/methods";
+import homepageData from "../../data/homepages/home-08.json";
 
 const PageLayoutSection = ({
     pageTitle,
@@ -34,7 +35,7 @@ const PageLayoutSection = ({
                         data={{
                             ...content["explore-product-section"],
                             parentSlug: resourceType,
-                            sectionId: sectionId,
+                            sectionId,
                             products: items,
                         }}
                     />
@@ -43,6 +44,21 @@ const PageLayoutSection = ({
             <Footer className="pr--40" />
         </Wrapper>
     );
+};
+
+// Updated PropTypes validation
+PageLayoutSection.propTypes = {
+    pageTitle: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            name: PropTypes.string,
+            // Add other properties as needed for better validation
+        })
+    ).isRequired,
+    sectionId: PropTypes.string.isRequired,
+    resourceType: PropTypes.string.isRequired,
+    hasSection: PropTypes.bool.isRequired,
 };
 
 export default PageLayoutSection;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { getData } from "@utils/getData";
 import PageLayoutServices from "@components/page-layout-services";
 import myStaticServices from "../../../data/my-static-services.json";
@@ -13,8 +14,10 @@ export async function getServerSideProps(context) {
 }
 
 const Home = ({ myItems, sectionId, className }) => {
-    const item = myStaticServices.find((item) => item.slug === "ebank");
-    const hasSections = item ? item.hasSections : null;
+    const staticItem = myStaticServices.find(
+        (service) => service.slug === "ebank"
+    );
+    const hasSections = staticItem ? staticItem.hasSections : null;
     return (
         <PageLayoutServices
             pageTitle="البنوك الإلكترونية"
@@ -22,8 +25,23 @@ const Home = ({ myItems, sectionId, className }) => {
             resourceType="ebank"
             sectionId={sectionId}
             hasSection={hasSections}
+            className={className}
         />
     );
+};
+
+Home.propTypes = {
+    myItems: PropTypes.shape({
+        ebanks: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+                // Add other relevant fields based on your data structure
+            })
+        ),
+    }).isRequired,
+    sectionId: PropTypes.string.isRequired,
+    className: PropTypes.string,
 };
 
 export default Home;

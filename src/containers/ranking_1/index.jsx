@@ -1,20 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import Image from "next/image";
-import Anchor from "@ui/anchor";
-import Pagination from "@components/pagination-02";
-import { IDType, ImageType } from "@utils/types";
 
-
-const RankingArea = ({ className, space, data }) => {
- 
-    useEffect(() => {
-        console.log(data);
-    });
-
-    return (
-        <div
+const RankingArea = ({ className, space, data }) => (
+            <div
             className={clsx(
                 "rn-upcoming-area",
                 space === 1 && "rn-section-gapTop",
@@ -32,7 +20,6 @@ const RankingArea = ({ className, space, data }) => {
                             <table className="table upcoming-projects">
                                 <thead>
                                     <tr>
-                                      
                                         <th>
                                             <span>الخدمة </span>
                                         </th>
@@ -51,30 +38,55 @@ const RankingArea = ({ className, space, data }) => {
                                     </tr>
                                 </thead>
                                 <tbody className="ranking">
-                                {data.map((order) => (
-                                    <tr key={order.id}>  
-                                         
-                                    <td><span>  {order.name}  </span>
-                                     </td>  
-                                     <td><span>  {order.created_at}  </span>
-                                     </td>
-                                     <td><span>  {order.price}  </span>
-                                     </td>
-                                     <td><span>  {order.count}  </span>
-                                     </td>
-                                     <td><span className="myspan">  {order.status}  </span>
-                                     </td>
-                                    </tr>
-                                       ))}
+                                    {data.map((order) => (
+                                        <tr key={order.id}>
+                                            <td>
+                                                <span> {order.name} </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {" "}
+                                                    {order.created_at}{" "}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span> {order.price} </span>
+                                            </td>
+                                            <td>
+                                                <span> {order.count} </span>
+                                            </td>
+                                            <td>
+                                                <span className="myspan">
+                                                    {" "}
+                                                    {order.status}{" "}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
-                    
                     </div>
                 </div>
             </div>
         </div>
     );
+
+
+RankingArea.propTypes = {
+    className: PropTypes.string,
+    space: PropTypes.number,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
+            name: PropTypes.string.isRequired,
+            created_at: PropTypes.string.isRequired,
+            price: PropTypes.number.isRequired,
+            count: PropTypes.number.isRequired,
+            status: PropTypes.string.isRequired,
+        })
+    ).isRequired,
 };
 
 RankingArea.defaultProps = {

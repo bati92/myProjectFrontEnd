@@ -1,89 +1,99 @@
-import { useState ,useEffect} from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "@ui/button";
-import ErrorText from "@ui/error-text";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { Link } from "react-scroll";
-import { ToastContainer ,toast} from "react-toastify";
-const primaryPrice=100;
-const OrderForm = ({user}) => {
-    const initialState = {
-        ime: "",
-        price: primaryPrice,
-        user_id:  user?user.id:"" ,
-    };
+
+const primaryPrice = 100;
+
+const OrderForm = ({ user }) => {
     const [turkificationOrderField, setTurkificationOrderField] = useState({
         ime: "",
         price: primaryPrice,
-        user_id:  user?user.id:"" ,s
-       
+        user_id: user ? user.id : "",
     });
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
-    const onSubmit = async ( e) => {
-    try{
-      e.preventDefault();
-          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-        const response=await axios.post(`${apiBaseUrl}/turkification/order`,turkificationOrderField,csrf);
-   
-       
-     console.log(response.data);
-       }
-       catch(error){
-        if (error.response) {
-            // The request was made, and the server responded with a status code
-            console.log('Error Data:', error.response.data);
-            console.log('Error Status:', error.response.status);
-            console.log('Error Headers:', error.response.headers);
-       }}
-      };
+
+    const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+            await axios.post(
+                `${apiBaseUrl}/turkification/order`,
+                turkificationOrderField,
+                csrf
+            );
+
+            setTurkificationOrderField({
+                ime: "",
+                price: primaryPrice,
+                user_id: user ? user.id : "",
+            });
+            toast.success("تم تسجيل طلبك");
+        } catch (error) {
+            if (error.response) {
+                // Display user-friendly error message
+                toast.error("حدث خطأ أثناء تسجيل طلبك. يرجى المحاولة مرة أخرى.");
+            }
+        }
+    };
 
     return (
         <div className="form-wrapper-one registration-area">
-           
-            <form >
-                <div className="tagcloud"> 
-                <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                     {primaryPrice}
-                     </Link></h3>
-                   
+            <form onSubmit={onSubmit}>
+                <div className="tagcloud">
+                    <h3 className="mb--30">
+                        اتمام عملية الشراء
+                        <span className="mybutton-margin">
+                            السعر: {primaryPrice}
+                        </span>
+                    </h3>
                 </div>
-           
-          
-               <div className="mb-5">
+
+                <div className="mb-5">
                     <label htmlFor="ime" className="form-label">
+                        IME
                     </label>
                     <input
-                       className="withRadius"
+                        className="withRadius"
                         type="text"
                         id="ime"
                         name="ime"
-                        required=""
+                        required
                         value={turkificationOrderField.ime}
-                        placeholder="  IME     "  
-                        onChange={e=> setTurkificationOrderField({ ...turkificationOrderField, ime: e.target.value })}
-                     
+                        placeholder="IME"
+                        onChange={(e) =>
+                            setTurkificationOrderField({
+                                ...turkificationOrderField,
+                                ime: e.target.value,
+                            })
+                        }
                     />
                 </div>
 
-
-             
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}  className="mr--15">
-                      شراء                   </Button>
+                <Button type="submit" size="medium" className="mr--15">
+                    شراء
+                </Button>
                 <Button path="/" color="primary-alta" size="medium">
-                    الغاء الأمر 
+                    الغاء الأمر
                 </Button>
             </form>
-            <br>
-            </br>
-            <br>
-            </br>
+            <br />
+            <br />
             <div>
-
-            <p>
-            ? هذا المنتج يعمل بشكل يدوي ويستغرق بعض الوقت ليصل للزبون      </p>
+                <p>هذا المنتج يعمل بشكل يدوي ويستغرق بعض الوقت ليصل للزبون</p>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
+
+// Prop types validation
+OrderForm.propTypes = {
+    user: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+};
+
 export default OrderForm;

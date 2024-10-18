@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { Link } from "react-scroll";
 
 const SideMenu = ({ menu }) => (
     <nav className="mainmenu-nav">
@@ -7,10 +6,10 @@ const SideMenu = ({ menu }) => (
             {menu?.map((nav) => (
                 <li key={nav.id} className="nav-item">
                     <a
-                        activeClass="active"
                         className="nav-link smoth-animation"
-                        href={`http://localhost:3000/${nav.path}`}
-                       
+                        href={`http://localhost:3000/${nav.path}`} // Use a regular anchor tag for external links
+                        target="_blank" // Open in a new tab if needed
+                        rel="noopener noreferrer" // Security measure when using target="_blank"
                     >
                         {nav?.icon && <i className={nav.icon} />}
                         {nav.text}
@@ -22,7 +21,14 @@ const SideMenu = ({ menu }) => (
 );
 
 SideMenu.propTypes = {
-    menu: PropTypes.arrayOf(PropTypes.shape({})),
+    menu: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            path: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+            icon: PropTypes.string,
+        })
+    ).isRequired,
 };
 
 export default SideMenu;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Anchor from "@ui/anchor";
 import LogoutButton from "@components/logout-button";
 
-const UserDropdown = ({ onDisconnect, ethBalance ,auth}) => (
+const UserDropdown = ({ onDisconnect, ethBalance, auth }) => (
     <div className="icon-box">
         <Anchor path="/">
             <Image
@@ -16,7 +16,9 @@ const UserDropdown = ({ onDisconnect, ethBalance ,auth}) => (
         <div className="rn-dropdown">
             <div className="rn-inner-top">
                 <h4 className="title">
-                    <Anchor path="#">{auth.first_name} {auth.last_name}</Anchor>
+                    <Anchor path="#">
+                        {auth.first_name} {auth.last_name}
+                    </Anchor>
                 </h4>
                 <span>
                     <Anchor path="#">{auth.name}</Anchor>
@@ -43,7 +45,6 @@ const UserDropdown = ({ onDisconnect, ethBalance ,auth}) => (
                         </div>
                         <div className="button" />
                     </li>
-            
                 </ul>
             </div>
             <div className="add-fund-button mt--20 pb--20">
@@ -52,13 +53,12 @@ const UserDropdown = ({ onDisconnect, ethBalance ,auth}) => (
                 </Anchor>
             </div>
             <ul className="list-inner">
-              
                 <li>
                     <Anchor path="/edit-profile">المعلومات الشخصية</Anchor>
                 </li>
-              
+
                 <li>
-                  <LogoutButton/>
+                    <LogoutButton />
                 </li>
             </ul>
         </div>

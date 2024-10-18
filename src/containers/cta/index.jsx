@@ -40,8 +40,9 @@ CTAArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     className: PropTypes.string,
     data: PropTypes.shape({
+        app_name: PropTypes.string.isRequired, // Added validation for app_name
         about_text: PropTypes.string,
-    }),
+    }).isRequired,
 };
 
 CTAArea.defaultProps = {

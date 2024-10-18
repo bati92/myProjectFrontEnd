@@ -1,100 +1,100 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "@ui/button";
-import ErrorText from "@ui/error-text";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { Link } from "react-scroll";
-import { ToastContainer } from "react-toastify";
 
-const OrdeForm = ({ game,user }) => {
+const OrderForm = ({ game, user }) => {
     const initialState = {
-        user_id:  user?user.id:"" ,
-        user_id_game:"",
+        user_id: user ? user.id : "",
+        user_id_game: "",
         game_id: game ? game.id : "",
-        price:game ? game.price : "",
-        count:"0",
+        price: game ? game.price : "",
+        count: "0",
     };
-    console.log({game}); 
-    const [gameField,setGameField]=useState({
-        user_id: user?user.id:"" ,
-        user_id_game:"",
-        game_id: game ? game.id : "",
-        price:game ? game.price : "",
-        count:"0",
-    
-        
-      }); 
-      const changeGameFieldHandler = (e) => {
+
+    const [gameField, setGameField] = useState(initialState);
+
+    const changeGameFieldHandler = (e) => {
         const { name, value } = e.target;
         setGameField((prev) => ({
             ...prev,
             [name]: value,
         }));
-    };const csrf = () => axios.get('/sanctum/csrf-cookie');
-    const onSubmit = async ( e) => {
-        try{
-         
-            
-    
-    
-              e.preventDefault();
-              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            const response=await axios.post(`${apiBaseUrl}/game/order/${game.id}`,gameField,csrf);
-           setGameField(initialState);
-           toast('تم تسجيل طلبك');
-           }
-           catch(error){
+    };
+
+    const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+            await axios.post(
+                `${apiBaseUrl}/game/order/${game.id}`,
+                gameField,
+                csrf
+            );
+            setGameField(initialState);
+            toast("تم تسجيل طلبك");
+        } catch (error) {
             if (error.response) {
-                // The request was made, and the server responded with a status code
-                console.log('Error Data:', error.response.data);
-                console.log('Error Status:', error.response.status);
-                console.log('Error Headers:', error.response.headers);
-           }}
-          };
+                // Handle error appropriately, such as showing a toast with error details
+                toast.error("هناك خطأ في عملية الطلب. حاول مرة أخرى.");
+            }
+        }
+    };
+
     return (
         <div className="form-wrapper-one registration-area">
-           
-            <form >
-                <div className="tagcloud"> 
-                <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                     {game.price}
-                     </Link></h3>
-                   
+            <form onSubmit={onSubmit}>
+                <div className="tagcloud">
+                    <h3 className="mb--30">
+                        اتمام عملية الشراء
+                        <span className="mybutton-margin">
+                            السعر: {game.price}
+                        </span>
+                    </h3>
                 </div>
-               <div className="mb-5">
+                <div className="mb-5">
                     <label htmlFor="user_id_game" className="form-label">
+                        ايدي اللاعب
                     </label>
                     <input
-                       className="withRadius"
+                        className="withRadius"
                         type="text"
                         id="user_id_game"
                         name="user_id_game"
-                        required=""
-                        placeholder=" ايدي اللاعب"
-                        onChange={e=>changeGameFieldHandler(e)}
-                     
+                        required
+                        placeholder="ايدي اللاعب"
+                        onChange={changeGameFieldHandler}
                     />
                 </div>
 
-             
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}
-                  className="mr--15">
-                      شراء                   </Button>
+                <Button type="submit" size="medium" className="mr--15">
+                    شراء
+                </Button>
                 <Button path="/" color="primary-alta" size="medium">
-                    الغاء الأمر 
+                    الغاء الأمر
                 </Button>
             </form>
-            <br>
-            </br>
-            <br>
-            </br>
-            <div>
-
-            <p>{game.note}
-            </p>
-            </div>
-            <ToastContainer/>
+            <br />
+            <br />
+            {game.note && <div><p>{game.note}</p></div>}
+            <ToastContainer />
         </div>
     );
 };
-export default OrdeForm;
+
+// Prop types validation
+OrderForm.propTypes = {
+    game: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
+        note: PropTypes.string,
+    }).isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string,
+    }),
+};
+
+export default OrderForm;

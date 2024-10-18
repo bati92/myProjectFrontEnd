@@ -6,14 +6,10 @@ export const getData = async (endPoint) => {
         const result = await axios.get(`${apiBaseUrl}/${endPoint}`);
         return {
             myItems: result?.data,
-
-            className: "home-sticky-pin sidebar-header position-relative",
         };
     } catch (error) {
-        console.log(error);
         return {
             myItems: [],
-            className: "home-sticky-pin sidebar-header position-relative",
         };
     }
 };

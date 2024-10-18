@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import Web3 from "web3";
 import SearchForm from "@components/search-form/layout-03";
 import Anchor from "@ui/anchor";
@@ -9,12 +9,9 @@ import BurgerButton from "@ui/burger-button";
 import FlyoutSearchForm from "@components/search-form/layout-02";
 import MobileMenu from "@components/menu/mobile-menu-02";
 import UserDropdown from "@components/user-dropdown";
-
 import { useOffcanvas, useFlyoutSearch } from "@hooks";
-import axios  from "axios";
-// Demo Data
-import sideMenuData from "../../data/general/menu-02.json";
-import { toast } from "react-toastify";
+import axios from "axios";
+import sideMenuData from "../../data/general/menu-02.json"; // Corrected import order
 
 const TopBarArea = () => {
     const { search, searchHandler } = useFlyoutSearch();
@@ -23,44 +20,37 @@ const TopBarArea = () => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [ethBalance, setEthBalance] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [_, setLoading] = useState(true); // Suppressed unused loading variable warning
     const [auth, setAuth] = useState(true);
 
-     
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
 
         if (!storedToken) {
-          setIsAuthenticated(false);
+            setIsAuthenticated(false);
         } else {
-           
-        setIsAuthenticated(true);
+            setIsAuthenticated(true);
             setLoading(false);
         }
         const fetchauth = async () => {
-            try { 
-                
-              const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-              const token = localStorage.getItem('token'); 
-            
-              const result = await axios.get(
-                `${apiBaseUrl}/logged-in-user`,
-                {
+            try {
+                const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+                const token = localStorage.getItem("token");
+
+                const result = await axios.get(`${apiBaseUrl}/logged-in-user`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass token in Authorization header
                     },
-                }
-            );
-           console.log(result.data);
-                setAuth( result.data);
-
-                
+                });
+                console.log(result.data);
+                setAuth(result.data);
             } catch (error) {
                 console.log("Error fetching auth:", error);
             }
-         };
-          fetchauth();
+        };
+        fetchauth();
     }, []);
+
     const detectCurrentProvider = () => {
         let provider;
         if (window.ethereum) {
@@ -118,8 +108,7 @@ const TopBarArea = () => {
                         </div>
                         <FlyoutSearchForm isOpen={search} />
                     </div>
-               
-              
+
                     <div className="setting-option rn-icon-list notification-badge">
                         <div className="icon-box">
                             <Anchor path="/activity">
@@ -128,17 +117,6 @@ const TopBarArea = () => {
                             </Anchor>
                         </div>
                     </div>
-                    {/* <div className="setting-option header-btn">
-                        <div className="icon-box">
-                            <Button
-                                size="small"
-                                color="primary-alta"
-                                path="/create"
-                            >
-                                Create
-                            </Button>
-                        </div>
-                    </div> */}
 
                     {!isAuthenticated && (
                         <div className="setting-option">
@@ -159,7 +137,6 @@ const TopBarArea = () => {
                                 onDisconnect={onDisconnect}
                                 ethBalance={ethBalance}
                                 auth={auth}
-
                             />
                         </div>
                     )}

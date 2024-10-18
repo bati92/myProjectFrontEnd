@@ -1,0 +1,32 @@
+{
+  "..\\components\\product\\layout-05\\index.jsx -> @components/share-dropdown": {
+    "id": "..\\components\\product\\layout-05\\index.jsx -> @components/share-dropdown",
+    "files": [
+      "static/chunks/src_components_share-dropdown_index_jsx.js"
+    ]
+  },
+  "..\\components\\product\\layout-05\\index.jsx -> @ui/countdown/layout-01": {
+    "id": "..\\components\\product\\layout-05\\index.jsx -> @ui/countdown/layout-01",
+    "files": [
+      "static/chunks/src_components_ui_countdown_layout-01_index_jsx.js"
+    ]
+  },
+  "..\\components\\service-section\\index.jsx -> @components/share-dropdown": {
+    "id": "..\\components\\service-section\\index.jsx -> @components/share-dropdown",
+    "files": [
+      "static/chunks/src_components_share-dropdown_index_jsx.js"
+    ]
+  },
+  "..\\components\\service-section\\index.jsx -> @ui/countdown/layout-01": {
+    "id": "..\\components\\service-section\\index.jsx -> @ui/countdown/layout-01",
+    "files": [
+      "static/chunks/src_components_ui_countdown_layout-01_index_jsx.js"
+    ]
+  },
+  "..\\components\\ui\\slider\\index.jsx -> react-slick": {
+    "id": "..\\components\\ui\\slider\\index.jsx -> react-slick",
+    "files": [
+      "static/chunks/node_modules_react-slick_lib_index_js.js"
+    ]
+  }
+}

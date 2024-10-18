@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import LoginForm from "@components/login-form";
-import SocialAuth from "@components/social-auth";
 
 const LoginArea = ({ className, space }) => (
     <div
@@ -16,7 +15,6 @@ const LoginArea = ({ className, space }) => (
                 <div className=" offset-2 col-lg-12 col-md-12 ml_md--0 ml_sm--0 col-sm-12">
                     <LoginForm />
                 </div>
-              
             </div>
         </div>
     </div>

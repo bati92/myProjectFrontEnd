@@ -13,7 +13,7 @@ const Logo = ({ className, logo }) => (
                     width={106}
                     height={35}
                     priority
-                    unoptimized 
+                    unoptimized
                 />
             </Anchor>
         )}

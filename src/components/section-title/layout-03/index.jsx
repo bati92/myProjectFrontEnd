@@ -1,15 +1,18 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const SectionTitle = ({ title, className, disableAnimation }) => (
-    <h3
-        className={clsx("title", className)}
-        data-sal-delay="150"
-        data-sal={!disableAnimation && "slide-up"}
-        data-sal-duration="800"
-    >
-        {title}
-    </h3>
+const SectionTitle = ({ title, subtitle, className, disableAnimation }) => (
+    <div className={clsx("section-title-wrapper", className)}>
+        <h3
+            className="title"
+            data-sal-delay="150"
+            data-sal={!disableAnimation && "slide-up"}
+            data-sal-duration="800"
+        >
+            {title}
+        </h3>
+        {subtitle && <p className="subtitle">{subtitle}</p>}
+    </div>
 );
 
 SectionTitle.propTypes = {

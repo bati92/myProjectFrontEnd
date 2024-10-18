@@ -131,86 +131,83 @@
 @import "elements/forum";
 @import "elements/white-version";
 
-body{
+body {
     direction: rtl;
 }
-.myinput70{
-    width:70%;
+.myinput70 {
+    width: 70%;
     display: inline-block;
 }
-.myinput25{
-    width:25%;
-    
+.myinput25 {
+    width: 25%;
+
     display: inline-block;
 }
-.myinput50{
-    width:50%
+.myinput50 {
+    width: 50%;
 }
-.label100{
-    width:100%
+.label100 {
+    width: 100%;
 }
-.withRadius{
-border-radius: 35px !important;
+.withRadius {
+    border-radius: 35px !important;
 }
-.mybutton-margin{
-    margin-right:10% !important
+.mybutton-margin {
+    margin-right: 10% !important;
 }
 .feather {
-    margin-left:8px !important
-
+    margin-left: 8px !important;
 }
-a.btn.btn-primary, button.btn.btn-primary {
-margin:10px}
+a.btn.btn-primary,
+button.btn.btn-primary {
+    margin: 10px;
+}
 
 .companyCard.product-style-one::before {
-
     transform: rotate(0deg) translateX(0px) translateY(0px);
 }
-.noteBank{
+.noteBank {
     white-space: pre-line;
-    padding: 10px 0px ;;
+    padding: 10px 0px;
 }
-.mysection.rn-section-gapTop{
+.mysection.rn-section-gapTop {
     margin-top: 10px !important;
 }
-.breadcrumb-list{
+.breadcrumb-list {
     display: none;
 }
-.myicon{
-    
+.myicon {
     display: block;
     margin: 15px;
     text-align: center;
     font-size: 50px;
-
 }
-.mymargin-top{
+.mymargin-top {
     margin-top: 60px;
 }
-.mycenter{
+.mycenter {
     text-align: center;
 }
 
-.mydiv{
-    width:50%;
+.mydiv {
+    width: 50%;
     margin: auto;
     margin-top: 100px;
     @media #{$sm-layout} {
-        width:100%;
+        width: 100%;
         margin-top: 10px;
     }
-    
-        @media #{$md-layout} {
-            width: 80%;
-            margin-top: 10px;
-        }
+
+    @media #{$md-layout} {
+        width: 80%;
+        margin-top: 10px;
     }
-.rn-banner-area{
-    padding:30px
 }
-.myspan{
+.rn-banner-area {
+    padding: 30px;
+}
+.myspan {
     background: var(--color-primary);
     color: white;
     padding: 5px;
 }
-

@@ -5,7 +5,7 @@
         "path": "/",
         "icon": "feather feather-home"
     },
-  
+
     {
         "id": 3,
         "text": "عملائي",
@@ -47,8 +47,8 @@
         "text": "المفضلة",
         "path": "/",
         "icon": "feather feather-heart"
-    }
-    ,{
+    },
+    {
         "id": 10,
         "text": "من نحن",
         "path": "/about",

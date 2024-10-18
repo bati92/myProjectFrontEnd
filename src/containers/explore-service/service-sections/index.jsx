@@ -4,34 +4,13 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import SectionTitle from "@components/section-title/layout-03";
 import Service from "@components/service-section";
-import { flatDeep } from "@utils/methods";
-import FilterButtons from "@components/filter-buttons";
-import { SectionTitleType, ProductType } from "@utils/types";
 
-//services sections in home page
+// services sections in home page
 const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
-    const filters = [
-        ...new Set(
-            flatDeep(data?.products?.map((item) => item.categories) || [])
-        ),
-    ];
     const [products, setProducts] = useState([]);
     useEffect(() => {
-      //  console.log('data',data);
         setProducts(data?.products);
     }, [data?.products]);
-
-    // const filterHandler = (filterKey) => {
-    //     const prods = data?.products ? [...data.products] : [];
-    //     if (filterKey === "all") {
-    //         setProducts(data?.products);
-    //         return;
-    //     }
-    //     const filterProds = prods.filter((prod) =>
-    //         prod.categories.includes(filterKey)
-    //     );
-    //     setProducts(filterProds);
-    // };
 
     return (
         <div
@@ -54,12 +33,6 @@ const ExploreServiceArea = ({ className, space, data, id, sectionTitle }) => {
                             />
                         )}
                     </div>
-                    {/* <div className="col-lg-8">
-                        <FilterButtons
-                            buttons={filters}
-                            filterHandler={filterHandler}
-                        />
-                    </div> */}
                 </div>
                 <div className="col-lg-12">
                     <motion.div layout className="isotope-list item-4">
@@ -93,11 +66,20 @@ ExploreServiceArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     id: PropTypes.string,
     sectionTitle: PropTypes.string,
-    // data: PropTypes.shape({
-    //     section_title: SectionTitleType,
-    //     products: PropTypes.arrayOf(ProductType),
-    //     placeBid: PropTypes.bool,
-    // }),
+    data: PropTypes.shape({
+        products: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                title: PropTypes.string,
+                slug: PropTypes.string,
+                total: PropTypes.number,
+                image: PropTypes.string,
+                authors: PropTypes.arrayOf(PropTypes.string),
+                hasSections: PropTypes.bool,
+                directToOrder: PropTypes.bool,
+            })
+        ),
+    }),
 };
 
 ExploreServiceArea.defaultProps = {

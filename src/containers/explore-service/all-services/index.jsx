@@ -7,7 +7,7 @@ import Service from "@components/service-custome";
 import { flatDeep } from "@utils/methods";
 import FilterButtons from "@components/filter-buttons";
 
-//services in eacH service pages example /app page
+// Services in each service pages example /app page
 const ExploreServiceArea = ({
     className,
     space,
@@ -22,10 +22,10 @@ const ExploreServiceArea = ({
         ),
     ];
     const [products, setProducts] = useState([]);
+
     useEffect(() => {
-       console.log("mmii",data);
         setProducts(data?.products);
-    }, [data?.products]);
+    }, [data]);
 
     const filterHandler = (filterKey) => {
         const prods = data?.products ? [...data.products] : [];
@@ -107,9 +107,18 @@ ExploreServiceArea.propTypes = {
     hasSection: PropTypes.bool,
     data: PropTypes.shape({
         sectionId: PropTypes.number,
-        // section_title: SectionTitleType,
         parentSlug: PropTypes.string,
-        // products: PropTypes.arrayOf(ProductType),
+        products: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+                name: PropTypes.string.isRequired,
+                price: PropTypes.number.isRequired,
+                categories: PropTypes.arrayOf(PropTypes.string),
+                image_url: PropTypes.string,
+                iban: PropTypes.string,
+                accountName: PropTypes.string,
+            })
+        ),
         placeBid: PropTypes.bool,
     }),
 };

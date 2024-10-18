@@ -18,30 +18,34 @@ export async function getStaticProps() {
     };
 }
 
-const EditProfile = ({ token }) => {
+const EditProfile = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({});
-    
+
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const token = localStorage.getItem("token");
+
     useEffect(() => {
         const getUserData = async () => {
-            axios
-                .get(`${apiBaseUrl}/logged-in-user`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                .then((response) => {
-                    setUser(response.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Error fetching user data", error);
-                    setLoading(false);
-                });
+            try {
+                const response = await axios.get(
+                    `${apiBaseUrl}/logged-in-user`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setUser(response.data);
+                setLoading(false);
+            } catch (error) {
+                // eslint-disable-next-line no-console
+                console.error("Error fetching user data", error);
+                setLoading(false);
+            }
         };
         getUserData();
-    }, []);
+    }, [apiBaseUrl, token]);
 
     if (loading) return <LoadingSpinner />;
 
@@ -49,7 +53,7 @@ const EditProfile = ({ token }) => {
         <Wrapper>
             <SEO pageTitle="تعديل الملف الشخصي" />
             <Header />
-            <TopBarArea/>
+            <TopBarArea />
             <main id="main-content">
                 <Breadcrumb
                     pageTitle="تعديل الملف الشخصي"

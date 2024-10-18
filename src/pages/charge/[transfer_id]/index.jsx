@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header/header-02";
@@ -9,27 +10,36 @@ import withAuth from "@components/auth/withAuth";
 import TopBarArea from "@containers/top-bar";
 
 export async function getServerSideProps(context) {
-    const data = await getData(`transfer-money-firm/${context.query.transfer_id}`);
+    const data = await getData(
+        `transfer-money-firm/${context.query.transfer_id}`
+    );
     return {
         props: {
-            ...data
-  
+            ...data,
         },
     };
 }
-    
 
-const Home = (data) => (
+const Home = ({ myItems }) => (
     <Wrapper>
         <SEO pageTitle="charge" />
         <Header />
-        <TopBarArea  />
+        <TopBarArea />
         <main id="main-content">
-            <Breadcrumb pageTitle={data.myItems.transferMoneyFirm.name} />
-            <CreateNewArea  data={data.myItems.transferMoneyFirm}/>
+            <Breadcrumb pageTitle={myItems.transferMoneyFirm.name} />
+            <CreateNewArea data={myItems.transferMoneyFirm} />
         </main>
         <Footer />
     </Wrapper>
 );
 
-export default withAuth( Home);
+// Add PropTypes validation for myItems
+Home.propTypes = {
+    myItems: PropTypes.shape({
+        transferMoneyFirm: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
+};
+
+export default withAuth(Home);

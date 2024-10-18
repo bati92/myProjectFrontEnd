@@ -1,135 +1,128 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types"; 
 import Button from "@ui/button";
-import ErrorText from "@ui/error-text";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { Link } from "react-scroll";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
-const OrdeForm = ({ dataCommunication,user }) => {
+const OrderForm = ({ dataCommunication, user }) => {
     const initialState = {
-        count:"",
-        price:   dataCommunication ? dataCommunication.price : "",
-        user_id:  user?user.id:"" ,
+        count: "",
+        price: dataCommunication ? dataCommunication.price : "",
+        user_id: user ? user.id : "",
         data_id: dataCommunication ? dataCommunication.id : "",
+        mobile: "",
     };
-    const [dataField,setDataField]=useState({  mobile:"",
-        count:"",
-        price:   dataCommunication ? dataCommunication.price : "",
-        user_id:  user?user.id:"" ,
-        data_id: dataCommunication ? dataCommunication.id : "",
-        
-      });
+    const [dataField, setDataField] = useState(initialState);
 
-
-
-      useEffect(() => {
-        // منطق تحديث السعر بناءً على count
-        const updatedPrice = dataField.count * dataCommunication.price; // على سبيل المثال، كل وحدة تساوي 10
-        console.log(updatedPrice);
+    useEffect(() => {
+        // Update price based on count
+        const updatedPrice = dataField.count * (dataCommunication.price || 0);
         setDataField((prevFields) => ({
-          ...prevFields,
-          price: updatedPrice
+            ...prevFields,
+            price: updatedPrice,
         }));
+    }, [dataField.count, dataCommunication.price]);
 
-    }, [dataField.count]); 
-   
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
-    const onSubmit = async ( e) => {
-    try{
-    
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+            await axios.post(
+                `${apiBaseUrl}/data-communication/order/${dataCommunication.id}`,
+                dataField,
+                { withCredentials: true }
+            );
 
-          e.preventDefault();
-          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-        const response=await axios.post(`${apiBaseUrl}/data-comumunication/order/${dataCommunication.id}`,dataField,csrf);
-       
-    toast('تم  تسجيل طلبك');
-    setDataField(initialState);
-       }
-       catch(error){
-        if (error.response) {
-            // The request was made, and the server responded with a status code
-            console.log('Error Data:', error.response.data);
-            console.log('Error Status:', error.response.status);
-            console.log('Error Headers:', error.response.headers);
-       }}
-      };
+            toast.success("تم تسجيل طلبك");
+            setDataField(initialState);
+        } catch (error) {
+            if (error.response) {
+                // eslint-disable-next-line no-console
+                console.error("Error Data:", error.response.data);
+                // eslint-disable-next-line no-console
+                console.error("Error Status:", error.response.status);
+                // eslint-disable-next-line no-console
+                console.error("Error Headers:", error.response.headers);
+            }
+            toast.error("فشل في تسجيل الطلب، يرجى المحاولة مرة أخرى");
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setDataField({ ...dataField, [name]: value });
+    };
 
     return (
         <div className="form-wrapper-one registration-area">
-           
-            <form >
-                <div className="tagcloud"> 
-                <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                 { dataCommunication.price}
-                     </Link></h3>
-                   
+            <form onSubmit={onSubmit}>
+                <div className="tagcloud">
+                    <h3 className="mb--30">اتمام عملية الشراء</h3>
+                    <p>السعر: {dataCommunication.price}</p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="count" className="form-label">
-                    </label>
+                    <label htmlFor="count" className="form-label">العدد</label>
                     <input
-                       className="withRadius  myinput25"
+                        className="withRadius myinput25"
                         type="number"
                         id="count"
                         name="count"
-                        required=""
-                        placeholder="  العدد"
-                       value={dataField.count}
-
-                        onChange={e=> setDataField({ ...dataField, count: e.target.value })}
-                     
+                        required
+                        placeholder="العدد"
+                        value={dataField.count}
+                        onChange={handleInputChange}
                     />
-                       <input
-                       className="withRadius  myinput25 mybutton-margin"
+                    <input
+                        className="withRadius myinput25 mybutton-margin"
                         type="number"
                         id="price"
                         name="price"
-                        required=""
-                        placeholder="  الاجمالي"
                         readOnly
-                         value={dataField.price}
-                    
-                     
+                        value={dataField.price}
                     />
                 </div>
-          
-               <div className="mb-5">
-                    <label htmlFor="mobile" className="form-label">
-                    </label>
+
+                <div className="mb-5">
+                    <label htmlFor="mobile" className="form-label">رقم الهاتف</label>
                     <input
-                       className="withRadius"
+                        className="withRadius"
                         type="text"
                         id="mobile"
                         name="mobile"
-                        required=""
+                        required
                         placeholder="رقم الهاتف"
                         value={dataField.mobile}
-                        onChange={e=> setDataField({ ...dataField, mobile: e.target.value })}
-                     
+                        onChange={handleInputChange}
                     />
                 </div>
 
-
-             
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}  className="mr--15">
-                      شراء                   </Button>
-                <Button path="/" color="primary-alta" size="medium">
-                    الغاء الأمر 
+                <Button type="submit" size="medium" className="mr--15">
+                    شراء
                 </Button>
-            </form> 
-            <br>
-            </br>
-            <br>
-            </br>
+                <Button path="/" color="primary-alta" size="medium">
+                    الغاء الأمر
+                </Button>
+            </form>
+            <br />
+            <br />
             <div>
-
-            <p>
-{                dataCommunication.note
-}            </p>
+                <p>{dataCommunication.note}</p>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
-export default OrdeForm;
+
+// Prop types validation
+OrderForm.propTypes = {
+    dataCommunication: PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        note: PropTypes.string,
+    }).isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }).isRequired,
+};
+
+export default OrderForm;

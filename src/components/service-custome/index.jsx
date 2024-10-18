@@ -1,19 +1,11 @@
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
 import Anchor from "@ui/anchor";
 import ProductBid from "@components/product-bid";
 
-const CountdownTimer = dynamic(() => import("@ui/countdown/layout-01"), {
-    ssr: false,
-});
-
-const ShareDropdown = dynamic(() => import("@components/share-dropdown"), {
-    ssr: false,
-});
-//single service in services page example in /app page
+// قسم الترجمة في صفحة التطبيقات
 const Service = ({
     overlay,
     title,
@@ -26,7 +18,6 @@ const Service = ({
     iban,
     accountName,
     image,
-    disableShareDropdown,
 }) => {
     const [servicePath, setServicePath] = useState("");
 
@@ -38,53 +29,44 @@ const Service = ({
             path = `/${parentSlug}s/${parentSlug}-order/${serviceId}`;
         }
         setServicePath(path);
-    }, [servicePath]);
+    }, [hasSection, parentSlug, sectionId, serviceId]);
+
     return (
-        <>
-            <div
-                className={clsx(
-                    "product-style-one",
-                    !overlay && "no-overlay"
-                    // placeBid && "with-placeBid"
-                )}
-            >
-                <div className="card-thumbnail">
-                    { image && ( 
+        <div className={clsx("product-style-one", !overlay && "no-overlay")}>
+            <div className="card-thumbnail">
+                {image && (
                     <Anchor path={servicePath}>
                         <Image
-                            src={ image }
+                            src={image}
                             alt={title}
                             width={533}
                             height={533}
                         />
                     </Anchor>
-                     )} 
-                </div>
-                <div className="product-share-wrapper"></div>
-                <Anchor path={servicePath}>
-                    <span className="product-name">{title}</span>
-                </Anchor>
-                {parentSlug !== "transfer-money-firm" ? (
-                    <>
-                        <span className="latest-bid">
-                            السعر: {price?.amount}TLd
-                        </span>
-                        <br></br>
-                        {/* <span className="latest-bid">ملاحظة : {note}</span> */}
-                    </>
-                ) : (
-                    <>
-                        <span className="latest-bid">iban: {iban}</span>
-                        <br></br>
-                        <span className="latest-bid">
-                            account name : {accountName}
-                        </span>
-                    </>
                 )}
-
-                <ProductBid price={1} likeCount={likeCount} />
             </div>
-        </>
+            <div className="product-share-wrapper" />
+            <Anchor path={servicePath}>
+                <span className="product-name">{title}</span>
+            </Anchor>
+            {parentSlug !== "transfer-money-firm" ? (
+                <>
+                    <span className="latest-bid">
+                        السعر: {price?.amount}TLd
+                    </span>
+                    <br />
+                </>
+            ) : (
+                <>
+                    <span className="latest-bid">iban: {iban}</span>
+                    <br />
+                    <span className="latest-bid">
+                        account name: {accountName}
+                    </span>
+                </>
+            )}
+            <ProductBid price={1} likeCount={likeCount} />
+        </div>
     );
 };
 
@@ -94,16 +76,15 @@ Service.propTypes = {
     title: PropTypes.string.isRequired,
     serviceId: PropTypes.number.isRequired,
     parentSlug: PropTypes.string.isRequired,
+    sectionId: PropTypes.number,
     price: PropTypes.shape({
         amount: PropTypes.number,
         currency: PropTypes.string,
     }),
     iban: PropTypes.string,
     accountName: PropTypes.string,
-
     likeCount: PropTypes.number.isRequired,
     image: PropTypes.string,
-    disableShareDropdown: PropTypes.bool,
 };
 
 Service.defaultProps = {

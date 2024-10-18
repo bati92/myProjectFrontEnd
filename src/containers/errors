@@ -1,0 +1,98 @@
+
+./src/pages/my-payments/index.jsx
+7:8  Warning: 'React' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+16:5  Error: Expected exception block, space or tab after '//' in comment.  spaced-comment
+33:17  Warning: Unexpected console statement.  no-console
+36:17  Warning: Unexpected console statement.  no-console
+61:21  Warning: Unexpected console statement.  no-console
+
+./src/pages/my-requests/index.jsx
+7:8  Warning: 'React' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+16:5  Error: Expected exception block, space or tab after '//' in comment.  spaced-comment
+33:17  Warning: Unexpected console statement.  no-console
+36:17  Warning: Unexpected console statement.  no-console
+61:21  Warning: Unexpected console statement.  no-console
+
+./src/pages/programs/index.jsx
+5:42  Warning: 'context' is defined but never used. Allowed unused args must match /^_/u.  no-unused-vars
+14:17  Error: 'myItems' is missing in props validation  react/prop-types
+14:26  Warning: 'className' is defined but never used. Allowed unused args must match /^_/u.  no-unused-vars
+14:26  Error: 'className' is missing in props validation  react/prop-types
+15:41  Error: 'item' is already declared in the upper scope on line 15 column 11.  no-shadow
+20:29  Error: 'myItems.programs' is missing in props validation  react/prop-types
+20:39  Error: 'myItems.programs.data' is missing in props validation  react/prop-types
+
+./src/pages/programs/program-order/[program_id].jsx
+3:8  Warning: 'Button' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+19:31  Error: 'myItems' is missing in props validation  react/prop-types
+26:45  Error: 'myItems.program' is missing in props validation  react/prop-types
+26:54  Error: 'myItems.program.name' is missing in props validation  react/prop-types
+27:49  Error: 'myItems.program' is missing in props validation  react/prop-types
+27:58  Error: 'myItems.program.likeCount' is missing in props validation  react/prop-types
+30:29  Error: Empty components are self-closing  react/self-closing-comp
+32:25  Error: Headings must have content and the content must be accessible by a screen reader.  jsx-a11y/heading-has-content
+32:25  Error: Empty components are self-closing  react/self-closing-comp
+34:35  Error: 'myItems.program' is missing in props validation  react/prop-types
+35:57  Error: 'myItems.program' is missing in props validation  react/prop-types
+45:5  Error: 'space' PropType is defined but prop is never used  react/no-unused-prop-types
+46:5  Error: 'className' PropType is defined but prop is never used  react/no-unused-prop-types
+
+./src/pages/register/[agent_info]/index.jsx
+3:8  Warning: 'Header' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+4:8  Warning: 'Footer' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+17:1  Error: Expected exception block, space or tab after '/*' in comment.  spaced-comment
+17:1  Error: Expected space or tab before '*/' in comment.  spaced-comment
+
+./src/pages/transfer-money-firms/index.jsx
+5:42  Warning: 'context' is defined but never used. Allowed unused args must match /^_/u.  no-unused-vars
+14:17  Error: 'myItems' is missing in props validation  react/prop-types
+14:26  Warning: 'className' is defined but never used. Allowed unused args must match /^_/u.  no-unused-vars
+14:26  Error: 'className' is missing in props validation  react/prop-types
+16:10  Error: 'item' is already declared in the upper scope on line 15 column 11.  no-shadow
+22:29  Error: 'myItems.transferMoneyFirms' is missing in props validation  react/prop-types
+22:49  Error: 'myItems.transferMoneyFirms.data' is missing in props validation  react/prop-types
+
+./src/pages/transfer-money-firms/transfer-money-firm-order/[transfer_money_firm_id].jsx
+7:1  Error: Expected 1 empty line after import statement not followed by another import.  import/newline-after-import
+19:31  Error: 'myItems' is missing in props validation  react/prop-types
+26:45  Error: 'myItems.transferMoneyFirm' is missing in props validation  react/prop-types
+26:64  Error: 'myItems.transferMoneyFirm.name' is missing in props validation  react/prop-types
+27:49  Error: 'myItems.transferMoneyFirm' is missing in props validation  react/prop-types
+27:68  Error: 'myItems.transferMoneyFirm.likeCount' is missing in props validation  react/prop-types
+32:43  Error: 'myItems.transferMoneyFirm' is missing in props validation  react/prop-types
+32:62  Error: 'myItems.transferMoneyFirm.account_name' is missing in props validation  react/prop-types
+36:39  Error: 'myItems.transferMoneyFirm' is missing in props validation  react/prop-types
+36:58  Error: 'myItems.transferMoneyFirm.iban' is missing in props validation  react/prop-types
+50:5  Error: 'space' PropType is defined but prop is never used  react/no-unused-prop-types
+51:5  Error: 'className' PropType is defined but prop is never used  react/no-unused-prop-types
+
+./src/pages/transfer-order/index.jsx
+3:8  Warning: 'Button' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+4:8  Warning: 'ProductTitle' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+6:10  Warning: 'getData' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+10:1  Error: Expected 1 empty line after import statement not followed by another import.  import/newline-after-import
+11:29  Error: Unexpected empty object pattern.  no-empty-pattern
+12:12  Warning: 'loading' is assigned a value but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+30:21  Warning: Unexpected console statement.  no-console
+35:8  Warning: React Hook useEffect has a missing dependency: 'apiBaseUrl'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+53:5  Error: 'space' PropType is defined but prop is never used  react/no-unused-prop-types
+54:5  Error: 'className' PropType is defined but prop is never used  react/no-unused-prop-types
+
+./src/pages/turkification-order/index.jsx
+3:8  Warning: 'Button' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+4:8  Warning: 'ProductTitle' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+21:31  Warning: 'myItems' is defined but never used. Allowed unused args must match /^_/u.  no-unused-vars
+21:31  Error: 'myItems' is missing in props validation  react/prop-types
+36:5  Error: 'space' PropType is defined but prop is never used  react/no-unused-prop-types
+37:5  Error: 'className' PropType is defined but prop is never used  react/no-unused-prop-types
+
+./src/pages/wakils/index.jsx
+7:8  Warning: 'React' is defined but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+16:5  Error: Expected exception block, space or tab after '//' in comment.  spaced-comment
+17:12  Warning: 'auth' is assigned a value but never used. Allowed unused vars must match /^_/u.  no-unused-vars
+30:17  Warning: Unexpected console statement.  no-console
+33:17  Warning: Unexpected console statement.  no-console
+49:17  Warning: Unexpected console statement.  no-console
+51:17  Warning: Unexpected console statement.  no-console
+55:8  Warning: React Hook useEffect has a missing dependency: 'apiBaseUrl'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+

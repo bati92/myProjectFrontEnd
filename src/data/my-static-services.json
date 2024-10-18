@@ -5,7 +5,7 @@
         "slug": "app",
         "hasSections": true,
         "directToOrder": false,
-         "image": "/images/services/app.jpg",
+        "image": "/images/services/app.jpg",
         "likeCount": 322,
         "total": 0,
         "images": [
@@ -180,7 +180,7 @@
     {
         "id": 5,
         "title": " بطاقات سرفر التكنولوجيا الدولي ",
-        
+
         "image": "/images/services/card.jpg",
         "slug": "card",
         "hasSections": true,

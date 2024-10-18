@@ -1,107 +1,96 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Button from "@ui/button";
-import ErrorText from "@ui/error-text";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import { Link } from "react-scroll";
-import{ ToastContainer, toast } from 'react-toastify';
-import { useStyleRegistry } from "styled-jsx";
+import { ToastContainer, toast } from "react-toastify";
 
-const OrdeForm = ({ card,user }) => {
+const OrderForm = ({ card, user }) => {
     const initialState = {
-        player_no: "",
-        count: "",
-        price: card ? card.price : "",
-        user_id: user?user.id:"" ,
-        app_id: card ? card.id : "",
-    };
-    const [cardField,setCardField]=useState({  
-        count:0,
-        price:   card ? card.price : "",
-        user_id:  user?user.id:"" ,
+        count: 0,
+        price: card ? card.price : 0,
+        user_id: user ? user.id : "",
         card_id: card ? card.id : "",
-        
-      });
+    };
+    const [orderDetails, setOrderDetails] = useState(initialState);
 
+    useEffect(() => {
+        // Update price based on count
+        const updatedPrice = orderDetails.count * card.price;
+        setOrderDetails((prev) => ({ ...prev, price: updatedPrice }));
+    }, [orderDetails.count, card.price]);
 
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+            await axios.post(`${apiBaseUrl}/card/order/${card.id}`, orderDetails);
+            toast.success("تم تسجيل طلبك");
+            setOrderDetails(initialState); // Reset state on success
+        } catch (error) {
+            toast.error("فشل في تسجيل الطلب، يرجى المحاولة مرة أخرى");
+        }
+    };
 
-      useEffect(() => {
-        // منطق تحديث السعر بناءً على count
-        const updatedPrice = cardField.count * card.price; // على سبيل المثال، كل وحدة تساوي 10
-        setCardField((prevFields) => ({
-          ...prevFields,
-          price: updatedPrice
-        }));
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setOrderDetails({ ...orderDetails, [name]: value });
+    };
 
-    }, [cardField.count]); 
-   
-
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
-    const onSubmit = async ( e) => {
-          e.preventDefault();
-          
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const response=await axios.post(`${apiBaseUrl}/card/order/${card.id}`,cardField,csrf);
-        toast('تم تسجيل طلبك');
-       
-    setDataField(initialState);
-      };
     return (
         <div className="form-wrapper-one registration-area">
-           
-            <form >
-                <div className="tagcloud"> 
-                <h3 className="mb--30"> اتمام عملية الشراء <Link path="#" className="mybutton-margin"> السعر :
-                  {card.price}
-                     </Link></h3>
-                   
+            <form onSubmit={onSubmit}>
+                <div className="tagcloud">
+                    <h3 className="mb--30">اتمام عملية الشراء</h3>
+                    <p>السعر: {card.price}</p>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="count" className="form-label">
-                    </label>
+                    <label htmlFor="count" className="form-label">العدد</label>
                     <input
-                       className="withRadius  myinput25"
+                        className="withRadius myinput25"
                         type="number"
                         id="count"
                         name="count"
-                        required=""
-                        placeholder="  العدد"
-                       value={cardField.count}
-                        onChange={e=> setCardField({ ...cardField, count: e.target.value })}
-                     
+                        placeholder="العدد"
+                        value={orderDetails.count}
+                        onChange={handleInputChange}
                     />
-                       <input
-                       className="withRadius  myinput25 mybutton-margin"
+                    <input
+                        className="withRadius myinput25 mybutton-margin"
                         type="number"
                         id="price"
                         name="price"
-                        required=""
-                        placeholder="  الاجمالي"
                         readOnly
-                         value={cardField.price}
-                    
-                     
+                        value={orderDetails.price}
                     />
                 </div>
-             
-                <Button type="submit" size="medium" onClick={e=>onSubmit(e)}  className="mr--15">
-                      شراء                   </Button>
+
+                <Button type="submit" size="medium" className="mr--15">
+                    شراء
+                </Button>
                 <Button path="/" color="primary-alta" size="medium">
-                    الغاء الأمر 
+                    الغاء الأمر
                 </Button>
             </form>
-            <br>
-            </br>
-            <br>
-            </br>
+            <br />
+            <br />
             <div>
-
-            <p>
-                {card.note}
-            </p>
+                <p>{card.note}</p>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
-export default OrdeForm;
+
+// Prop types validation
+OrderForm.propTypes = {
+    card: PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+        note: PropTypes.string,
+    }).isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }).isRequired,
+};
+
+export default OrderForm;

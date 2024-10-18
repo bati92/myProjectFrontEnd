@@ -1,12 +1,12 @@
-import React from "react";
 import { useRouter } from "next/router";
 import Button from "@ui/button";
 
 const LogoutButton = () => {
     const router = useRouter();
+
     const handleLogout = () => {
         localStorage.removeItem("token");
-        console.log(localStorage.getItem("token"));
+        // You may want to add some notification or redirect logic here instead of logging to console
         router.replace("/login");
     };
 
@@ -19,7 +19,7 @@ const LogoutButton = () => {
             data-sal-delay="150"
             onClick={handleLogout}
         >
-            تسجيل الخروج{" "}
+            تسجيل الخروج
         </Button>
     );
 };

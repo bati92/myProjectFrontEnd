@@ -4,7 +4,7 @@ import Header from "@layout/header/header-02";
 import Footer from "@layout/footer/footer-02";
 import TopBarArea from "@containers/top-bar";
 import ActivityArea from "@containers/ranking";
-import React,{useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import withAuth from "@components/auth/withAuth";
 import axios from "axios";
 
@@ -12,69 +12,66 @@ export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
 }
 
-const Home = () =>  {
-    //const content = normalizedData(homepageData?.content || []);
+const Home = () => {
     const [auth, setAuth] = useState("");
-    const [orders, setOrders] = useState([])
-    
+    const [orders, setOrders] = useState([]);
+
     const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    // جلب بيانات المستخدم عند تحميل الصفحة
+    // Fetch user data when the page loads
     useEffect(() => {
-        const fetchauth = async () => {
+        const fetchAuth = async () => {
             try {
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem("token");
                 const result = await axios.get(`${apiBaseUrl}/logged-in-user`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass token in Authorization header
                     },
                 });
 
-                console.log("the auth", result.data);
-                setAuth(result.data); // قم بتعيين بيانات المستخدم
-            } catch (error) {
-                console.log("Error fetching auth:", error);
+                setAuth(result.data); // Set user data
+            } catch  {
             }
         };
 
-        fetchauth();
+        fetchAuth();
     }, [apiBaseUrl]);
 
-    // جلب بيانات الوكلاء بعد التأكد من أن بيانات auth متاحة
+    // Fetch agent data when auth is available
     useEffect(() => {
-        if (auth) { // تحقق من أن auth ليس فارغًا
+        if (auth) {
             const fetchAgents = async () => {
                 try {
-                    const token = localStorage.getItem('token');
-                    const result = await axios.get(`${apiBaseUrl}/myPayments/${auth.id}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`, // Pass token in Authorization header
-                        },
-                    });
+                    const token = localStorage.getItem("token");
+                    const result = await axios.get(
+                        `${apiBaseUrl}/myPayments/${auth.id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`, // Pass token in Authorization header
+                            },
+                        }
+                    );
 
-                    setOrders(result.data.orders); //   
-               
-                } catch (error) {
-                    console.log("Error fetching totals:", error);
-                }
+                    setOrders(result.data.orders);
+                } catch {
+                 }
             };
 
             fetchAgents();
         }
-    }, [auth, apiBaseUrl]); // سيعمل عندما يتم تحديث auth
+    }, [auth, apiBaseUrl]); // Will run when auth is updated
 
-    
-return (
-    <Wrapper>
-        <SEO pageTitle="myPayments" />
-        <Header />
-        <TopBarArea  />
-        <main id="main-content">
-            <ActivityArea data={orders} />
-        </main>
-        <Footer />
-    </Wrapper>
-)
+    return (
+        <Wrapper>
+            <SEO pageTitle="myPayments" />
+            <Header />
+            <TopBarArea />
+            <main id="main-content">
+                <ActivityArea data={orders} />
+            </main>
+            <Footer />
+        </Wrapper>
+    );
 };
 
 export default withAuth(Home);

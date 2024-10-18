@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import Button from "@ui/button";
 import ProductTitle from "@components/product-details/title";
-import { ImageType } from "@utils/types";
 import { getData } from "@utils/getData";
 import withAuth from "@components/auth/withAuth";
 import OrderForm from "@components/order-form/program";
@@ -27,16 +25,12 @@ const ProductDetailsArea = ({ myItems }) => (
                             likeCount={myItems?.program?.likeCount}
                         />
                         <span className="bid">
-                         
-                            <span className="price">
-                           
-                            </span>
+                            <span className="price" />
                         </span>
-                        <h6 className="title-name"></h6>
 
-                     
-                        {myItems?.program && <OrderForm program={myItems.program} />}
-                    
+                        {myItems?.program && (
+                            <OrderForm program={myItems.program} />
+                        )}
                     </div>
                 </div>
             </div>
@@ -45,29 +39,16 @@ const ProductDetailsArea = ({ myItems }) => (
 );
 
 ProductDetailsArea.propTypes = {
-    space: PropTypes.oneOf([1, 2]),
-    className: PropTypes.string,
-    product: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        likeCount: PropTypes.number,
-        price: PropTypes.shape({
-            amount: PropTypes.number.isRequired,
-            currency: PropTypes.string.isRequired,
+    myItems: PropTypes.shape({
+        program: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            likeCount: PropTypes.number,
+            price: PropTypes.shape({
+                amount: PropTypes.number,
+                currency: PropTypes.string,
+            }),
         }).isRequired,
-        owner: PropTypes.shape({}),
-        collection: PropTypes.shape({}),
-        bids: PropTypes.arrayOf(PropTypes.shape({})),
-        properties: PropTypes.arrayOf(PropTypes.shape({})),
-        tags: PropTypes.arrayOf(PropTypes.shape({})),
-        history: PropTypes.arrayOf(PropTypes.shape({})),
-        highest_bid: PropTypes.shape({}),
-        auction_date: PropTypes.string,
-        images: PropTypes.arrayOf(ImageType),
-    }),
-};
-
-ProductDetailsArea.defaultProps = {
-    space: 1,
+    }).isRequired,
 };
 
 export default withAuth(ProductDetailsArea);
